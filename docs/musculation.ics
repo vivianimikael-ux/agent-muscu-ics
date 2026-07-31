@@ -3,10 +3,27 @@ VERSION:2.0
 PRODID:-//Agent Muscu//sync_to_ics//FR
 X-WR-CALNAME:Musculation
 BEGIN:VEVENT
+SUMMARY:Off ou bodyweight 
+DTSTART;TZID=Europe/Paris:20260813T080000
+DTEND;TZID=Europe/Paris:20260813T090000
+DTSTAMP:20260731T093828Z
+UID:3ad9d3f5-b6e7-80ce-8b36-e1e2a7bccb03@agent-muscu
+DESCRIPTION:Statut: À venir | Type: N/A\n\n(Synchronisé depuis Notion)
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Off
+DTSTART;TZID=Europe/Paris:20260808T080000
+DTEND;TZID=Europe/Paris:20260808T090000
+DTSTAMP:20260731T093828Z
+UID:3ad9d3f5-b6e7-8039-afa7-f46bb4ccdbcb@agent-muscu
+DESCRIPTION:Statut: À venir | Type: Day off\n\n(Synchronisé depuis Notio
+ n)
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:Séance n°4 : Pull
 DTSTART;TZID=Europe/Paris:20260802T080000
 DTEND;TZID=Europe/Paris:20260802T090000
-DTSTAMP:20260730T155018Z
+DTSTAMP:20260731T093833Z
 UID:3aa9d3f5-b6e7-8002-9e15-c635f864037b@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Strenght\n\n1. External Shoulder Rota
  tion\, Scapular Pull Up\n   Séries: 2 | Répétitions: 10 répétitions p
@@ -25,7 +42,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Press
 DTSTART;TZID=Europe/Paris:20260729T080000
 DTEND;TZID=Europe/Paris:20260729T090000
-DTSTAMP:20260730T155023Z
+DTSTAMP:20260731T093837Z
 UID:3aa9d3f5-b6e7-805e-af7a-fc8363bd840b@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Strenght\n\n1. External Shoulder Rota
  tion\, Scapular Push-Ups\n   Séries: 2 | Répétitions: 10 répétitions 
@@ -45,7 +62,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Hinge
 DTSTART;TZID=Europe/Paris:20260731T080000
 DTEND;TZID=Europe/Paris:20260731T090000
-DTSTAMP:20260730T155030Z
+DTSTAMP:20260731T093843Z
 UID:3aa9d3f5-b6e7-8058-b876-e41b585b3fd8@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Strenght\n\n1. 90/90 Hip Rotations\, 
  Squat with Thoracic Rotation\, Ankle Dorsiflexion Mobility\, Deep Squat St
@@ -63,7 +80,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Squat
 DTSTART;TZID=Europe/Paris:20260728T080000
 DTEND;TZID=Europe/Paris:20260728T090000
-DTSTAMP:20260730T155035Z
+DTSTAMP:20260731T093847Z
 UID:3aa9d3f5-b6e7-8090-8f52-e3c8cda5e4a3@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Strenght\n\n1. Lying T spine rotation
  \, 90/90 Hip Rotations\, Ankle Dorsiflexion Mobility\, Deep Squat Standing
@@ -85,7 +102,7 @@ BEGIN:VEVENT
 SUMMARY:Plongeon Insep 1h
 DTSTART;TZID=Europe/Paris:20260706T080000
 DTEND;TZID=Europe/Paris:20260706T090000
-DTSTAMP:20260730T155035Z
+DTSTAMP:20260731T093847Z
 UID:3959d3f5-b6e7-80a9-9d3f-e543c2aea3c0@agent-muscu
 DESCRIPTION:Statut: Faite | Type: N/A\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -93,7 +110,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°4 : Pull
 DTSTART;TZID=Europe/Paris:20260724T080000
 DTEND;TZID=Europe/Paris:20260724T090000
-DTSTAMP:20260730T155039Z
+DTSTAMP:20260731T093850Z
 UID:3919d3f5-b6e7-8084-b4e0-ff189bca2ce9@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. External Shoulder Rotatio
  n\, Scapular Pull Up\n   Séries: 2 | Répétitions: 10 répétitions par 
@@ -116,7 +133,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Press
 DTSTART;TZID=Europe/Paris:20260723T080000
 DTEND;TZID=Europe/Paris:20260723T090000
-DTSTAMP:20260730T155042Z
+DTSTAMP:20260731T093853Z
 UID:3919d3f5-b6e7-8051-87c7-eab65b954fe8@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. External Shoulder Rotatio
  n\, Scapular Push-Ups\n   Séries: 2 | Répétitions: 10 répétitions par
@@ -140,7 +157,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Hinge
 DTSTART;TZID=Europe/Paris:20260721T080000
 DTEND;TZID=Europe/Paris:20260721T090000
-DTSTAMP:20260730T155044Z
+DTSTAMP:20260731T093855Z
 UID:3919d3f5-b6e7-80b0-82d1-ffc82b42f0f5@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Squ
  at with Thoracic Rotation\, Ankle Dorsiflexion Mobility\, Deep Squat Stand
@@ -163,7 +180,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Squat
 DTSTART;TZID=Europe/Paris:20260720T080000
 DTEND;TZID=Europe/Paris:20260720T090000
-DTSTAMP:20260730T155048Z
+DTSTAMP:20260731T093858Z
 UID:3919d3f5-b6e7-807e-98cd-d4e8a9ba1124@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  90/90 Hip Rotations\, Ankle Dorsiflexion Mobility\, Deep Squat Standing\n 
@@ -190,7 +207,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°4 : Pull
 DTSTART;TZID=Europe/Paris:20260717T080000
 DTEND;TZID=Europe/Paris:20260717T090000
-DTSTAMP:20260730T155049Z
+DTSTAMP:20260731T093859Z
 UID:3919d3f5-b6e7-8043-9d11-f01df5643be4@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. External Shoulder Rotatio
  n\, Scapular Pull Up\n   Séries: 2 | Répétitions: 10 répétitions par 
@@ -213,7 +230,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Press
 DTSTART;TZID=Europe/Paris:20260716T080000
 DTEND;TZID=Europe/Paris:20260716T090000
-DTSTAMP:20260730T155050Z
+DTSTAMP:20260731T093900Z
 UID:3919d3f5-b6e7-8038-893e-e5b25b91842d@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. External Shoulder Rotatio
  n\, Scapular Push-Ups\n   Séries: 2 | Répétitions: 10 répétitions par
@@ -236,7 +253,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Hinge
 DTSTART;TZID=Europe/Paris:20260714T080000
 DTEND;TZID=Europe/Paris:20260714T090000
-DTSTAMP:20260730T155051Z
+DTSTAMP:20260731T093901Z
 UID:3919d3f5-b6e7-8013-80a4-e10528e59aca@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Squ
  at with Thoracic Rotation\, Ankle Dorsiflexion Mobility\, Deep Squat Stand
@@ -259,7 +276,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Squat
 DTSTART;TZID=Europe/Paris:20260713T080000
 DTEND;TZID=Europe/Paris:20260713T090000
-DTSTAMP:20260730T155052Z
+DTSTAMP:20260731T093902Z
 UID:3919d3f5-b6e7-80f3-9185-c880170f364b@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  90/90 Hip Rotations\, Ankle Dorsiflexion Mobility\, Deep Squat Standing\n 
@@ -286,7 +303,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°4 : Pull
 DTSTART;TZID=Europe/Paris:20260710T080000
 DTEND;TZID=Europe/Paris:20260710T090000
-DTSTAMP:20260730T155053Z
+DTSTAMP:20260731T093903Z
 UID:3919d3f5-b6e7-801a-ada0-c3018f26d3c1@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. External Shoulder Rotatio
  n\, Scapular Pull Up\n   Séries: 2 | Répétitions: 10 répétitions par 
@@ -309,7 +326,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Press
 DTSTART;TZID=Europe/Paris:20260709T080000
 DTEND;TZID=Europe/Paris:20260709T090000
-DTSTAMP:20260730T155054Z
+DTSTAMP:20260731T093904Z
 UID:3919d3f5-b6e7-8009-9fc5-d5f4f6b7b64b@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. External Shoulder Rotatio
  n\, Scapular Push-Ups\n   Séries: 2 | Répétitions: 10 répétitions par
@@ -332,7 +349,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Hinge
 DTSTART;TZID=Europe/Paris:20260707T080000
 DTEND;TZID=Europe/Paris:20260707T090000
-DTSTAMP:20260730T155055Z
+DTSTAMP:20260731T093905Z
 UID:3919d3f5-b6e7-80f3-b984-e9addf5e16c1@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Squ
  at with Thoracic Rotation\, Ankle Dorsiflexion Mobility\, Deep Squat Stand
@@ -355,7 +372,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Squat
 DTSTART;TZID=Europe/Paris:20260706T080000
 DTEND;TZID=Europe/Paris:20260706T090000
-DTSTAMP:20260730T155056Z
+DTSTAMP:20260731T093906Z
 UID:3919d3f5-b6e7-80a3-9ffd-c469caf40a2d@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  90/90 Hip Rotations\, Ankle Dorsiflexion Mobility\, Deep Squat Standing\n 
@@ -383,7 +400,7 @@ BEGIN:VEVENT
 SUMMARY:AMRAP 25’
 DTSTART;TZID=Europe/Paris:20260704T080000
 DTEND;TZID=Europe/Paris:20260704T090000
-DTSTAMP:20260730T155100Z
+DTSTAMP:20260731T093910Z
 UID:38d9d3f5-b6e7-8003-9bdf-cf7ad5f15a89@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Intensity\n\n1. Lying T spine rotation\n
  \n2. Rameur\n   Répétitions: 500m\n\n3. thrusters\n   Répétitions: 20\
@@ -396,7 +413,7 @@ BEGIN:VEVENT
 SUMMARY:Core 
 DTSTART;TZID=Europe/Paris:20260702T080000
 DTEND;TZID=Europe/Paris:20260702T090000
-DTSTAMP:20260730T155106Z
+DTSTAMP:20260731T093915Z
 UID:38d9d3f5-b6e7-80e2-9a48-df3c841a6a5e@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Dead Bug\, External Shoul
  der Rotation\n\n2. Assymetrical overhead\n\n3. Suitcase carry\n\n4. Pallof
@@ -411,7 +428,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 - Mobilité lesté (1)
 DTSTART;TZID=Europe/Paris:20260704T080000
 DTEND;TZID=Europe/Paris:20260704T090000
-DTSTAMP:20260730T155110Z
+DTSTAMP:20260731T093919Z
 UID:38d9d3f5-b6e7-8010-a346-e31ade657a01@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Mobility\n\n1. 90/90 Hip Rotations\, Dyn
  amic Scorpion\n   Récupération: Enchainer sans temps de repos.\n\n2. Loa
@@ -434,7 +451,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 - Triple extension & core
 DTSTART;TZID=Europe/Paris:20260703T080000
 DTEND;TZID=Europe/Paris:20260703T090000
-DTSTAMP:20260730T155116Z
+DTSTAMP:20260731T093924Z
 UID:38d9d3f5-b6e7-8049-be84-fb9be4d91351@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Dead Bug\, Prone Back Extension\n   Récupération: Enchainer sans temps d
@@ -459,7 +476,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 - Press + Pull
 DTSTART;TZID=Europe/Paris:20260701T080000
 DTEND;TZID=Europe/Paris:20260701T090000
-DTSTAMP:20260730T155220Z
+DTSTAMP:20260731T093928Z
 UID:38d9d3f5-b6e7-8068-84c6-c0369a0d6876@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Quadruped T-Spine Rotatio
  n\, Scapular Push-Ups\, Lying T spine rotation\n   Récupération: Enchain
@@ -480,7 +497,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°4 - Force vertébral & core 
 DTSTART;TZID=Europe/Paris:20260630T080000
 DTEND;TZID=Europe/Paris:20260630T090000
-DTSTAMP:20260730T155224Z
+DTSTAMP:20260731T093931Z
 UID:38d9d3f5-b6e7-800f-b19f-c57b89de59b0@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Dynamic Scorpion\, Jeffer
  son Curl Squat\, Dead Bug\n   Récupération: Enchainer sans temps de repo
@@ -503,7 +520,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 
 DTSTART;TZID=Europe/Paris:20260629T080000
 DTEND;TZID=Europe/Paris:20260629T090000
-DTSTAMP:20260730T155225Z
+DTSTAMP:20260731T093931Z
 UID:38b9d3f5-b6e7-80bb-b88f-e270946b3d01@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -511,7 +528,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 - Triple extension & core
 DTSTART;TZID=Europe/Paris:20260627T080000
 DTEND;TZID=Europe/Paris:20260627T090000
-DTSTAMP:20260730T155226Z
+DTSTAMP:20260731T093932Z
 UID:3869d3f5-b6e7-80db-acbe-c888f92bc64d@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Strenght\n\n1. Lying T spine rotation
  \, Dead Bug\, Prone Back Extension\n   Récupération: Enchainer sans temp
@@ -536,7 +553,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 - Mobilité lesté
 DTSTART;TZID=Europe/Paris:20260626T080000
 DTEND;TZID=Europe/Paris:20260626T090000
-DTSTAMP:20260730T155227Z
+DTSTAMP:20260731T093933Z
 UID:3869d3f5-b6e7-8066-be56-c4568e7b1d5a@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Mobility\n\n1. 90/90 Hip Rotations\, Dyn
  amic Scorpion\n   Récupération: Enchainer sans temps de repos.\n\n2. Loa
@@ -559,7 +576,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°4 - Force vertébral & core  
 DTSTART;TZID=Europe/Paris:20260622T080000
 DTEND;TZID=Europe/Paris:20260622T090000
-DTSTAMP:20260730T155229Z
+DTSTAMP:20260731T093934Z
 UID:3869d3f5-b6e7-8010-8e47-d8178a31f4d5@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Dynamic Scorpion\, Jeffer
  son Curl Squat\, Dead Bug\n   Récupération: Enchainer sans temps de repo
@@ -580,7 +597,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 - Press + Pull
 DTSTART;TZID=Europe/Paris:20260624T080000
 DTEND;TZID=Europe/Paris:20260624T090000
-DTSTAMP:20260730T155230Z
+DTSTAMP:20260731T093935Z
 UID:3869d3f5-b6e7-8092-9e6d-decf1776c44a@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Quadruped T-Spine Rotatio
  n\, Scapular Push-Ups\, Lying T spine rotation\n   Récupération: Enchain
@@ -601,7 +618,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel
 DTSTART;TZID=Europe/Paris:20260617T080000
 DTEND;TZID=Europe/Paris:20260617T090000
-DTSTAMP:20260730T155230Z
+DTSTAMP:20260731T093935Z
 UID:3819d3f5-b6e7-80af-9adc-efa67396e09c@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -609,7 +626,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel
 DTSTART;TZID=Europe/Paris:20260616T080000
 DTEND;TZID=Europe/Paris:20260616T090000
-DTSTAMP:20260730T155231Z
+DTSTAMP:20260731T093936Z
 UID:3819d3f5-b6e7-809c-8ec7-fde2a01cb884@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -617,7 +634,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 - Triple extension & core
 DTSTART;TZID=Europe/Paris:20260619T080000
 DTEND;TZID=Europe/Paris:20260619T090000
-DTSTAMP:20260730T155233Z
+DTSTAMP:20260731T093937Z
 UID:37f9d3f5-b6e7-808e-94ec-df92b025d666@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Dead Bug\, Prone Back Extension\n   Récupération: Enchainer sans temps d
@@ -642,7 +659,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 - Mobilité lesté
 DTSTART;TZID=Europe/Paris:20260618T080000
 DTEND;TZID=Europe/Paris:20260618T090000
-DTSTAMP:20260730T155234Z
+DTSTAMP:20260731T093938Z
 UID:37f9d3f5-b6e7-8034-8d70-e26ef07db7ef@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Mobility\n\n1. 90/90 Hip Rotations\, Dyn
  amic Scorpion\n   Récupération: Enchainer sans temps de repos.\n\n2. Loa
@@ -665,7 +682,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°4 - Force vertébral & core 
 DTSTART;TZID=Europe/Paris:20260617T080000
 DTEND;TZID=Europe/Paris:20260617T090000
-DTSTAMP:20260730T155235Z
+DTSTAMP:20260731T093939Z
 UID:37f9d3f5-b6e7-80c4-925b-d6ae78ee4076@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Dynamic Scorpion\, Jeffer
  son Curl Squat\, Dead Bug\n   Récupération: Enchainer sans temps de repo
@@ -688,7 +705,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 - Press + Pull
 DTSTART;TZID=Europe/Paris:20260615T080000
 DTEND;TZID=Europe/Paris:20260615T090000
-DTSTAMP:20260730T155236Z
+DTSTAMP:20260731T093940Z
 UID:37f9d3f5-b6e7-80a6-a502-de73732a7b5e@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Quadruped T-Spine Rotatio
  n\, Scapular Push-Ups\, Lying T spine rotation\n   Récupération: Enchain
@@ -709,7 +726,7 @@ BEGIN:VEVENT
 SUMMARY:Spinal and Thoracic Mobility
 DTSTART;TZID=Europe/Paris:20260610T080000
 DTEND;TZID=Europe/Paris:20260610T090000
-DTSTAMP:20260730T155237Z
+DTSTAMP:20260731T093941Z
 UID:3769d3f5-b6e7-8030-a1ca-f8fac51c3537@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Mobility\n\n1. Lying T spine rotation\n\
  n2. Quadruped T-Spine Rotation\n\n3. Jefferson curl\n\n4. Loaded Spinal Ci
@@ -720,7 +737,7 @@ BEGIN:VEVENT
 SUMMARY:Squat 1 RM + accessory work
 DTSTART;TZID=Europe/Paris:20260608T080000
 DTEND;TZID=Europe/Paris:20260608T090000
-DTSTAMP:20260730T155240Z
+DTSTAMP:20260731T093943Z
 UID:3769d3f5-b6e7-806f-97ae-c782cb0bd787@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Ankle Dorsiflexion Mobili
  ty\, 90/90 Hip Rotations\n   Récupération: 1’\n\n2. Squat\n   Charge r
@@ -739,7 +756,7 @@ BEGIN:VEVENT
 SUMMARY:Pull 1 RM + accessory work
 DTSTART;TZID=Europe/Paris:20260609T080000
 DTEND;TZID=Europe/Paris:20260609T090000
-DTSTAMP:20260730T155242Z
+DTSTAMP:20260731T093945Z
 UID:3769d3f5-b6e7-80c2-8d10-ea3a95a14fd3@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Scapular Pull Up\n   Réc
  upération: 1’\n\n2. Pull up\n   Charge réelle: 3x vide\n2x 5kg\n1x 10k
@@ -758,7 +775,7 @@ BEGIN:VEVENT
 SUMMARY:Push 1RM + accessory work
 DTSTART;TZID=Europe/Paris:20260612T080000
 DTEND;TZID=Europe/Paris:20260612T090000
-DTSTAMP:20260730T155244Z
+DTSTAMP:20260731T093946Z
 UID:3769d3f5-b6e7-805b-8353-ded50660a985@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. KB Windmill\n   Récupér
  ation: 1’\n\n2. Bench Press\n   Charge réelle: 3x 60 kg\n2x 70 kg\n1x 7
@@ -777,7 +794,7 @@ BEGIN:VEVENT
 SUMMARY:Tournoi padel
 DTSTART;TZID=Europe/Paris:20260611T080000
 DTEND;TZID=Europe/Paris:20260611T090000
-DTSTAMP:20260730T155245Z
+DTSTAMP:20260731T093947Z
 UID:3749d3f5-b6e7-8054-b7e7-ff7fa739d6c5@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Competition\n\n(Synchronisé depuis Noti
  on)
@@ -786,7 +803,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 - Legs
 DTSTART;TZID=Europe/Paris:20260606T080000
 DTEND;TZID=Europe/Paris:20260606T090000
-DTSTAMP:20260730T155246Z
+DTSTAMP:20260731T093948Z
 UID:3719d3f5-b6e7-8014-a8d9-c7027dc830f6@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Strenght\n\n1. 90/90 Hip Rotations\, 
  Ankle Dorsiflexion Mobility\, Squat with Thoracic Rotation\n   Récupérat
@@ -802,7 +819,7 @@ BEGIN:VEVENT
 SUMMARY:Core
 DTSTART;TZID=Europe/Paris:20260604T080000
 DTEND;TZID=Europe/Paris:20260604T090000
-DTSTAMP:20260730T155248Z
+DTSTAMP:20260731T093950Z
 UID:3719d3f5-b6e7-8093-ae4a-c164a8be3a4e@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Dead Bug\, Lying T spine 
  rotation\n   Séries: 3 | Répétitions: 10 reps alternance D/G\n\n2. Fron
@@ -828,7 +845,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 - Push
 DTSTART;TZID=Europe/Paris:20260603T080000
 DTEND;TZID=Europe/Paris:20260603T090000
-DTSTAMP:20260730T155250Z
+DTSTAMP:20260731T093952Z
 UID:3719d3f5-b6e7-80a4-9edb-da8f44708a4b@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. External Shoulder Rotatio
  n\, Scapular Push-Ups\n   Récupération: Enchainer sans temps de repos.\n
@@ -847,7 +864,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 - Pull
 DTSTART;TZID=Europe/Paris:20260602T080000
 DTEND;TZID=Europe/Paris:20260602T090000
-DTSTAMP:20260730T155253Z
+DTSTAMP:20260731T093954Z
 UID:3719d3f5-b6e7-80e4-a75b-fecf63edb6fc@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Sled Pull\n   En leger d
  écompose à fond  le mouvement.\n\n2. Rowing\n   Récupération: 3’\n  
@@ -866,7 +883,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 1h30
 DTSTART;TZID=Europe/Paris:20260601T080000
 DTEND;TZID=Europe/Paris:20260601T090000
-DTSTAMP:20260730T155253Z
+DTSTAMP:20260731T093954Z
 UID:3719d3f5-b6e7-80ba-8b5d-db35d8668ce7@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -874,7 +891,7 @@ BEGIN:VEVENT
 SUMMARY:Cours padel 1h
 DTSTART;TZID=Europe/Paris:20260601T080000
 DTEND;TZID=Europe/Paris:20260601T090000
-DTSTAMP:20260730T155254Z
+DTSTAMP:20260731T093955Z
 UID:3719d3f5-b6e7-8008-b3ba-d8f7a77aa0fd@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -882,7 +899,7 @@ BEGIN:VEVENT
 SUMMARY:Tournoi Padel (5h30h
 DTSTART;TZID=Europe/Paris:20260605T080000
 DTEND;TZID=Europe/Paris:20260605T090000
-DTSTAMP:20260730T155255Z
+DTSTAMP:20260731T093955Z
 UID:36e9d3f5-b6e7-8008-94f6-d8cb86d1d1b1@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Competition\n\n(Synchronisé depuis Noti
  on)
@@ -891,7 +908,7 @@ BEGIN:VEVENT
 SUMMARY:match padel
 DTSTART;TZID=Europe/Paris:20260529T080000
 DTEND;TZID=Europe/Paris:20260529T090000
-DTSTAMP:20260730T155255Z
+DTSTAMP:20260731T093956Z
 UID:36d9d3f5-b6e7-8091-bbd1-f8159ccc3f55@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -899,7 +916,7 @@ BEGIN:VEVENT
 SUMMARY:Core
 DTSTART;TZID=Europe/Paris:20260527T080000
 DTEND;TZID=Europe/Paris:20260527T090000
-DTSTAMP:20260730T155256Z
+DTSTAMP:20260731T093957Z
 UID:36a9d3f5-b6e7-801d-b965-c0961ff099be@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Dead Bug\, Lying T spine 
  rotation\n   Séries: 3 | Répétitions: 10 reps alternance D/G\n\n2. Fron
@@ -923,7 +940,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 - Legs
 DTSTART;TZID=Europe/Paris:20260528T080000
 DTEND;TZID=Europe/Paris:20260528T090000
-DTSTAMP:20260730T155258Z
+DTSTAMP:20260731T093958Z
 UID:36a9d3f5-b6e7-8049-8632-e08e201ec82a@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Ank
  le Dorsiflexion Mobility\, Squat with Thoracic Rotation\n   Récupération
@@ -939,7 +956,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 - Push 
 DTSTART;TZID=Europe/Paris:20260526T080000
 DTEND;TZID=Europe/Paris:20260526T090000
-DTSTAMP:20260730T155259Z
+DTSTAMP:20260731T093959Z
 UID:36a9d3f5-b6e7-80e6-8386-c31eebf651f5@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. External Shoulder Rotatio
  n\, Scapular Push-Ups\n   Récupération: Enchainer sans temps de repos.\n
@@ -958,7 +975,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 - Pull 
 DTSTART;TZID=Europe/Paris:20260525T080000
 DTEND;TZID=Europe/Paris:20260525T090000
-DTSTAMP:20260730T155300Z
+DTSTAMP:20260731T094000Z
 UID:36a9d3f5-b6e7-80f2-b38e-ec519df0a45d@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Sled Pull\n   En leger d
  écompose à fond  le mouvement.\n\n2. Rowing\n   Récupération: 2min30s\
@@ -976,7 +993,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel
 DTSTART;TZID=Europe/Paris:20260523T080000
 DTEND;TZID=Europe/Paris:20260523T090000
-DTSTAMP:20260730T155301Z
+DTSTAMP:20260731T094000Z
 UID:3699d3f5-b6e7-80f1-ab01-fcb8bb639ee6@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -984,7 +1001,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 1h30
 DTSTART;TZID=Europe/Paris:20260519T080000
 DTEND;TZID=Europe/Paris:20260519T090000
-DTSTAMP:20260730T155301Z
+DTSTAMP:20260731T094001Z
 UID:3659d3f5-b6e7-809e-b7e6-cf7e7695c2de@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -992,7 +1009,7 @@ BEGIN:VEVENT
 SUMMARY:6x5’
 DTSTART;TZID=Europe/Paris:20260523T080000
 DTEND;TZID=Europe/Paris:20260523T090000
-DTSTAMP:20260730T155302Z
+DTSTAMP:20260731T094002Z
 UID:3659d3f5-b6e7-807c-b4e3-f8b8484487f0@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Course à pied\n\n--- Notes libres --
  -\n5min course + 2’30 marche active fais le dehors si possible.\n\n(Sync
@@ -1002,7 +1019,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 - Legs
 DTSTART;TZID=Europe/Paris:20260522T080000
 DTEND;TZID=Europe/Paris:20260522T090000
-DTSTAMP:20260730T155303Z
+DTSTAMP:20260731T094003Z
 UID:3659d3f5-b6e7-80d2-bf20-e78f00062b4b@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Ank
  le Dorsiflexion Mobility\, Squat with Thoracic Rotation\n   Récupération
@@ -1021,7 +1038,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 - Push
 DTSTART;TZID=Europe/Paris:20260521T080000
 DTEND;TZID=Europe/Paris:20260521T090000
-DTSTAMP:20260730T155304Z
+DTSTAMP:20260731T094003Z
 UID:3659d3f5-b6e7-8012-8d41-d1dbba39e81d@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. External Shoulder Rotatio
  n\, Scapular Push-Ups\n   Récupération: Enchainer sans temps de repos.\n
@@ -1040,7 +1057,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 - Pull
 DTSTART;TZID=Europe/Paris:20260520T080000
 DTEND;TZID=Europe/Paris:20260520T090000
-DTSTAMP:20260730T155306Z
+DTSTAMP:20260731T094004Z
 UID:3659d3f5-b6e7-8059-b1f2-d4af33646fdc@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Sled Pull\n   En leger d
  écompose à fond  le mouvement.\n\n2. Rowing\n   Récupération: 2min30s\
@@ -1058,7 +1075,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 1h30
 DTSTART;TZID=Europe/Paris:20260520T080000
 DTEND;TZID=Europe/Paris:20260520T090000
-DTSTAMP:20260730T155306Z
+DTSTAMP:20260731T094005Z
 UID:3629d3f5-b6e7-80ef-a6c2-c60fab8a5e0d@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1066,7 +1083,7 @@ BEGIN:VEVENT
 SUMMARY:Séance impro vacances 1
 DTSTART;TZID=Europe/Paris:20260513T080000
 DTEND;TZID=Europe/Paris:20260513T090000
-DTSTAMP:20260730T155308Z
+DTSTAMP:20260731T094006Z
 UID:3629d3f5-b6e7-809a-bd09-fa9e88f3add0@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Bench Press\n   Séries: 
  4 | Répétitions: 6/8\n   Charge réelle: 60kg\n   Récupération: 2’\n
@@ -1077,7 +1094,7 @@ BEGIN:VEVENT
 SUMMARY:Séance impro vacances 2
 DTSTART;TZID=Europe/Paris:20260514T080000
 DTEND;TZID=Europe/Paris:20260514T090000
-DTSTAMP:20260730T155309Z
+DTSTAMP:20260731T094007Z
 UID:2019d3f5-b6e7-83e2-877b-0191ac0f811a@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Squat\n   Séries: 4 | R
  épétitions: 3\n   Charge réelle: 90kg\n   Récupération: 2’\n   ampl
@@ -1092,7 +1109,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 1h30
 DTSTART;TZID=Europe/Paris:20260515T080000
 DTEND;TZID=Europe/Paris:20260515T090000
-DTSTAMP:20260730T155310Z
+DTSTAMP:20260731T094008Z
 UID:3629d3f5-b6e7-80b0-8174-e8e3359e13fd@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1100,7 +1117,7 @@ BEGIN:VEVENT
 SUMMARY:Run dans les Fjord 🇳🇴
 DTSTART;TZID=Europe/Paris:20260512T080000
 DTEND;TZID=Europe/Paris:20260512T090000
-DTSTAMP:20260730T155311Z
+DTSTAMP:20260731T094009Z
 UID:35e9d3f5-b6e7-805b-aa90-f57555c37bfc@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Course à pied\n\n(Synchronisé depuis N
  otion)
@@ -1109,7 +1126,7 @@ BEGIN:VEVENT
 SUMMARY:match Padel 
 DTSTART;TZID=Europe/Paris:20260525T080000
 DTEND;TZID=Europe/Paris:20260525T090000
-DTSTAMP:20260730T155311Z
+DTSTAMP:20260731T094009Z
 UID:35a9d3f5-b6e7-80c0-824f-e3c2a43d04ac@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1117,7 +1134,7 @@ BEGIN:VEVENT
 SUMMARY:Cours Padel 
 DTSTART;TZID=Europe/Paris:20260518T080000
 DTEND;TZID=Europe/Paris:20260518T090000
-DTSTAMP:20260730T155312Z
+DTSTAMP:20260731T094010Z
 UID:35a9d3f5-b6e7-8065-a09b-edff388d06d3@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1125,7 +1142,7 @@ BEGIN:VEVENT
 SUMMARY:Padel match
 DTSTART;TZID=Europe/Paris:20260508T080000
 DTEND;TZID=Europe/Paris:20260508T090000
-DTSTAMP:20260730T155313Z
+DTSTAMP:20260731T094010Z
 UID:3599d3f5-b6e7-806c-879b-e1e1f817dc5e@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1133,7 +1150,7 @@ BEGIN:VEVENT
 SUMMARY:Padel match
 DTSTART;TZID=Europe/Paris:20260506T080000
 DTEND;TZID=Europe/Paris:20260506T090000
-DTSTAMP:20260730T155313Z
+DTSTAMP:20260731T094011Z
 UID:3599d3f5-b6e7-80e3-8e41-db6e2c8e05cf@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1141,7 +1158,7 @@ BEGIN:VEVENT
 SUMMARY:Run à définir
 DTSTART;TZID=Europe/Paris:20260509T080000
 DTEND;TZID=Europe/Paris:20260509T090000
-DTSTAMP:20260730T155314Z
+DTSTAMP:20260731T094012Z
 UID:3559d3f5-b6e7-8044-89dc-c8b159208b51@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Course à pied\n\n(Synchronisé depui
  s Notion)
@@ -1150,7 +1167,7 @@ BEGIN:VEVENT
 SUMMARY:Conditioning
 DTSTART;TZID=Europe/Paris:20260508T080000
 DTEND;TZID=Europe/Paris:20260508T090000
-DTSTAMP:20260730T155316Z
+DTSTAMP:20260731T094013Z
 UID:3559d3f5-b6e7-804d-98fd-c35ef2f7a18e@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Intensity\n\n1. Scapular Push-Ups\, Lung
  es rotation\n\n2. Rameur\n   Répétitions: 45”\n\n3. Push Press Barbell
@@ -1163,7 +1180,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Pull
 DTSTART;TZID=Europe/Paris:20260507T080000
 DTEND;TZID=Europe/Paris:20260507T090000
-DTSTAMP:20260730T155317Z
+DTSTAMP:20260731T094014Z
 UID:3559d3f5-b6e7-806c-8845-e1c72b105319@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Scapular Pull Up\, Dead Bug\n   Séries: 3 | Répétitions: 10 répétitio
@@ -1181,7 +1198,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Lower body & Fundations 
 DTSTART;TZID=Europe/Paris:20260505T080000
 DTEND;TZID=Europe/Paris:20260505T090000
-DTSTAMP:20260730T155320Z
+DTSTAMP:20260731T094016Z
 UID:3559d3f5-b6e7-809d-bdb4-e57ed1fb428e@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Squ
  at with Thoracic Rotation\, Ankle Dorsiflexion Mobility\, Deep Squat Stand
@@ -1202,7 +1219,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Press
 DTSTART;TZID=Europe/Paris:20260504T080000
 DTEND;TZID=Europe/Paris:20260504T090000
-DTSTAMP:20260730T155323Z
+DTSTAMP:20260731T094018Z
 UID:3559d3f5-b6e7-8028-b833-dfcb7042812c@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Scapular Push-Ups\, Thoracic Extension Pull-over\n   Séries: 2 | Répéti
@@ -1223,7 +1240,7 @@ BEGIN:VEVENT
 SUMMARY:Tournoi padel 3h
 DTSTART;TZID=Europe/Paris:20260516T080000
 DTEND;TZID=Europe/Paris:20260516T090000
-DTSTAMP:20260730T155324Z
+DTSTAMP:20260731T094019Z
 UID:3559d3f5-b6e7-8099-91df-ed133bc97b97@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Competition\n\n(Synchronisé depuis Noti
  on)
@@ -1232,7 +1249,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Lower body & Fundations 
 DTSTART;TZID=Europe/Paris:20260428T080000
 DTEND;TZID=Europe/Paris:20260428T090000
-DTSTAMP:20260730T155326Z
+DTSTAMP:20260731T094020Z
 UID:34f9d3f5-b6e7-802d-8d9d-cd7c3b817cf3@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Squ
  at with Thoracic Rotation\, Ankle Dorsiflexion Mobility\, Deep Squat Stand
@@ -1252,7 +1269,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Pull
 DTSTART;TZID=Europe/Paris:20260430T080000
 DTEND;TZID=Europe/Paris:20260430T090000
-DTSTAMP:20260730T155327Z
+DTSTAMP:20260731T094021Z
 UID:34f9d3f5-b6e7-80bf-8816-f6f899824f40@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Scapular Pull Up\, Dead Bug\n   Séries: 3 | Répétitions: 10 répétitio
@@ -1268,7 +1285,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°5 : Mobility
 DTSTART;TZID=Europe/Paris:20260429T080000
 DTEND;TZID=Europe/Paris:20260429T090000
-DTSTAMP:20260730T155328Z
+DTSTAMP:20260731T094023Z
 UID:34f9d3f5-b6e7-8082-a41d-c913978c835c@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Mobility\n\n1. Deep Squat Standing\n   S
  éries: 4 | Répétitions: 45” - 1’\n   Charge réelle: 16kg\n   Récu
@@ -1283,7 +1300,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Press
 DTSTART;TZID=Europe/Paris:20260427T080000
 DTEND;TZID=Europe/Paris:20260427T090000
-DTSTAMP:20260730T155329Z
+DTSTAMP:20260731T094024Z
 UID:34f9d3f5-b6e7-8018-991b-da8b0f614ea8@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Scapular Push-Ups\, Thoracic Extension Pull-over\n   Séries: 2 | Répéti
@@ -1300,7 +1317,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 1h (light)
 DTSTART;TZID=Europe/Paris:20260505T080000
 DTEND;TZID=Europe/Paris:20260505T090000
-DTSTAMP:20260730T155330Z
+DTSTAMP:20260731T094024Z
 UID:34b9d3f5-b6e7-80ff-ac80-eab0b4c94149@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1308,7 +1325,7 @@ BEGIN:VEVENT
 SUMMARY:Cours padel 1h
 DTSTART;TZID=Europe/Paris:20260504T080000
 DTEND;TZID=Europe/Paris:20260504T090000
-DTSTAMP:20260730T155331Z
+DTSTAMP:20260731T094025Z
 UID:34b9d3f5-b6e7-8096-ba7c-f659b419a7f8@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1316,7 +1333,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 2h
 DTSTART;TZID=Europe/Paris:20260501T080000
 DTEND;TZID=Europe/Paris:20260501T090000
-DTSTAMP:20260730T155332Z
+DTSTAMP:20260731T094025Z
 UID:34b9d3f5-b6e7-807f-9ff2-ed0aa5008abd@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1324,7 +1341,7 @@ BEGIN:VEVENT
 SUMMARY:Vacances Norvège
 DTSTART;TZID=Europe/Paris:20260509T080000
 DTEND;TZID=Europe/Paris:20260509T090000
-DTSTAMP:20260730T155332Z
+DTSTAMP:20260731T094026Z
 UID:34b9d3f5-b6e7-8024-9ffe-cd9ebd209b76@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Day off\n\n(Synchronisé depuis Notio
  n)
@@ -1333,7 +1350,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 1h30
 DTSTART;TZID=Europe/Paris:20260424T080000
 DTEND;TZID=Europe/Paris:20260424T090000
-DTSTAMP:20260730T155333Z
+DTSTAMP:20260731T094027Z
 UID:34b9d3f5-b6e7-801b-8b05-c0e537dc498b@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1341,7 +1358,7 @@ BEGIN:VEVENT
 SUMMARY:Stage padel 1h
 DTSTART;TZID=Europe/Paris:20260430T080000
 DTEND;TZID=Europe/Paris:20260430T090000
-DTSTAMP:20260730T155334Z
+DTSTAMP:20260731T094027Z
 UID:34b9d3f5-b6e7-800d-a163-c3c298478750@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1349,7 +1366,7 @@ BEGIN:VEVENT
 SUMMARY:Stage padel 1h
 DTSTART;TZID=Europe/Paris:20260429T080000
 DTEND;TZID=Europe/Paris:20260429T090000
-DTSTAMP:20260730T155334Z
+DTSTAMP:20260731T094028Z
 UID:34b9d3f5-b6e7-8002-824a-e650b4122790@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1357,7 +1374,7 @@ BEGIN:VEVENT
 SUMMARY:Tapis 1 - Alternance course / marche 
 DTSTART;TZID=Europe/Paris:20260421T080000
 DTEND;TZID=Europe/Paris:20260421T090000
-DTSTAMP:20260730T155335Z
+DTSTAMP:20260731T094029Z
 UID:3489d3f5-b6e7-805c-838a-e68d5532f649@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Course à pied\n\n--- Notes libres ---\n
  Alternance : 5’ de course légère - 2’ de marche x4\n\n(Synchronisé 
@@ -1367,7 +1384,7 @@ BEGIN:VEVENT
 SUMMARY:Tapis 1 - Alternance course / marche 
 DTSTART;TZID=Europe/Paris:20260423T080000
 DTEND;TZID=Europe/Paris:20260423T090000
-DTSTAMP:20260730T155336Z
+DTSTAMP:20260731T094029Z
 UID:3489d3f5-b6e7-8076-ac4e-d82e4e759a50@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Course à pied\n\n--- Notes libres ---\n
  Alternance : 8’ de course légère - 2’ de marche x3\n\n(Synchronisé 
@@ -1377,7 +1394,7 @@ BEGIN:VEVENT
 SUMMARY:Padel match
 DTSTART;TZID=Europe/Paris:20260422T080000
 DTEND;TZID=Europe/Paris:20260422T090000
-DTSTAMP:20260730T155336Z
+DTSTAMP:20260731T094030Z
 UID:3489d3f5-b6e7-808c-bf8f-d4e0e4216ab1@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1385,7 +1402,7 @@ BEGIN:VEVENT
 SUMMARY:Padel match
 DTSTART;TZID=Europe/Paris:20260420T080000
 DTEND;TZID=Europe/Paris:20260420T090000
-DTSTAMP:20260730T155337Z
+DTSTAMP:20260731T094030Z
 UID:3489d3f5-b6e7-8070-930c-c947148430be@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1393,7 +1410,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Upper body
 DTSTART;TZID=Europe/Paris:20260415T080000
 DTEND;TZID=Europe/Paris:20260415T090000
-DTSTAMP:20260730T155339Z
+DTSTAMP:20260731T094031Z
 UID:3409d3f5-b6e7-8077-9944-df2d28fc1d0d@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Scapular Push-Ups\, Thoracic Extension Pull-over\n   Séries: 2 | Répéti
@@ -1412,7 +1429,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Lower body & Fundations 2
 DTSTART;TZID=Europe/Paris:20260413T080000
 DTEND;TZID=Europe/Paris:20260413T090000
-DTSTAMP:20260730T155340Z
+DTSTAMP:20260731T094032Z
 UID:3409d3f5-b6e7-80a8-b998-d3dbadb9dda8@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Squ
  at with Thoracic Rotation\, Ankle Dorsiflexion Mobility\, Deep Squat Stand
@@ -1433,7 +1450,7 @@ BEGIN:VEVENT
 SUMMARY:Tapis 1 - Alternance course / marche 
 DTSTART;TZID=Europe/Paris:20260416T080000
 DTEND;TZID=Europe/Paris:20260416T090000
-DTSTAMP:20260730T155340Z
+DTSTAMP:20260731T094033Z
 UID:3409d3f5-b6e7-8079-9e99-c4c6f4c6187f@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Course à pied\n\n--- Notes libres ---\n
  Alternance : 5’ de course légère - 2’ de marche x3\n\n(Synchronisé 
@@ -1443,7 +1460,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Hinge pattern conditioning
 DTSTART;TZID=Europe/Paris:20260424T080000
 DTEND;TZID=Europe/Paris:20260424T090000
-DTSTAMP:20260730T155343Z
+DTSTAMP:20260731T094035Z
 UID:3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Intensity\n\n1. Deadlift\n   Charge rée
  lle: 100kg\n\n2. Hip Thrust\n   Charge réelle: 100kg\n\n3. Trap Bar Jump\
@@ -1455,7 +1472,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Push & pull conditioning
 DTSTART;TZID=Europe/Paris:20260422T080000
 DTEND;TZID=Europe/Paris:20260422T090000
-DTSTAMP:20260730T155345Z
+DTSTAMP:20260731T094037Z
 UID:3409d3f5-b6e7-80c8-96d4-e0ecd1353908@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Intensity\n\n1. Bench Press\n   Charge r
  éelle: 70kg\n\n2. Pull up\n   Charge réelle: 20kg\n\n3. Rowing\n   Charg
@@ -1467,7 +1484,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Squat pattern conditioning
 DTSTART;TZID=Europe/Paris:20260420T080000
 DTEND;TZID=Europe/Paris:20260420T090000
-DTSTAMP:20260730T155350Z
+DTSTAMP:20260731T094040Z
 UID:3409d3f5-b6e7-8081-bbfd-d0c92c52d230@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Intensity\n\n1. Squat\n   Charge réelle
  : 80kg\n\n2. Split Squat\n   Charge réelle: 30kg\n\n3. Cossak squat landm
@@ -1479,7 +1496,7 @@ BEGIN:VEVENT
 SUMMARY:Padel match 1h30
 DTSTART;TZID=Europe/Paris:20260409T080000
 DTEND;TZID=Europe/Paris:20260409T090000
-DTSTAMP:20260730T155351Z
+DTSTAMP:20260731T094040Z
 UID:33d9d3f5-b6e7-80b2-8f8f-c5370c525e3a@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1487,7 +1504,7 @@ BEGIN:VEVENT
 SUMMARY:Tapis 15’ - Alternance course / marche
 DTSTART;TZID=Europe/Paris:20260412T080000
 DTEND;TZID=Europe/Paris:20260412T090000
-DTSTAMP:20260730T155352Z
+DTSTAMP:20260731T094041Z
 UID:33d9d3f5-b6e7-80dc-8d54-fe38b9bbca9f@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Course à pied\n\n--- Notes libres ---\n
  Alternance : 1’ de course légère - 1’ de marche\n\n(Synchronisé dep
@@ -1497,7 +1514,7 @@ BEGIN:VEVENT
 SUMMARY:Tapis 10’ - Alternance course / marche
 DTSTART;TZID=Europe/Paris:20260409T080000
 DTEND;TZID=Europe/Paris:20260409T090000
-DTSTAMP:20260730T155353Z
+DTSTAMP:20260731T094042Z
 UID:33d9d3f5-b6e7-804e-b0b1-c8c212308603@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Course à pied\n\n--- Notes libres ---\n
  Alternance : 1’ de course légère - 1’ de marche\n\n(Synchronisé dep
@@ -1507,7 +1524,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 
 DTSTART;TZID=Europe/Paris:20260406T080000
 DTEND;TZID=Europe/Paris:20260406T090000
-DTSTAMP:20260730T155353Z
+DTSTAMP:20260731T094042Z
 UID:33a9d3f5-b6e7-8075-8c37-fe1a1240e804@agent-muscu
 DESCRIPTION:Statut: À venir | Type: N/A\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1515,7 +1532,7 @@ BEGIN:VEVENT
 SUMMARY:AMRAP Full Body 
 DTSTART;TZID=Europe/Paris:20260410T080000
 DTEND;TZID=Europe/Paris:20260410T090000
-DTSTAMP:20260730T155355Z
+DTSTAMP:20260731T094043Z
 UID:3399d3f5-b6e7-8009-adae-d9bd1a1af795@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Intensity\n\n1. Ankle Dorsiflexion Mobil
  ity\, 90/90 Hip Rotations\, Deep Squat Standing\n   Récupération: Enchai
@@ -1530,7 +1547,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Power & integration
 DTSTART;TZID=Europe/Paris:20260406T080000
 DTEND;TZID=Europe/Paris:20260406T090000
-DTSTAMP:20260730T155359Z
+DTSTAMP:20260731T094047Z
 UID:3399d3f5-b6e7-8083-9f25-dacd2191f5cc@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Ankle Hops\, Dead Bug\n   Séries: 3 | Répétitions: 10 répétitions par
@@ -1558,7 +1575,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Upper Body Power & Rotational Transfer
 DTSTART;TZID=Europe/Paris:20260407T080000
 DTEND;TZID=Europe/Paris:20260407T090000
-DTSTAMP:20260730T155402Z
+DTSTAMP:20260731T094049Z
 UID:3399d3f5-b6e7-802d-bdf7-c3e034ceeae2@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Scapular Push-Ups\, Thoracic Extension Pull-over\n   Séries: 2 | Répéti
@@ -1585,7 +1602,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Lower Body Power & Elastic Strength
 DTSTART;TZID=Europe/Paris:20260409T080000
 DTEND;TZID=Europe/Paris:20260409T090000
-DTSTAMP:20260730T155404Z
+DTSTAMP:20260731T094050Z
 UID:3399d3f5-b6e7-80c0-98b0-de5e52eb2d81@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Ank
  le Dorsiflexion Mobility\, Deep Squat Standing\, Ankle Hops\n   Séries: 2
@@ -1606,7 +1623,7 @@ BEGIN:VEVENT
 SUMMARY:Padel 1h30
 DTSTART;TZID=Europe/Paris:20260403T080000
 DTEND;TZID=Europe/Paris:20260403T090000
-DTSTAMP:20260730T155405Z
+DTSTAMP:20260731T094050Z
 UID:3379d3f5-b6e7-8012-9c55-fad4e786a59e@agent-muscu
 DESCRIPTION:Statut: Faite | Type: N/A\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1614,7 +1631,7 @@ BEGIN:VEVENT
 SUMMARY:padel match 1h30
 DTSTART;TZID=Europe/Paris:20260401T080000
 DTEND;TZID=Europe/Paris:20260401T090000
-DTSTAMP:20260730T155405Z
+DTSTAMP:20260731T094051Z
 UID:3329d3f5-b6e7-802e-b37d-c5794cfb5ca7@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1622,7 +1639,7 @@ BEGIN:VEVENT
 SUMMARY:EF 20min
 DTSTART;TZID=Europe/Paris:20260402T080000
 DTEND;TZID=Europe/Paris:20260402T090000
-DTSTAMP:20260730T155406Z
+DTSTAMP:20260731T094052Z
 UID:3319d3f5-b6e7-8079-935c-d809dffe3646@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Course à pied\n\n(Synchronisé depui
  s Notion)
@@ -1631,7 +1648,7 @@ BEGIN:VEVENT
 SUMMARY:Conditioning
 DTSTART;TZID=Europe/Paris:20260403T080000
 DTEND;TZID=Europe/Paris:20260403T090000
-DTSTAMP:20260730T155408Z
+DTSTAMP:20260731T094053Z
 UID:3319d3f5-b6e7-8010-a61b-e7415d7b72dc@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Intensity\n\n1. Scapular Push-Ups\, Lung
  es rotation\n\n2. Rameur\n   Répétitions: 30”\n   Haute intensité - p
@@ -1652,7 +1669,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Power & integration
 DTSTART;TZID=Europe/Paris:20260402T080000
 DTEND;TZID=Europe/Paris:20260402T090000
-DTSTAMP:20260730T155411Z
+DTSTAMP:20260731T094055Z
 UID:3319d3f5-b6e7-800a-8066-e1d22de499cd@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Ankle Hops\, Dead Bug\n   Séries: 3 | Répétitions: 10 répétitions par
@@ -1680,7 +1697,7 @@ BEGIN:VEVENT
 SUMMARY:EF 15min
 DTSTART;TZID=Europe/Paris:20260331T080000
 DTEND;TZID=Europe/Paris:20260331T090000
-DTSTAMP:20260730T155411Z
+DTSTAMP:20260731T094056Z
 UID:3319d3f5-b6e7-806a-9117-e973e1722784@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Course à pied\n\n(Synchronisé depuis N
  otion)
@@ -1689,7 +1706,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Upper Body Power & Rotational Transfer
 DTSTART;TZID=Europe/Paris:20260331T080000
 DTEND;TZID=Europe/Paris:20260331T090000
-DTSTAMP:20260730T155413Z
+DTSTAMP:20260731T094057Z
 UID:3319d3f5-b6e7-8073-92d1-db39ca92704e@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Scapular Push-Ups\, Thoracic Extension Pull-over\n   Séries: 2 | Répéti
@@ -1715,7 +1732,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Lower Body Power & Elastic Strength
 DTSTART;TZID=Europe/Paris:20260330T080000
 DTEND;TZID=Europe/Paris:20260330T090000
-DTSTAMP:20260730T155414Z
+DTSTAMP:20260731T094058Z
 UID:3319d3f5-b6e7-805a-b136-efd9caf51d9b@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Squ
  at with Thoracic Rotation\, Ankle Dorsiflexion Mobility\, Deep Squat Stand
@@ -1737,7 +1754,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 1h30
 DTSTART;TZID=Europe/Paris:20260328T080000
 DTEND;TZID=Europe/Paris:20260328T090000
-DTSTAMP:20260730T155415Z
+DTSTAMP:20260731T094058Z
 UID:32d9d3f5-b6e7-808b-9189-d495fadcafea@agent-muscu
 DESCRIPTION:Statut: Faite | Type: N/A\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1745,7 +1762,7 @@ BEGIN:VEVENT
 SUMMARY:Padel match 1H30
 DTSTART;TZID=Europe/Paris:20260324T080000
 DTEND;TZID=Europe/Paris:20260324T090000
-DTSTAMP:20260730T155416Z
+DTSTAMP:20260731T094059Z
 UID:32d9d3f5-b6e7-80da-b409-dee31624c433@agent-muscu
 DESCRIPTION:Statut: À venir | Type: N/A\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1753,7 +1770,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Multiplanar lower body 
 DTSTART;TZID=Europe/Paris:20260327T080000
 DTEND;TZID=Europe/Paris:20260327T090000
-DTSTAMP:20260730T155417Z
+DTSTAMP:20260731T094100Z
 UID:32b9d3f5-b6e7-8043-bf04-cbccc8eab405@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Hip
   Flexor strengthening\, Deep Squat Standing\n   Séries: 2 | Répétitions
@@ -1781,7 +1798,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Power & integration
 DTSTART;TZID=Europe/Paris:20260326T080000
 DTEND;TZID=Europe/Paris:20260326T090000
-DTSTAMP:20260730T155419Z
+DTSTAMP:20260731T094101Z
 UID:32b9d3f5-b6e7-8084-9320-cefb73349bf8@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Ankle Hops\, Dead Bug\n   Séries: 3 | Répétitions: 10 répétitions par
@@ -1810,7 +1827,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Upper Body Power & Rotational Transfer
 DTSTART;TZID=Europe/Paris:20260324T080000
 DTEND;TZID=Europe/Paris:20260324T090000
-DTSTAMP:20260730T155420Z
+DTSTAMP:20260731T094102Z
 UID:32b9d3f5-b6e7-80b9-b5ee-e56e959035a7@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Scapular Push-Ups\, Thoracic Extension Pull-over\n   Séries: 2 | Répéti
@@ -1837,7 +1854,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Lower Body Power & Elastic Strength
 DTSTART;TZID=Europe/Paris:20260323T080000
 DTEND;TZID=Europe/Paris:20260323T090000
-DTSTAMP:20260730T155421Z
+DTSTAMP:20260731T094102Z
 UID:32b9d3f5-b6e7-80bf-84e9-e41e18516b85@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Squ
  at with Thoracic Rotation\, Ankle Dorsiflexion Mobility\, Deep Squat Stand
@@ -1860,7 +1877,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Multiplanar lower body 
 DTSTART;TZID=Europe/Paris:20260321T080000
 DTEND;TZID=Europe/Paris:20260321T090000
-DTSTAMP:20260730T155422Z
+DTSTAMP:20260731T094103Z
 UID:3289d3f5-b6e7-80cc-b7b2-dba229457d4a@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Hip
   Flexor strengthening\, Deep Squat Standing\n   Séries: 2 | Répétitions
@@ -1887,7 +1904,7 @@ BEGIN:VEVENT
 SUMMARY:Padel match 1h30
 DTSTART;TZID=Europe/Paris:20260320T080000
 DTEND;TZID=Europe/Paris:20260320T090000
-DTSTAMP:20260730T155423Z
+DTSTAMP:20260731T094104Z
 UID:3269d3f5-b6e7-8056-96c3-db6be194b044@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1895,7 +1912,7 @@ BEGIN:VEVENT
 SUMMARY:Padel match 
 DTSTART;TZID=Europe/Paris:20260318T080000
 DTEND;TZID=Europe/Paris:20260318T090000
-DTSTAMP:20260730T155423Z
+DTSTAMP:20260731T094105Z
 UID:3259d3f5-b6e7-805e-9b40-c102ef6f7638@agent-muscu
 DESCRIPTION:Statut: À venir | Type: N/A\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -1903,7 +1920,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Back Health
 DTSTART;TZID=Europe/Paris:20260319T080000
 DTEND;TZID=Europe/Paris:20260319T090000
-DTSTAMP:20260730T155424Z
+DTSTAMP:20260731T094106Z
 UID:3249d3f5-b6e7-80cd-a9a9-d0a9d446b3ee@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Swiss Ball Plank Circle\,
   Dead Bug\n   Séries: 4 | Répétitions: 1’ Swiss ball plank\n+10 dead 
@@ -1924,7 +1941,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Upper Body Strength & Rotational Control
 DTSTART;TZID=Europe/Paris:20260317T080000
 DTEND;TZID=Europe/Paris:20260317T090000
-DTSTAMP:20260730T155426Z
+DTSTAMP:20260731T094107Z
 UID:3249d3f5-b6e7-8029-9b0f-f52bf14b67b9@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Scapular Push-Ups\, Scapu
  lar Pull Up\n   Séries: 3 | Répétitions: 10 répétitions par exercice 
@@ -1951,7 +1968,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Lower Body Strength Squat Pattern
 DTSTART;TZID=Europe/Paris:20260316T080000
 DTEND;TZID=Europe/Paris:20260316T090000
-DTSTAMP:20260730T155427Z
+DTSTAMP:20260731T094108Z
 UID:3249d3f5-b6e7-8031-af57-f642f1f25f09@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Cos
  sack Squat\, Hip Flexor strengthening\n   Séries: 2 | Répétitions: 10 r
@@ -1976,7 +1993,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Push and pull
 DTSTART;TZID=Europe/Paris:20260313T080000
 DTEND;TZID=Europe/Paris:20260313T090000
-DTSTAMP:20260730T155428Z
+DTSTAMP:20260731T094109Z
 UID:31d9d3f5-b6e7-8042-936a-f11bf2a3fb71@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. WU\n   Séries: 3\n\n2. F
  loor Press\n   Séries: 4 | Répétitions: 3-4\n   Charge réelle: 28kg DB
@@ -1990,7 +2007,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Upper Body Strength & Rotational Control
 DTSTART;TZID=Europe/Paris:20260310T080000
 DTEND;TZID=Europe/Paris:20260310T090000
-DTSTAMP:20260730T155429Z
+DTSTAMP:20260731T094110Z
 UID:31d9d3f5-b6e7-8003-8a6c-f04b7e53d99c@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Scapular Push-Ups\, Scapu
  lar Pull Up\n   Séries: 3 | Répétitions: 10 répétitions par exercice 
@@ -2017,7 +2034,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Lower Body Strength / Squat Pattern
 DTSTART;TZID=Europe/Paris:20260312T080000
 DTEND;TZID=Europe/Paris:20260312T090000
-DTSTAMP:20260730T155432Z
+DTSTAMP:20260731T094113Z
 UID:31d9d3f5-b6e7-80a2-bfb9-ddc8dd78ec13@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Single Leg wall Sit\, Ank
  le Dorsiflexion Mobility\n   Séries: 2 | Répétitions: 30s D/G\n\n   Ré
@@ -2037,7 +2054,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 1h30
 DTSTART;TZID=Europe/Paris:20260308T080000
 DTEND;TZID=Europe/Paris:20260308T090000
-DTSTAMP:20260730T155433Z
+DTSTAMP:20260731T094113Z
 UID:31a9d3f5-b6e7-8037-aa67-ce5fc2a78ba9@agent-muscu
 DESCRIPTION:Statut: Faite | Type: N/A\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2045,7 +2062,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Power & integration
 DTSTART;TZID=Europe/Paris:20260306T080000
 DTEND;TZID=Europe/Paris:20260306T090000
-DTSTAMP:20260730T155437Z
+DTSTAMP:20260731T094116Z
 UID:3169d3f5-b6e7-8007-ae47-e0125b8badc4@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Ankle Hops\, Dead Bug\, T
  ibialis Raise\, Adductor Side Plank on Bench\, Standing Banded Hip Abducti
@@ -2070,7 +2087,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Upper Body Strength & Rotational Control
 DTSTART;TZID=Europe/Paris:20260305T080000
 DTEND;TZID=Europe/Paris:20260305T090000
-DTSTAMP:20260730T155438Z
+DTSTAMP:20260731T094117Z
 UID:3169d3f5-b6e7-80e6-a97e-c1311e1a28fc@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Scapular Push-Ups\, Scapu
  lar Pull Up\n   Séries: 3 | Répétitions: 10 répétitions par exercice 
@@ -2096,7 +2113,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Lower Body Strength / Hinge Pattern
 DTSTART;TZID=Europe/Paris:20260303T080000
 DTEND;TZID=Europe/Paris:20260303T090000
-DTSTAMP:20260730T155440Z
+DTSTAMP:20260731T094119Z
 UID:3169d3f5-b6e7-8022-bc35-fd0a27299ebe@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Cos
  sack Squat\, Hip Flexor strengthening\n   Séries: 2 | Répétitions: 10 r
@@ -2124,7 +2141,7 @@ BEGIN:VEVENT
 SUMMARY:Lower body unilatéral
 DTSTART;TZID=Europe/Paris:20260301T080000
 DTEND;TZID=Europe/Paris:20260301T090000
-DTSTAMP:20260730T155441Z
+DTSTAMP:20260731T094120Z
 UID:3149d3f5-b6e7-8025-9895-c8cfbac1919a@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Strenght\n\n1. Lying T spine rotation
  \, Scapular Push-Ups\, Thoracic Extension Pull-over\n   Séries: 2 | Rép
@@ -2145,7 +2162,7 @@ BEGIN:VEVENT
 SUMMARY:Upper body + intégration tronc dynamique
 DTSTART;TZID=Europe/Paris:20260228T080000
 DTEND;TZID=Europe/Paris:20260228T090000
-DTSTAMP:20260730T155442Z
+DTSTAMP:20260731T094121Z
 UID:3149d3f5-b6e7-80a1-abfa-d06e7b93e35c@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Strenght\n\n1. Lying T spine rotation
  \, Scapular Push-Ups\, Thoracic Extension Pull-over\n   Séries: 2 | Rép
@@ -2166,7 +2183,7 @@ BEGIN:VEVENT
 SUMMARY:Core & Mobility
 DTSTART;TZID=Europe/Paris:20260225T080000
 DTEND;TZID=Europe/Paris:20260225T090000
-DTSTAMP:20260730T155444Z
+DTSTAMP:20260731T094123Z
 UID:3109d3f5-b6e7-80c2-9be9-d771e36fbd83@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Mobility\n\n1. Pigeon Loaded\n\n2. Deep 
  Squat Standing\, 90/90 Hip Rotations\n\n3. Loaded Split Stretch\n\n4. Pall
@@ -2177,7 +2194,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Back Health
 DTSTART;TZID=Europe/Paris:20260223T080000
 DTEND;TZID=Europe/Paris:20260223T090000
-DTSTAMP:20260730T155446Z
+DTSTAMP:20260731T094123Z
 UID:30f9d3f5-b6e7-80b8-b33e-dfdb1af0dec8@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Deadlift\n   Séries: 4 |
   Répétitions: 6 D/G\n\n   Charge réelle: 80kg\n   Récupération: 1’3
@@ -2207,7 +2224,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Upper body & rotation
 DTSTART;TZID=Europe/Paris:20260224T080000
 DTEND;TZID=Europe/Paris:20260224T090000
-DTSTAMP:20260730T155447Z
+DTSTAMP:20260731T094125Z
 UID:30f9d3f5-b6e7-80a4-a31c-dc1dc4836c66@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Scapular Push-Ups\, Thoracic Extension Pull-over\n   Séries: 2 | Répéti
@@ -2228,7 +2245,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Lower body & Fundations
 DTSTART;TZID=Europe/Paris:20260226T080000
 DTEND;TZID=Europe/Paris:20260226T090000
-DTSTAMP:20260730T155449Z
+DTSTAMP:20260731T094126Z
 UID:30f9d3f5-b6e7-80ea-8643-d47f585b4db0@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Squ
  at with Thoracic Rotation\, Ankle Dorsiflexion Mobility\, Deep Squat Stand
@@ -2255,7 +2272,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 1h30
 DTSTART;TZID=Europe/Paris:20260217T080000
 DTEND;TZID=Europe/Paris:20260217T090000
-DTSTAMP:20260730T155450Z
+DTSTAMP:20260731T094126Z
 UID:30a9d3f5-b6e7-80d0-8764-ce86bfac56be@agent-muscu
 DESCRIPTION:Statut: Faite | Type: N/A\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2263,7 +2280,7 @@ BEGIN:VEVENT
 SUMMARY:Cours padel 1h
 DTSTART;TZID=Europe/Paris:20260330T080000
 DTEND;TZID=Europe/Paris:20260330T090000
-DTSTAMP:20260730T155451Z
+DTSTAMP:20260731T094127Z
 UID:3059d3f5-b6e7-80ff-ab15-e98091a6b551@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2271,7 +2288,7 @@ BEGIN:VEVENT
 SUMMARY:Cours padel 1h
 DTSTART;TZID=Europe/Paris:20260323T080000
 DTEND;TZID=Europe/Paris:20260323T090000
-DTSTAMP:20260730T155451Z
+DTSTAMP:20260731T094128Z
 UID:3059d3f5-b6e7-80c8-8423-e2404336486c@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2279,7 +2296,7 @@ BEGIN:VEVENT
 SUMMARY:Cours padel 1h
 DTSTART;TZID=Europe/Paris:20260316T080000
 DTEND;TZID=Europe/Paris:20260316T090000
-DTSTAMP:20260730T155452Z
+DTSTAMP:20260731T094128Z
 UID:3059d3f5-b6e7-806c-97b2-c5d982f8f86d@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2287,7 +2304,7 @@ BEGIN:VEVENT
 SUMMARY:Cours padel
 DTSTART;TZID=Europe/Paris:20260309T080000
 DTEND;TZID=Europe/Paris:20260309T090000
-DTSTAMP:20260730T155453Z
+DTSTAMP:20260731T094129Z
 UID:3059d3f5-b6e7-8067-99af-f32fa50f3f7a@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2295,7 +2312,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Back Health
 DTSTART;TZID=Europe/Paris:20260216T080000
 DTEND;TZID=Europe/Paris:20260216T090000
-DTSTAMP:20260730T155454Z
+DTSTAMP:20260731T094130Z
 UID:3049d3f5-b6e7-80bc-874b-f3d341c1bd63@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Ankle Hops\, Dead Bug\n   Séries: 3 | Répétitions: 10 répétitions par
@@ -2322,7 +2339,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°3 : Maintenance of physical qualities\n\n
 DTSTART;TZID=Europe/Paris:20260220T080000
 DTEND;TZID=Europe/Paris:20260220T090000
-DTSTAMP:20260730T155456Z
+DTSTAMP:20260731T094132Z
 UID:3049d3f5-b6e7-8082-9f40-eff396d4aa38@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Ankle Hops\, Dead Bug\n   Séries: 3 | Répétitions: 10 répétitions par
@@ -2347,7 +2364,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°2 : Upper body & rotation
 DTSTART;TZID=Europe/Paris:20260219T080000
 DTEND;TZID=Europe/Paris:20260219T090000
-DTSTAMP:20260730T155458Z
+DTSTAMP:20260731T094133Z
 UID:3049d3f5-b6e7-8079-8a17-f0e67d99fed8@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. Lying T spine rotation\, 
  Scapular Push-Ups\, Thoracic Extension Pull-over\n   Séries: 2 | Répéti
@@ -2368,7 +2385,7 @@ BEGIN:VEVENT
 SUMMARY:Séance n°1 : Lower body & Fundations 
 DTSTART;TZID=Europe/Paris:20260217T080000
 DTEND;TZID=Europe/Paris:20260217T090000
-DTSTAMP:20260730T155459Z
+DTSTAMP:20260731T094134Z
 UID:3049d3f5-b6e7-80c6-8ddc-d5fe790d01e0@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n1. 90/90 Hip Rotations\, Squ
  at with Thoracic Rotation\, Ankle Dorsiflexion Mobility\, Deep Squat Stand
@@ -2393,7 +2410,7 @@ BEGIN:VEVENT
 SUMMARY:Vacances
 DTSTART;TZID=Europe/Paris:20260227T080000
 DTEND;TZID=Europe/Paris:20260227T090000
-DTSTAMP:20260730T155500Z
+DTSTAMP:20260731T094135Z
 UID:3049d3f5-b6e7-8017-bc3f-d5817c3e3c9e@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Day off\n\n(Synchronisé depuis Notio
  n)
@@ -2402,7 +2419,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 1h30
 DTSTART;TZID=Europe/Paris:20260222T080000
 DTEND;TZID=Europe/Paris:20260222T090000
-DTSTAMP:20260730T155501Z
+DTSTAMP:20260731T094135Z
 UID:3049d3f5-b6e7-80c7-b384-f3b92d68b5eb@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2410,7 +2427,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel 1h30
 DTSTART;TZID=Europe/Paris:20260218T080000
 DTEND;TZID=Europe/Paris:20260218T090000
-DTSTAMP:20260730T155501Z
+DTSTAMP:20260731T094136Z
 UID:3049d3f5-b6e7-806d-ae90-d017201a543a@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2418,7 +2435,7 @@ BEGIN:VEVENT
 SUMMARY:Cours padel
 DTSTART;TZID=Europe/Paris:20260209T080000
 DTEND;TZID=Europe/Paris:20260209T090000
-DTSTAMP:20260730T155502Z
+DTSTAMP:20260731T094137Z
 UID:3039d3f5-b6e7-801f-9dd9-ebcebf993068@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2426,7 +2443,7 @@ BEGIN:VEVENT
 SUMMARY:Renfo 
 DTSTART;TZID=Europe/Paris:20260212T080000
 DTEND;TZID=Europe/Paris:20260212T090000
-DTSTAMP:20260730T155503Z
+DTSTAMP:20260731T094137Z
 UID:3039d3f5-b6e7-8089-a977-e76c6fafdc85@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Strenght\n\n(Synchronisé depuis Noti
  on)
@@ -2435,7 +2452,7 @@ BEGIN:VEVENT
 SUMMARY:Renfo
 DTSTART;TZID=Europe/Paris:20260210T080000
 DTEND;TZID=Europe/Paris:20260210T090000
-DTSTAMP:20260730T155503Z
+DTSTAMP:20260731T094138Z
 UID:3039d3f5-b6e7-8055-8855-c50e56b1e369@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Strenght\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2443,7 +2460,7 @@ BEGIN:VEVENT
 SUMMARY:Mobilité  
 DTSTART;TZID=Europe/Paris:20260210T080000
 DTEND;TZID=Europe/Paris:20260210T090000
-DTSTAMP:20260730T155504Z
+DTSTAMP:20260731T094138Z
 UID:3039d3f5-b6e7-80c8-aa15-e6214fcf1c98@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Mobility\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2451,7 +2468,7 @@ BEGIN:VEVENT
 SUMMARY:M/D padel 3h
 DTSTART;TZID=Europe/Paris:20260221T080000
 DTEND;TZID=Europe/Paris:20260221T090000
-DTSTAMP:20260730T155505Z
+DTSTAMP:20260731T094139Z
 UID:3039d3f5-b6e7-80a7-8488-e69fa4ba0645@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2459,7 +2476,7 @@ BEGIN:VEVENT
 SUMMARY:Stage padel 1h
 DTSTART;TZID=Europe/Paris:20260225T080000
 DTEND;TZID=Europe/Paris:20260225T090000
-DTSTAMP:20260730T155506Z
+DTSTAMP:20260731T094140Z
 UID:3039d3f5-b6e7-8027-9c36-dc8e240d0ea1@agent-muscu
 DESCRIPTION:Statut: À venir | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2467,7 +2484,7 @@ BEGIN:VEVENT
 SUMMARY:Cours padel 1h
 DTSTART;TZID=Europe/Paris:20260223T080000
 DTEND;TZID=Europe/Paris:20260223T090000
-DTSTAMP:20260730T155506Z
+DTSTAMP:20260731T094140Z
 UID:3039d3f5-b6e7-8034-87b3-d6591ad21201@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2475,7 +2492,7 @@ BEGIN:VEVENT
 SUMMARY:Cours padel 1h
 DTSTART;TZID=Europe/Paris:20260216T080000
 DTEND;TZID=Europe/Paris:20260216T090000
-DTSTAMP:20260730T155507Z
+DTSTAMP:20260731T094141Z
 UID:3039d3f5-b6e7-803c-a10f-cb5db4f50300@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2483,7 +2500,7 @@ BEGIN:VEVENT
 SUMMARY:Tournoi padel mixte
 DTSTART;TZID=Europe/Paris:20260214T080000
 DTEND;TZID=Europe/Paris:20260214T090000
-DTSTAMP:20260730T155508Z
+DTSTAMP:20260731T094141Z
 UID:3039d3f5-b6e7-8049-983f-c73a19098f8d@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
@@ -2491,7 +2508,7 @@ BEGIN:VEVENT
 SUMMARY:Match padel
 DTSTART;TZID=Europe/Paris:20260213T080000
 DTEND;TZID=Europe/Paris:20260213T090000
-DTSTAMP:20260730T155508Z
+DTSTAMP:20260731T094142Z
 UID:3039d3f5-b6e7-808b-ba50-ccca75980e4e@agent-muscu
 DESCRIPTION:Statut: Faite | Type: Padel\n\n(Synchronisé depuis Notion)
 END:VEVENT
