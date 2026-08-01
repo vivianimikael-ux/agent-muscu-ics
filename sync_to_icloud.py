@@ -15,10 +15,12 @@ pour le contexte complet.
 """
 from __future__ import annotations
 
+import html
 import os
 import sys
 import time
 from datetime import datetime
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import caldav
@@ -40,6 +42,14 @@ DEFAULT_END_HOUR, DEFAULT_END_MINUTE = 9, 0
 
 REQUEST_DELAY_SECONDS = 0.4
 MAX_RETRIES = 6
+
+# Nom de fichier volontairement peu devinable ("URL obscure") plutôt qu'un
+# nom prévisible comme "exercices.html" — le repo GitHub étant public, ce
+# n'est pas une vraie protection d'accès, juste un frein à la découverte
+# fortuite. Fixe (ne pas régénérer) pour que l'URL reste stable d'un run à
+# l'autre.
+HISTORY_PAGE_SLUG = "suivi-3a0b024c509595f74397.html"
+HISTORY_OUTPUT_PATH = Path(__file__).parent / "docs" / HISTORY_PAGE_SLUG
 
 
 def load_cookie() -> str:
@@ -284,17 +294,20 @@ def resolve_movement_name(token: str, page_id: str, cache: dict) -> None:
     cache[page_id] = name or "(exercice inconnu)"
 
 
+def exercise_display_name(ex: dict, movement_cache: dict, fallback_index: int) -> str:
+    mentions = ex.get("Mouvements", {}).get("mentions", [])
+    resolved = [movement_cache.get(mid) for mid in mentions]
+    resolved = [r for r in resolved if r]
+    if resolved:
+        return ", ".join(resolved)
+    return ex.get("Mouvements", {}).get("text") or ex.get("Nom", {}).get("text") or f"Exercice {fallback_index}"
+
+
 def format_event_notes(type_: str, seance_ok: bool, exercises: list[dict], freeform_texts: list[str], movement_cache: dict) -> str:
     lines = [f"Statut: {'Faite' if seance_ok else 'À venir'} | Type: {type_ or 'N/A'}", ""]
 
     for i, ex in enumerate(exercises, 1):
-        mentions = ex.get("Mouvements", {}).get("mentions", [])
-        resolved = [movement_cache.get(mid) for mid in mentions]
-        resolved = [r for r in resolved if r]
-        if resolved:
-            name = ", ".join(resolved)
-        else:
-            name = ex.get("Mouvements", {}).get("text") or ex.get("Nom", {}).get("text") or f"Exercice {i}"
+        name = exercise_display_name(ex, movement_cache, i)
 
         series = ex.get("Séries", {}).get("text", "")
         reps = ex.get("Répétitions", {}).get("text", "")
@@ -325,6 +338,121 @@ def format_event_notes(type_: str, seance_ok: bool, exercises: list[dict], freef
 
     lines.append("(Synchronisé depuis Notion)")
     return "\n".join(lines)
+
+
+def record_exercise_occurrence(history: dict, movement_cache: dict, row: dict, exercises: list[dict]) -> None:
+    """Ajoute à l'historique de chaque exercice tout enregistrement où une
+    "Charge réelle" a été renseignée (une occurrence par séance où
+    l'exercice a réellement été loggé — pas juste programmé). Garde tout
+    l'historique, pas seulement le plus récent, pour la vue "progression"."""
+    iso_date = row.get("Date", "")
+    titre = row.get("Titre", "")
+
+    for i, ex in enumerate(exercises, 1):
+        charge_reelle = ex.get("Charge réelle", {}).get("text", "").strip()
+        if not charge_reelle:
+            continue
+        name = exercise_display_name(ex, movement_cache, i)
+        history.setdefault(name, []).append({
+            "date": iso_date,
+            "titre_seance": titre,
+            "charge_reelle": charge_reelle,
+            "charge_cible": ex.get("Charge cible", {}).get("text", "").strip(),
+            "series": ex.get("Séries", {}).get("text", "").strip(),
+            "reps": ex.get("Répétitions", {}).get("text", "").strip(),
+        })
+
+
+def build_history_html(history: dict) -> str:
+    total_entries = sum(len(v) for v in history.values())
+    sections_html = []
+
+    for name in sorted(history.keys(), key=str.casefold):
+        entries = sorted(history[name], key=lambda r: r["date"], reverse=True)
+        latest = entries[0]
+
+        rows_html = []
+        for r in entries:
+            srx = " x ".join(p for p in (r["series"] and f"{r['series']} séries", r["reps"] and f"{r['reps']} reps") if p)
+            cible = f"cible: {r['charge_cible']}" if r["charge_cible"] else ""
+            rows_html.append(f"""
+        <tr>
+          <td>{html.escape(r['date'])}</td>
+          <td class="charge">{html.escape(r['charge_reelle'])}<span class="cible">{html.escape(cible)}</span></td>
+          <td>{html.escape(srx)}</td>
+          <td class="seance">{html.escape(r['titre_seance'])}</td>
+        </tr>""")
+
+        sections_html.append(f"""
+    <details class="ex-block">
+      <summary class="ex-name" data-name="{html.escape(name.lower())}">
+        <span class="ex-title">{html.escape(name)}</span>
+        <span class="ex-latest">{html.escape(latest['charge_reelle'])} <span class="ex-latest-date">({html.escape(latest['date'])})</span></span>
+        <span class="ex-n">{len(entries)}</span>
+      </summary>
+      <table>
+        <thead><tr><th>Date</th><th>Charge réelle</th><th>Séries/Reps</th><th>Séance</th></tr></thead>
+        <tbody>{"".join(rows_html)}
+        </tbody>
+      </table>
+    </details>""")
+
+    return f"""<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Suivi charges — Musculation</title>
+<style>
+  :root {{ color-scheme: light dark; }}
+  body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 1rem; background: #fafafa; color: #1a1a1a; }}
+  @media (prefers-color-scheme: dark) {{ body {{ background: #1a1a1a; color: #f0f0f0; }} }}
+  h1 {{ font-size: 1.2rem; margin: 0 0 .75rem; }}
+  input#filter {{ width: 100%; box-sizing: border-box; padding: .6rem .8rem; font-size: 1rem; border-radius: .5rem; border: 1px solid #ccc; margin-bottom: .75rem; }}
+  details.ex-block {{ border-bottom: 1px solid rgba(128,128,128,.25); }}
+  details.ex-block.hidden {{ display: none; }}
+  summary.ex-name {{ list-style: none; cursor: pointer; padding: .7rem .2rem; display: flex; align-items: baseline; gap: .5rem; }}
+  summary.ex-name::-webkit-details-marker {{ display: none; }}
+  summary.ex-name::before {{ content: "▸"; opacity: .5; font-size: .75rem; transition: transform .15s; }}
+  details[open] > summary.ex-name::before {{ transform: rotate(90deg); }}
+  .ex-title {{ font-weight: 600; flex: 1; }}
+  .ex-latest {{ font-weight: 600; white-space: nowrap; }}
+  .ex-latest-date {{ font-weight: 400; opacity: .6; font-size: .8rem; }}
+  .ex-n {{ opacity: .5; font-size: .75rem; min-width: 1.5em; text-align: right; }}
+  table {{ width: 100%; border-collapse: collapse; font-size: .85rem; margin: 0 0 .75rem; }}
+  th, td {{ text-align: left; padding: .4rem; border-bottom: 1px solid rgba(128,128,128,.15); vertical-align: top; }}
+  th {{ font-size: .7rem; text-transform: uppercase; opacity: .6; }}
+  .charge {{ font-weight: 600; white-space: nowrap; }}
+  .cible {{ display: block; font-weight: 400; opacity: .6; font-size: .8rem; }}
+  .seance {{ opacity: .7; }}
+  p.count {{ opacity: .6; font-size: .85rem; margin: .75rem 0 0; }}
+</style>
+</head>
+<body>
+<h1>Historique des charges par exercice</h1>
+<input id="filter" type="search" placeholder="Filtrer par nom d'exercice..." autocomplete="off">
+<div id="list">{"".join(sections_html)}
+</div>
+<p class="count"><span id="visible-count">{len(history)}</span> / {len(history)} exercices, {total_entries} entrées au total — généré automatiquement depuis Notion</p>
+<script>
+  const input = document.getElementById('filter');
+  const blocks = Array.from(document.querySelectorAll('details.ex-block'));
+  const countEl = document.getElementById('visible-count');
+  input.addEventListener('input', () => {{
+    const q = input.value.trim().toLowerCase();
+    let visible = 0;
+    for (const block of blocks) {{
+      const match = block.querySelector('.ex-name').dataset.name.includes(q);
+      block.classList.toggle('hidden', !match);
+      if (match) visible++;
+    }}
+    countEl.textContent = visible;
+  }});
+</script>
+</body>
+</html>
+"""
 
 
 def build_ical_bytes(row: dict, notes: str) -> bytes:
@@ -409,6 +537,7 @@ def main() -> None:
     print(f"{len(rows)} lignes récupérées depuis Notion.")
 
     movement_cache: dict = {}
+    exercise_history: dict = {}
     created = updated = skipped_no_date = skipped_excluded = deleted_excluded = failed = 0
 
     for row in rows:
@@ -437,6 +566,7 @@ def main() -> None:
                 for mention_id in ex.get("Mouvements", {}).get("mentions", []):
                     resolve_movement_name(notion_token, mention_id, movement_cache)
             notes = format_event_notes(type_, seance_ok, exercises, freeform_texts, movement_cache)
+            record_exercise_occurrence(exercise_history, movement_cache, row, exercises)
             result = upsert_event(calendar, uid_index, row, notes)
         except Exception as e:
             print(f"ERREUR sur '{titre}' ({iso_date}): {e}", file=sys.stderr)
@@ -448,6 +578,13 @@ def main() -> None:
         else:
             updated += 1
         time.sleep(REQUEST_DELAY_SECONDS)
+
+    HISTORY_OUTPUT_PATH.parent.mkdir(exist_ok=True)
+    HISTORY_OUTPUT_PATH.write_text(build_history_html(exercise_history), encoding="utf-8")
+    robots_path = HISTORY_OUTPUT_PATH.parent / "robots.txt"
+    if not robots_path.exists():
+        robots_path.write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
+    print(f"Page de suivi ({len(exercise_history)} exercices) écrite dans {HISTORY_OUTPUT_PATH}")
 
     print(
         f"Terminé. Créés: {created} | Mis à jour: {updated} | "
