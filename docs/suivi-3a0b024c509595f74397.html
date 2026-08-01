@@ -27,6 +27,7 @@
     background: #14141a; color: #f0f0f2; border: 1px solid #262630; border-radius: .5rem;
     padding: .5rem .7rem; font-size: .9rem; font-family: inherit; min-width: 220px;
   }
+  .table-wrap { width: 100%; overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font-size: .9rem; }
   thead th {
     text-align: left; font-size: .7rem; letter-spacing: .04em; text-transform: uppercase;
@@ -39,6 +40,19 @@
   td.wr { text-align: right; white-space: nowrap; }
   td.date { text-align: right; color: #7a7a85; white-space: nowrap; }
   p.count { color: #55555f; font-size: .8rem; margin-top: 1rem; }
+
+  /* En dessous de 640px : chaque ligne devient une carte empilée au lieu
+     de colonnes côte à côte qui débordent hors de l'écran. */
+  @media (max-width: 640px) {
+    select#filter { min-width: 0; width: 100%; }
+    table, thead, tbody, tr, td { display: block; width: 100%; }
+    thead { display: none; }
+    tbody tr { padding: .7rem 0; border-bottom: 1px solid #16161b; }
+    tbody td { border: none; padding: .1rem 0; text-align: left; white-space: normal; }
+    td.ex { font-size: 1rem; }
+    td.wr::before { content: "Répétitions × Poids : "; color: #6a6a75; font-size: .72rem; }
+    td.date::before { content: "Date : "; color: #6a6a75; font-size: .72rem; }
+  }
 </style>
 </head>
 <body>
@@ -53,9 +67,10 @@
     <option value="Adductor Side Plank on Bench">Adductor Side Plank on Bench</option><option value="Antirotation Barbell">Antirotation Barbell</option><option value="Assymetrical overhead">Assymetrical overhead</option><option value="Back Extension Iso Hold">Back Extension Iso Hold</option><option value="Back Extension Iso Hold, Explosive Back Extension">Back Extension Iso Hold, Explosive Back Extension</option><option value="Back Extension Iso Hold, Hollow">Back Extension Iso Hold, Hollow</option><option value="Bench Press">Bench Press</option><option value="Biceps curl">Biceps curl</option><option value="Broad Jump">Broad Jump</option><option value="Cossack Squat">Cossack Squat</option><option value="Cossak squat landmine">Cossak squat landmine</option><option value="Deadlift">Deadlift</option><option value="Deadlift Trap Bar">Deadlift Trap Bar</option><option value="Deep Squat Standing">Deep Squat Standing</option><option value="Dips">Dips</option><option value="Dips bench support">Dips bench support</option><option value="Double DB Snatch">Double DB Snatch</option><option value="Dumbell Chest Press">Dumbell Chest Press</option><option value="Farmer carry">Farmer carry</option><option value="Floor Press">Floor Press</option><option value="Front Rack Carry">Front Rack Carry</option><option value="Half Kneeling Lateral Tilts">Half Kneeling Lateral Tilts</option><option value="Half-Kneeling Landmine Press">Half-Kneeling Landmine Press</option><option value="Half-Kneeling Landmine Rotation">Half-Kneeling Landmine Rotation</option><option value="Hip Thrust">Hip Thrust</option><option value="Hip Thrust, KB swing">Hip Thrust, KB swing</option><option value="Jefferson curl">Jefferson curl</option><option value="Jefferson Curl Squat">Jefferson Curl Squat</option><option value="KB Squat">KB Squat</option><option value="KB swing">KB swing</option><option value="KB Windmill">KB Windmill</option><option value="Landmine Balistic Row">Landmine Balistic Row</option><option value="Landmine Rotation">Landmine Rotation</option><option value="Landmine rotation switch">Landmine rotation switch</option><option value="Landmine sumo squat">Landmine sumo squat</option><option value="Legs curl">Legs curl</option><option value="Loaded Spinal Circle">Loaded Spinal Circle</option><option value="Lunges rotation">Lunges rotation</option><option value="Open Chest Press">Open Chest Press</option><option value="Pallof Press">Pallof Press</option><option value="Pallof Rotation">Pallof Rotation</option><option value="Pigeon Loaded">Pigeon Loaded</option><option value="Pull over">Pull over</option><option value="Pull up">Pull up</option><option value="Push Press Barbell">Push Press Barbell</option><option value="Push Press DB">Push Press DB</option><option value="Renegade Row">Renegade Row</option><option value="Rowing">Rowing</option><option value="Seal row">Seal row</option><option value="Single Arm Bench Press">Single Arm Bench Press</option><option value="Single Arm Floor Press Bridge">Single Arm Floor Press Bridge</option><option value="Single deadlift">Single deadlift</option><option value="Single Leg Hip Thrust">Single Leg Hip Thrust</option><option value="Single strict press">Single strict press</option><option value="Single-Arm Dumbbell Row">Single-Arm Dumbbell Row</option><option value="Single-arm dumbbell row (bench-supported)">Single-arm dumbbell row (bench-supported)</option><option value="Single-Leg RDL">Single-Leg RDL</option><option value="Skull crushers">Skull crushers</option><option value="Slam Ball High Pull Triple Extension">Slam Ball High Pull Triple Extension</option><option value="Sled Push">Sled Push</option><option value="Split Squat">Split Squat</option><option value="Squat">Squat</option><option value="Squat, Dead Bug">Squat, Dead Bug</option><option value="Step Up Jump">Step Up Jump</option><option value="Strict press">Strict press</option><option value="Suitcase carry">Suitcase carry</option><option value="Thoracic Extension Pull-over">Thoracic Extension Pull-over</option><option value="thrusters">thrusters</option><option value="Trap Bar Jump">Trap Bar Jump</option><option value="Turkish Get-Up Sit-Up">Turkish Get-Up Sit-Up</option><option value="Unilateral Box Jump">Unilateral Box Jump</option><option value="Unilateral Landmine RDL">Unilateral Landmine RDL</option><option value="Zercher Lunge">Zercher Lunge</option><option value="Zercher Split Squat">Zercher Split Squat</option><option value="Zercher Split Squat, Zercher Lunge">Zercher Split Squat, Zercher Lunge</option>
   </select>
 </div>
+<div class="table-wrap">
 <table>
   <thead>
-    <tr><th>Exercice</th><th class="wr">Poids × Répétitions</th><th class="date">Date</th></tr>
+    <tr><th>Exercice</th><th class="wr">Répétitions × Poids</th><th class="date">Date</th></tr>
   </thead>
   <tbody class="mono">
       <tr data-exercise="Floor Press">
@@ -1280,6 +1295,7 @@ D/G Barre à vide</td>
       </tr>
   </tbody>
 </table>
+</div>
 <p class="count"><span id="visible-count">239</span> / 239 entrées — généré automatiquement depuis Notion</p>
 <script>
   const select = document.getElementById('filter');
