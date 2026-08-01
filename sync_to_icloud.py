@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import html
 import os
+import re
 import sys
 import time
 from datetime import datetime
@@ -363,39 +364,53 @@ def record_exercise_occurrence(history: dict, movement_cache: dict, row: dict, e
         })
 
 
+MONTHS_FR = ["jan.", "fév.", "mars", "avr.", "mai", "juin", "juil.", "aoû.", "sept.", "oct.", "nov.", "déc."]
+
+
+def format_date_fr(iso_date: str) -> str:
+    y, m, d = iso_date.split("-")
+    return f"{int(d)} {MONTHS_FR[int(m) - 1]}"
+
+
+def format_weight_reps(entry: dict) -> str:
+    """Formatage "au mieux" façon 4×8 @ 82.5kg. Les données Notion sont du
+    texte libre (pas toujours des nombres propres : "Barre + 40kg", "10
+    répétitions par exercice D/G"...) — on ne force le format compact que
+    quand séries/reps sont des entiers simples et que la charge est un
+    nombre + kg ; sinon on retombe sur le texte brut tel quel."""
+    series, reps, charge = entry["series"], entry["reps"], entry["charge_reelle"]
+
+    if re.fullmatch(r"\d+", series or "") and re.fullmatch(r"\d+", reps or ""):
+        sxr = f"{series}×{reps}"
+    else:
+        sxr = " / ".join(p for p in (series, reps) if p)
+
+    m = re.fullmatch(r"(\d+(?:[.,]\d+)?)\s*kg", charge.strip(), re.I)
+    weight = f"@ {m.group(1)}kg" if m else charge
+
+    return f"{sxr} {weight}".strip() if sxr else weight
+
+
 def build_history_html(history: dict) -> str:
-    total_entries = sum(len(v) for v in history.values())
-    sections_html = []
+    all_entries = []
+    exercise_names = sorted(history.keys(), key=str.casefold)
+    for name in exercise_names:
+        for r in history[name]:
+            all_entries.append((name, r))
+    all_entries.sort(key=lambda item: item[1]["date"], reverse=True)
 
-    for name in sorted(history.keys(), key=str.casefold):
-        entries = sorted(history[name], key=lambda r: r["date"], reverse=True)
-        latest = entries[0]
+    session_count = len({(r["date"], r["titre_seance"]) for _, r in all_entries})
 
-        rows_html = []
-        for r in entries:
-            srx = " x ".join(p for p in (r["series"] and f"{r['series']} séries", r["reps"] and f"{r['reps']} reps") if p)
-            cible = f"cible: {r['charge_cible']}" if r["charge_cible"] else ""
-            rows_html.append(f"""
-        <tr>
-          <td>{html.escape(r['date'])}</td>
-          <td class="charge">{html.escape(r['charge_reelle'])}<span class="cible">{html.escape(cible)}</span></td>
-          <td>{html.escape(srx)}</td>
-          <td class="seance">{html.escape(r['titre_seance'])}</td>
-        </tr>""")
+    options_html = "".join(f'<option value="{html.escape(n)}">{html.escape(n)}</option>' for n in exercise_names)
 
-        sections_html.append(f"""
-    <details class="ex-block">
-      <summary class="ex-name" data-name="{html.escape(name.lower())}">
-        <span class="ex-title">{html.escape(name)}</span>
-        <span class="ex-latest">{html.escape(latest['charge_reelle'])} <span class="ex-latest-date">({html.escape(latest['date'])})</span></span>
-        <span class="ex-n">{len(entries)}</span>
-      </summary>
-      <table>
-        <thead><tr><th>Date</th><th>Charge réelle</th><th>Séries/Reps</th><th>Séance</th></tr></thead>
-        <tbody>{"".join(rows_html)}
-        </tbody>
-      </table>
-    </details>""")
+    rows_html = []
+    for name, r in all_entries:
+        rows_html.append(f"""
+      <tr data-exercise="{html.escape(name)}">
+        <td class="ex">{html.escape(name)}</td>
+        <td class="wr">{html.escape(format_weight_reps(r))}</td>
+        <td class="date">{html.escape(format_date_fr(r['date']))}</td>
+      </tr>""")
 
     return f"""<!doctype html>
 <html lang="fr">
@@ -403,48 +418,73 @@ def build_history_html(history: dict) -> str:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Suivi charges — Musculation</title>
+<title>Mika Training — Historique</title>
 <style>
-  :root {{ color-scheme: light dark; }}
-  body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 1rem; background: #fafafa; color: #1a1a1a; }}
-  @media (prefers-color-scheme: dark) {{ body {{ background: #1a1a1a; color: #f0f0f0; }} }}
-  h1 {{ font-size: 1.2rem; margin: 0 0 .75rem; }}
-  input#filter {{ width: 100%; box-sizing: border-box; padding: .6rem .8rem; font-size: 1rem; border-radius: .5rem; border: 1px solid #ccc; margin-bottom: .75rem; }}
-  details.ex-block {{ border-bottom: 1px solid rgba(128,128,128,.25); }}
-  details.ex-block.hidden {{ display: none; }}
-  summary.ex-name {{ list-style: none; cursor: pointer; padding: .7rem .2rem; display: flex; align-items: baseline; gap: .5rem; }}
-  summary.ex-name::-webkit-details-marker {{ display: none; }}
-  summary.ex-name::before {{ content: "▸"; opacity: .5; font-size: .75rem; transition: transform .15s; }}
-  details[open] > summary.ex-name::before {{ transform: rotate(90deg); }}
-  .ex-title {{ font-weight: 600; flex: 1; }}
-  .ex-latest {{ font-weight: 600; white-space: nowrap; }}
-  .ex-latest-date {{ font-weight: 400; opacity: .6; font-size: .8rem; }}
-  .ex-n {{ opacity: .5; font-size: .75rem; min-width: 1.5em; text-align: right; }}
-  table {{ width: 100%; border-collapse: collapse; font-size: .85rem; margin: 0 0 .75rem; }}
-  th, td {{ text-align: left; padding: .4rem; border-bottom: 1px solid rgba(128,128,128,.15); vertical-align: top; }}
-  th {{ font-size: .7rem; text-transform: uppercase; opacity: .6; }}
-  .charge {{ font-weight: 600; white-space: nowrap; }}
-  .cible {{ display: block; font-weight: 400; opacity: .6; font-size: .8rem; }}
-  .seance {{ opacity: .7; }}
-  p.count {{ opacity: .6; font-size: .85rem; margin: .75rem 0 0; }}
+  :root {{ color-scheme: dark; }}
+  * {{ box-sizing: border-box; }}
+  body {{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0; padding: 1.25rem 1rem 3rem;
+    background: #0a0a0d; color: #f0f0f2;
+  }}
+  .mono {{ font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; }}
+  header {{ display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.25rem; }}
+  h1 {{ font-size: 1.4rem; font-weight: 800; margin: 0; letter-spacing: -.01em; }}
+  .subtitle {{ font-size: .8rem; color: #7a7a85; margin-left: .6rem; }}
+  .subtitle.mono {{ letter-spacing: .02em; }}
+  nav.tabs {{ display: flex; gap: 1.5rem; border-bottom: 1px solid #1c1c22; margin-bottom: 1.25rem; }}
+  nav.tabs span {{ font-size: .95rem; color: #55555f; padding-bottom: .6rem; }}
+  nav.tabs span.active {{ color: #f0f0f2; font-weight: 600; border-bottom: 2px solid #2dd4a0; }}
+  .filter-row {{ display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem; }}
+  .filter-row label {{ font-size: .8rem; color: #7a7a85; }}
+  select#filter {{
+    background: #14141a; color: #f0f0f2; border: 1px solid #262630; border-radius: .5rem;
+    padding: .5rem .7rem; font-size: .9rem; font-family: inherit; min-width: 220px;
+  }}
+  table {{ width: 100%; border-collapse: collapse; font-size: .9rem; }}
+  thead th {{
+    text-align: left; font-size: .7rem; letter-spacing: .04em; text-transform: uppercase;
+    color: #6a6a75; font-weight: 500; padding: .6rem .5rem; border-bottom: 1px solid #1c1c22;
+  }}
+  thead th.wr, thead th.date {{ text-align: right; }}
+  tbody td {{ padding: .8rem .5rem; border-bottom: 1px solid #16161b; vertical-align: middle; }}
+  tbody tr.hidden {{ display: none; }}
+  td.ex {{ font-weight: 600; }}
+  td.wr {{ text-align: right; white-space: nowrap; }}
+  td.date {{ text-align: right; color: #7a7a85; white-space: nowrap; }}
+  p.count {{ color: #55555f; font-size: .8rem; margin-top: 1rem; }}
 </style>
 </head>
 <body>
-<h1>Historique des charges par exercice</h1>
-<input id="filter" type="search" placeholder="Filtrer par nom d'exercice..." autocomplete="off">
-<div id="list">{"".join(sections_html)}
+<header>
+  <div><h1 style="display:inline">Mika Training</h1><span class="subtitle mono">{session_count} séances trackées</span></div>
+</header>
+<nav class="tabs"><span class="active">Historique</span></nav>
+<div class="filter-row">
+  <label for="filter">Exercice</label>
+  <select id="filter" class="mono">
+    <option value="">Tous les exercices</option>
+    {options_html}
+  </select>
 </div>
-<p class="count"><span id="visible-count">{len(history)}</span> / {len(history)} exercices, {total_entries} entrées au total — généré automatiquement depuis Notion</p>
+<table>
+  <thead>
+    <tr><th>Exercice</th><th class="wr">Poids × Répétitions</th><th class="date">Date</th></tr>
+  </thead>
+  <tbody class="mono">{"".join(rows_html)}
+  </tbody>
+</table>
+<p class="count"><span id="visible-count">{len(all_entries)}</span> / {len(all_entries)} entrées — généré automatiquement depuis Notion</p>
 <script>
-  const input = document.getElementById('filter');
-  const blocks = Array.from(document.querySelectorAll('details.ex-block'));
+  const select = document.getElementById('filter');
+  const rows = Array.from(document.querySelectorAll('tbody tr'));
   const countEl = document.getElementById('visible-count');
-  input.addEventListener('input', () => {{
-    const q = input.value.trim().toLowerCase();
+  select.addEventListener('change', () => {{
+    const q = select.value;
     let visible = 0;
-    for (const block of blocks) {{
-      const match = block.querySelector('.ex-name').dataset.name.includes(q);
-      block.classList.toggle('hidden', !match);
+    for (const row of rows) {{
+      const match = !q || row.dataset.exercise === q;
+      row.classList.toggle('hidden', !match);
       if (match) visible++;
     }}
     countEl.textContent = visible;
