@@ -1,3 +1,4 @@
 requests
 icalendar
 tzdata
+caldav==2.2.6
