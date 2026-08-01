@@ -441,6 +441,7 @@ def build_history_html(history: dict) -> str:
     background: #14141a; color: #f0f0f2; border: 1px solid #262630; border-radius: .5rem;
     padding: .5rem .7rem; font-size: .9rem; font-family: inherit; min-width: 220px;
   }}
+  .table-wrap {{ width: 100%; overflow-x: auto; }}
   table {{ width: 100%; border-collapse: collapse; font-size: .9rem; }}
   thead th {{
     text-align: left; font-size: .7rem; letter-spacing: .04em; text-transform: uppercase;
@@ -453,6 +454,19 @@ def build_history_html(history: dict) -> str:
   td.wr {{ text-align: right; white-space: nowrap; }}
   td.date {{ text-align: right; color: #7a7a85; white-space: nowrap; }}
   p.count {{ color: #55555f; font-size: .8rem; margin-top: 1rem; }}
+
+  /* En dessous de 640px : chaque ligne devient une carte empilée au lieu
+     de colonnes côte à côte qui débordent hors de l'écran. */
+  @media (max-width: 640px) {{
+    select#filter {{ min-width: 0; width: 100%; }}
+    table, thead, tbody, tr, td {{ display: block; width: 100%; }}
+    thead {{ display: none; }}
+    tbody tr {{ padding: .7rem 0; border-bottom: 1px solid #16161b; }}
+    tbody td {{ border: none; padding: .1rem 0; text-align: left; white-space: normal; }}
+    td.ex {{ font-size: 1rem; }}
+    td.wr::before {{ content: "Répétitions × Poids : "; color: #6a6a75; font-size: .72rem; }}
+    td.date::before {{ content: "Date : "; color: #6a6a75; font-size: .72rem; }}
+  }}
 </style>
 </head>
 <body>
@@ -467,13 +481,15 @@ def build_history_html(history: dict) -> str:
     {options_html}
   </select>
 </div>
+<div class="table-wrap">
 <table>
   <thead>
-    <tr><th>Exercice</th><th class="wr">Poids × Répétitions</th><th class="date">Date</th></tr>
+    <tr><th>Exercice</th><th class="wr">Répétitions × Poids</th><th class="date">Date</th></tr>
   </thead>
   <tbody class="mono">{"".join(rows_html)}
   </tbody>
 </table>
+</div>
 <p class="count"><span id="visible-count">{len(all_entries)}</span> / {len(all_entries)} entrées — généré automatiquement depuis Notion</p>
 <script>
   const select = document.getElementById('filter');
