@@ -59,8 +59,12 @@
   tbody td { padding: .7rem .5rem; border-bottom: 1px solid #16161b; vertical-align: middle; white-space: nowrap; }
   tbody tr.hidden { display: none; }
   td.date { color: #7a7a85; }
+  .table-wrap td.ex-col { font-weight: 600; white-space: normal; }
   td.charge { font-weight: 600; }
   p.count { color: #55555f; font-size: .8rem; margin-top: 1rem; }
+  /* Colonne Exercice masquée dès qu'un filtre est actif (déjà visible dans
+     le menu déroulant à ce moment-là, redondant sur chaque ligne). */
+  .table-wrap.filtered .ex-col { display: none; }
 
   /* En dessous de 640px : chaque ligne devient une carte empilée au lieu
      de colonnes côte à côte qui débordent hors de l'écran. */
@@ -71,10 +75,11 @@
     tbody tr { padding: .7rem 0; border-bottom: 1px solid #16161b; }
     tbody td { border: none; padding: .1rem 0; text-align: left; white-space: normal; }
     td.date { font-size: .8rem; }
-    td:nth-child(2)::before { content: "Séries : "; color: #6a6a75; font-size: .72rem; }
-    td:nth-child(3)::before { content: "Répétitions : "; color: #6a6a75; font-size: .72rem; }
-    td:nth-child(4)::before { content: "Charge réelle : "; color: #6a6a75; font-size: .72rem; }
-    td:nth-child(5)::before { content: "Récupération : "; color: #6a6a75; font-size: .72rem; }
+    .table-wrap td.ex-col { font-size: 1rem; }
+    td:nth-child(3)::before { content: "Séries : "; color: #6a6a75; font-size: .72rem; }
+    td:nth-child(4)::before { content: "Répétitions : "; color: #6a6a75; font-size: .72rem; }
+    td:nth-child(5)::before { content: "Charge réelle : "; color: #6a6a75; font-size: .72rem; }
+    td:nth-child(6)::before { content: "Récupération : "; color: #6a6a75; font-size: .72rem; }
     td:empty { display: none; }
     summary.seance-row { gap: .4rem .8rem; }
     table.ex-table, table.ex-table thead, table.ex-table tbody, table.ex-table tr, table.ex-table td { display: block; width: 100%; }
@@ -111,11 +116,12 @@
 <div class="table-wrap">
 <table>
   <thead>
-    <tr><th>Date</th><th>Séries</th><th>Répétitions</th><th>Charge réelle</th><th>Récupération</th></tr>
+    <tr><th>Date</th><th class="ex-col">Exercice</th><th>Séries</th><th>Répétitions</th><th>Charge réelle</th><th>Récupération</th></tr>
   </thead>
   <tbody class="mono">
       <tr data-exercise="Legs curl">
         <td class="date"><a href="#seance-3cc9d3f5-b6e7-8099-a585-f1b64f335ea9" class="seance-link" data-seance="3cc9d3f5-b6e7-8099-a585-f1b64f335ea9">31 aoû.</a></td>
+        <td class="ex-col ex">Legs curl</td>
         <td>4</td>
         <td>8 D/G</td>
         <td class="charge">18kg</td>
@@ -123,6 +129,7 @@
       </tr>
       <tr data-exercise="Deadlift Trap Bar">
         <td class="date"><a href="#seance-3c59d3f5-b6e7-809a-b984-c626b7b82616" class="seance-link" data-seance="3c59d3f5-b6e7-809a-b984-c626b7b82616">30 aoû.</a></td>
+        <td class="ex-col ex">Deadlift Trap Bar</td>
         <td>Pyramidal</td>
         <td>6 - 3 - 1 - 2x3</td>
         <td class="charge">110-120-130-123</td>
@@ -130,6 +137,7 @@
       </tr>
       <tr data-exercise="Pull up">
         <td class="date"><a href="#seance-3c59d3f5-b6e7-809a-b984-c626b7b82616" class="seance-link" data-seance="3c59d3f5-b6e7-809a-b984-c626b7b82616">30 aoû.</a></td>
+        <td class="ex-col ex">Pull up</td>
         <td>4</td>
         <td>5</td>
         <td class="charge">25kg</td>
@@ -139,6 +147,7 @@
       </tr>
       <tr data-exercise="Half Kneeling Med Ball Slam">
         <td class="date"><a href="#seance-3c59d3f5-b6e7-80be-84d2-c60be53e1a67" class="seance-link" data-seance="3c59d3f5-b6e7-80be-84d2-c60be53e1a67">28 aoû.</a></td>
+        <td class="ex-col ex">Half Kneeling Med Ball Slam</td>
         <td>4</td>
         <td>10 D/G</td>
         <td class="charge">6kg</td>
@@ -146,6 +155,7 @@
       </tr>
       <tr data-exercise="Landmine rotation switch">
         <td class="date"><a href="#seance-3c59d3f5-b6e7-80be-84d2-c60be53e1a67" class="seance-link" data-seance="3c59d3f5-b6e7-80be-84d2-c60be53e1a67">28 aoû.</a></td>
+        <td class="ex-col ex">Landmine rotation switch</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">10kg</td>
@@ -153,6 +163,7 @@
       </tr>
       <tr data-exercise="Pallof Rotation">
         <td class="date"><a href="#seance-3c59d3f5-b6e7-80be-84d2-c60be53e1a67" class="seance-link" data-seance="3c59d3f5-b6e7-80be-84d2-c60be53e1a67">28 aoû.</a></td>
+        <td class="ex-col ex">Pallof Rotation</td>
         <td>4</td>
         <td>10 D/G</td>
         <td class="charge">10kg</td>
@@ -160,6 +171,7 @@
       </tr>
       <tr data-exercise="Suitcase carry">
         <td class="date"><a href="#seance-3c59d3f5-b6e7-80be-84d2-c60be53e1a67" class="seance-link" data-seance="3c59d3f5-b6e7-80be-84d2-c60be53e1a67">28 aoû.</a></td>
+        <td class="ex-col ex">Suitcase carry</td>
         <td>4</td>
         <td>50m D/G</td>
         <td class="charge">24kg</td>
@@ -167,6 +179,7 @@
       </tr>
       <tr data-exercise="Legs curl">
         <td class="date"><a href="#seance-3c59d3f5-b6e7-80ce-a0b3-e2cf8f91b3f0" class="seance-link" data-seance="3c59d3f5-b6e7-80ce-a0b3-e2cf8f91b3f0">25 aoû.</a></td>
+        <td class="ex-col ex">Legs curl</td>
         <td>4</td>
         <td>8 D/G</td>
         <td class="charge">18kg</td>
@@ -174,6 +187,7 @@
       </tr>
       <tr data-exercise="Half Kneeling Med Ball Slam">
         <td class="date"><a href="#seance-3c19d3f5-b6e7-804d-b2b9-cf244b3e5334" class="seance-link" data-seance="3c19d3f5-b6e7-804d-b2b9-cf244b3e5334">23 aoû.</a></td>
+        <td class="ex-col ex">Half Kneeling Med Ball Slam</td>
         <td>4</td>
         <td>10 D/G</td>
         <td class="charge">6kg</td>
@@ -181,6 +195,7 @@
       </tr>
       <tr data-exercise="Landmine rotation switch">
         <td class="date"><a href="#seance-3c19d3f5-b6e7-804d-b2b9-cf244b3e5334" class="seance-link" data-seance="3c19d3f5-b6e7-804d-b2b9-cf244b3e5334">23 aoû.</a></td>
+        <td class="ex-col ex">Landmine rotation switch</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">10kg</td>
@@ -188,6 +203,7 @@
       </tr>
       <tr data-exercise="Pallof Rotation">
         <td class="date"><a href="#seance-3c19d3f5-b6e7-804d-b2b9-cf244b3e5334" class="seance-link" data-seance="3c19d3f5-b6e7-804d-b2b9-cf244b3e5334">23 aoû.</a></td>
+        <td class="ex-col ex">Pallof Rotation</td>
         <td>4</td>
         <td>10 D/G</td>
         <td class="charge">10kg</td>
@@ -195,6 +211,7 @@
       </tr>
       <tr data-exercise="Suitcase carry">
         <td class="date"><a href="#seance-3c19d3f5-b6e7-804d-b2b9-cf244b3e5334" class="seance-link" data-seance="3c19d3f5-b6e7-804d-b2b9-cf244b3e5334">23 aoû.</a></td>
+        <td class="ex-col ex">Suitcase carry</td>
         <td>4</td>
         <td>50m D/G</td>
         <td class="charge">24kg</td>
@@ -202,6 +219,7 @@
       </tr>
       <tr data-exercise="Biceps curl">
         <td class="date"><a href="#seance-3c19d3f5-b6e7-8051-988b-fdf6e7f33144" class="seance-link" data-seance="3c19d3f5-b6e7-8051-988b-fdf6e7f33144">22 aoû.</a></td>
+        <td class="ex-col ex">Biceps curl</td>
         <td>4</td>
         <td>6 reps prise supination dès le début de la rep</td>
         <td class="charge">14kg strict</td>
@@ -209,6 +227,7 @@
       </tr>
       <tr data-exercise="Deadlift Trap Bar">
         <td class="date"><a href="#seance-3c19d3f5-b6e7-8051-988b-fdf6e7f33144" class="seance-link" data-seance="3c19d3f5-b6e7-8051-988b-fdf6e7f33144">22 aoû.</a></td>
+        <td class="ex-col ex">Deadlift Trap Bar</td>
         <td>Pyramidal</td>
         <td>6 - 3 - 1 - 2x3</td>
         <td class="charge">110-120-130-123</td>
@@ -216,6 +235,7 @@
       </tr>
       <tr data-exercise="Pull up">
         <td class="date"><a href="#seance-3c19d3f5-b6e7-8051-988b-fdf6e7f33144" class="seance-link" data-seance="3c19d3f5-b6e7-8051-988b-fdf6e7f33144">22 aoû.</a></td>
+        <td class="ex-col ex">Pull up</td>
         <td>4</td>
         <td>5</td>
         <td class="charge">25kg</td>
@@ -225,6 +245,7 @@
       </tr>
       <tr data-exercise="Bench Press">
         <td class="date"><a href="#seance-3c19d3f5-b6e7-8094-bdfd-e6dbeeca0a2b" class="seance-link" data-seance="3c19d3f5-b6e7-8094-bdfd-e6dbeeca0a2b">21 aoû.</a></td>
+        <td class="ex-col ex">Bench Press</td>
         <td>Pyramidale</td>
         <td>6 - 3 - 1 - 2x3</td>
         <td class="charge">75kg</td>
@@ -232,6 +253,7 @@
       </tr>
       <tr data-exercise="Skull crushers">
         <td class="date"><a href="#seance-3c19d3f5-b6e7-8094-bdfd-e6dbeeca0a2b" class="seance-link" data-seance="3c19d3f5-b6e7-8094-bdfd-e6dbeeca0a2b">21 aoû.</a></td>
+        <td class="ex-col ex">Skull crushers</td>
         <td>3</td>
         <td>8 reps</td>
         <td class="charge">20kg</td>
@@ -239,6 +261,7 @@
       </tr>
       <tr data-exercise="Strict press">
         <td class="date"><a href="#seance-3c19d3f5-b6e7-8094-bdfd-e6dbeeca0a2b" class="seance-link" data-seance="3c19d3f5-b6e7-8094-bdfd-e6dbeeca0a2b">21 aoû.</a></td>
+        <td class="ex-col ex">Strict press</td>
         <td>4</td>
         <td>5 reps</td>
         <td class="charge">50kg</td>
@@ -248,6 +271,7 @@
       </tr>
       <tr data-exercise="Split Squat">
         <td class="date"><a href="#seance-3c19d3f5-b6e7-80d5-98f1-c33027baef46" class="seance-link" data-seance="3c19d3f5-b6e7-80d5-98f1-c33027baef46">20 aoû.</a></td>
+        <td class="ex-col ex">Split Squat</td>
         <td>4</td>
         <td>5 reps D/G</td>
         <td class="charge">2x12,5kg</td>
@@ -255,6 +279,7 @@
       </tr>
       <tr data-exercise="Squat">
         <td class="date"><a href="#seance-3c19d3f5-b6e7-80d5-98f1-c33027baef46" class="seance-link" data-seance="3c19d3f5-b6e7-80d5-98f1-c33027baef46">20 aoû.</a></td>
+        <td class="ex-col ex">Squat</td>
         <td>4</td>
         <td>5</td>
         <td class="charge">95kg</td>
@@ -264,6 +289,7 @@
       </tr>
       <tr data-exercise="Deadlift">
         <td class="date"><a href="#seance-3b09d3f5-b6e7-80cf-8cbc-d469f4ba2656" class="seance-link" data-seance="3b09d3f5-b6e7-80cf-8cbc-d469f4ba2656">7 aoû.</a></td>
+        <td class="ex-col ex">Deadlift</td>
         <td></td>
         <td></td>
         <td class="charge">1x130kg</td>
@@ -271,6 +297,7 @@
       </tr>
       <tr data-exercise="Assymetrical overhead">
         <td class="date"><a href="#seance-3b09d3f5-b6e7-80a5-84e0-d8e113b9b642" class="seance-link" data-seance="3b09d3f5-b6e7-80a5-84e0-d8e113b9b642">5 aoû.</a></td>
+        <td class="ex-col ex">Assymetrical overhead</td>
         <td></td>
         <td></td>
         <td class="charge">KB 12kg et 20kg</td>
@@ -278,6 +305,7 @@
       </tr>
       <tr data-exercise="Bench Press">
         <td class="date"><a href="#seance-3b09d3f5-b6e7-80a5-84e0-d8e113b9b642" class="seance-link" data-seance="3b09d3f5-b6e7-80a5-84e0-d8e113b9b642">5 aoû.</a></td>
+        <td class="ex-col ex">Bench Press</td>
         <td></td>
         <td></td>
         <td class="charge">1RM 85kg bien plus facile.
@@ -286,6 +314,7 @@
       </tr>
       <tr data-exercise="Skull crushers">
         <td class="date"><a href="#seance-3b09d3f5-b6e7-80a5-84e0-d8e113b9b642" class="seance-link" data-seance="3b09d3f5-b6e7-80a5-84e0-d8e113b9b642">5 aoû.</a></td>
+        <td class="ex-col ex">Skull crushers</td>
         <td></td>
         <td></td>
         <td class="charge">15kg</td>
@@ -293,6 +322,7 @@
       </tr>
       <tr data-exercise="Legs extension">
         <td class="date"><a href="#seance-3b09d3f5-b6e7-8052-8cd0-e2b4f3166288" class="seance-link" data-seance="3b09d3f5-b6e7-8052-8cd0-e2b4f3166288">3 aoû.</a></td>
+        <td class="ex-col ex">Legs extension</td>
         <td></td>
         <td></td>
         <td class="charge">23kg</td>
@@ -300,6 +330,7 @@
       </tr>
       <tr data-exercise="Squat">
         <td class="date"><a href="#seance-3b09d3f5-b6e7-8052-8cd0-e2b4f3166288" class="seance-link" data-seance="3b09d3f5-b6e7-8052-8cd0-e2b4f3166288">3 aoû.</a></td>
+        <td class="ex-col ex">Squat</td>
         <td></td>
         <td></td>
         <td class="charge">3RM 100kg</td>
@@ -307,6 +338,7 @@
       </tr>
       <tr data-exercise="Gorilla row">
         <td class="date"><a href="#seance-3aa9d3f5-b6e7-8002-9e15-c635f864037b" class="seance-link" data-seance="3aa9d3f5-b6e7-8002-9e15-c635f864037b">2 aoû.</a></td>
+        <td class="ex-col ex">Gorilla row</td>
         <td>4</td>
         <td>16 au total</td>
         <td class="charge">2x18kg</td>
@@ -314,6 +346,7 @@
       </tr>
       <tr data-exercise="Renegade Row">
         <td class="date"><a href="#seance-3aa9d3f5-b6e7-8002-9e15-c635f864037b" class="seance-link" data-seance="3aa9d3f5-b6e7-8002-9e15-c635f864037b">2 aoû.</a></td>
+        <td class="ex-col ex">Renegade Row</td>
         <td>4</td>
         <td>8 D/G</td>
         <td class="charge">16kg</td>
@@ -321,6 +354,7 @@
       </tr>
       <tr data-exercise="Floor Press">
         <td class="date"><a href="#seance-3aa9d3f5-b6e7-805e-af7a-fc8363bd840b" class="seance-link" data-seance="3aa9d3f5-b6e7-805e-af7a-fc8363bd840b">29 juil.</a></td>
+        <td class="ex-col ex">Floor Press</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">2x16kg</td>
@@ -328,6 +362,7 @@
       </tr>
       <tr data-exercise="KB Windmill">
         <td class="date"><a href="#seance-3aa9d3f5-b6e7-805e-af7a-fc8363bd840b" class="seance-link" data-seance="3aa9d3f5-b6e7-805e-af7a-fc8363bd840b">29 juil.</a></td>
+        <td class="ex-col ex">KB Windmill</td>
         <td>4</td>
         <td>8 D/G</td>
         <td class="charge">8kg</td>
@@ -335,6 +370,7 @@
       </tr>
       <tr data-exercise="Single Arm Bench Press">
         <td class="date"><a href="#seance-3aa9d3f5-b6e7-805e-af7a-fc8363bd840b" class="seance-link" data-seance="3aa9d3f5-b6e7-805e-af7a-fc8363bd840b">29 juil.</a></td>
+        <td class="ex-col ex">Single Arm Bench Press</td>
         <td>4</td>
         <td>10 D/G</td>
         <td class="charge">12kg</td>
@@ -342,6 +378,7 @@
       </tr>
       <tr data-exercise="Strict press">
         <td class="date"><a href="#seance-3aa9d3f5-b6e7-805e-af7a-fc8363bd840b" class="seance-link" data-seance="3aa9d3f5-b6e7-805e-af7a-fc8363bd840b">29 juil.</a></td>
+        <td class="ex-col ex">Strict press</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">30kg</td>
@@ -349,6 +386,7 @@
       </tr>
       <tr data-exercise="Lunges rotation">
         <td class="date"><a href="#seance-3aa9d3f5-b6e7-8090-8f52-e3c8cda5e4a3" class="seance-link" data-seance="3aa9d3f5-b6e7-8090-8f52-e3c8cda5e4a3">28 juil.</a></td>
+        <td class="ex-col ex">Lunges rotation</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">Test</td>
@@ -356,6 +394,7 @@
       </tr>
       <tr data-exercise="Skull crushers">
         <td class="date"><a href="#seance-3919d3f5-b6e7-8051-87c7-eab65b954fe8" class="seance-link" data-seance="3919d3f5-b6e7-8051-87c7-eab65b954fe8">23 juil.</a></td>
+        <td class="ex-col ex">Skull crushers</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">15kg</td>
@@ -363,6 +402,7 @@
       </tr>
       <tr data-exercise="Biceps curl">
         <td class="date"><a href="#seance-3919d3f5-b6e7-801a-ada0-c3018f26d3c1" class="seance-link" data-seance="3919d3f5-b6e7-801a-ada0-c3018f26d3c1">10 juil.</a></td>
+        <td class="ex-col ex">Biceps curl</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">8kg</td>
@@ -370,6 +410,7 @@
       </tr>
       <tr data-exercise="Pull over">
         <td class="date"><a href="#seance-3919d3f5-b6e7-801a-ada0-c3018f26d3c1" class="seance-link" data-seance="3919d3f5-b6e7-801a-ada0-c3018f26d3c1">10 juil.</a></td>
+        <td class="ex-col ex">Pull over</td>
         <td>4</td>
         <td>8</td>
         <td class="charge">8kg</td>
@@ -377,6 +418,7 @@
       </tr>
       <tr data-exercise="Pull up">
         <td class="date"><a href="#seance-3919d3f5-b6e7-801a-ada0-c3018f26d3c1" class="seance-link" data-seance="3919d3f5-b6e7-801a-ada0-c3018f26d3c1">10 juil.</a></td>
+        <td class="ex-col ex">Pull up</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">15kg</td>
@@ -384,6 +426,7 @@
       </tr>
       <tr data-exercise="Rowing">
         <td class="date"><a href="#seance-3919d3f5-b6e7-801a-ada0-c3018f26d3c1" class="seance-link" data-seance="3919d3f5-b6e7-801a-ada0-c3018f26d3c1">10 juil.</a></td>
+        <td class="ex-col ex">Rowing</td>
         <td>4</td>
         <td>8 D/G</td>
         <td class="charge">50kg</td>
@@ -391,6 +434,7 @@
       </tr>
       <tr data-exercise="Bench Press">
         <td class="date"><a href="#seance-3919d3f5-b6e7-8009-9fc5-d5f4f6b7b64b" class="seance-link" data-seance="3919d3f5-b6e7-8009-9fc5-d5f4f6b7b64b">9 juil.</a></td>
+        <td class="ex-col ex">Bench Press</td>
         <td>4</td>
         <td>8 D/G</td>
         <td class="charge">55kg</td>
@@ -398,6 +442,7 @@
       </tr>
       <tr data-exercise="Dips">
         <td class="date"><a href="#seance-3919d3f5-b6e7-8009-9fc5-d5f4f6b7b64b" class="seance-link" data-seance="3919d3f5-b6e7-8009-9fc5-d5f4f6b7b64b">9 juil.</a></td>
+        <td class="ex-col ex">Dips</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">40kg</td>
@@ -405,6 +450,7 @@
       </tr>
       <tr data-exercise="Dumbell Chest Press">
         <td class="date"><a href="#seance-3919d3f5-b6e7-8009-9fc5-d5f4f6b7b64b" class="seance-link" data-seance="3919d3f5-b6e7-8009-9fc5-d5f4f6b7b64b">9 juil.</a></td>
+        <td class="ex-col ex">Dumbell Chest Press</td>
         <td>4</td>
         <td>8</td>
         <td class="charge">2x12kg</td>
@@ -412,6 +458,7 @@
       </tr>
       <tr data-exercise="Deadlift">
         <td class="date"><a href="#seance-3919d3f5-b6e7-80f3-b984-e9addf5e16c1" class="seance-link" data-seance="3919d3f5-b6e7-80f3-b984-e9addf5e16c1">7 juil.</a></td>
+        <td class="ex-col ex">Deadlift</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">60kg</td>
@@ -419,6 +466,7 @@
       </tr>
       <tr data-exercise="Hip Thrust">
         <td class="date"><a href="#seance-3919d3f5-b6e7-80f3-b984-e9addf5e16c1" class="seance-link" data-seance="3919d3f5-b6e7-80f3-b984-e9addf5e16c1">7 juil.</a></td>
+        <td class="ex-col ex">Hip Thrust</td>
         <td>4</td>
         <td>8</td>
         <td class="charge">60kg</td>
@@ -426,6 +474,7 @@
       </tr>
       <tr data-exercise="Single-Leg RDL">
         <td class="date"><a href="#seance-3919d3f5-b6e7-80f3-b984-e9addf5e16c1" class="seance-link" data-seance="3919d3f5-b6e7-80f3-b984-e9addf5e16c1">7 juil.</a></td>
+        <td class="ex-col ex">Single-Leg RDL</td>
         <td>4</td>
         <td>8 D/G</td>
         <td class="charge">30kg</td>
@@ -433,6 +482,7 @@
       </tr>
       <tr data-exercise="Cossack Squat">
         <td class="date"><a href="#seance-3919d3f5-b6e7-80a3-9ffd-c469caf40a2d" class="seance-link" data-seance="3919d3f5-b6e7-80a3-9ffd-c469caf40a2d">6 juil.</a></td>
+        <td class="ex-col ex">Cossack Squat</td>
         <td>4</td>
         <td>12 au total</td>
         <td class="charge">DB 12kg en goblet</td>
@@ -440,6 +490,7 @@
       </tr>
       <tr data-exercise="Split Squat">
         <td class="date"><a href="#seance-3919d3f5-b6e7-80a3-9ffd-c469caf40a2d" class="seance-link" data-seance="3919d3f5-b6e7-80a3-9ffd-c469caf40a2d">6 juil.</a></td>
+        <td class="ex-col ex">Split Squat</td>
         <td>4</td>
         <td>8 D/G</td>
         <td class="charge">2x8kg</td>
@@ -447,6 +498,7 @@
       </tr>
       <tr data-exercise="Squat">
         <td class="date"><a href="#seance-3919d3f5-b6e7-80a3-9ffd-c469caf40a2d" class="seance-link" data-seance="3919d3f5-b6e7-80a3-9ffd-c469caf40a2d">6 juil.</a></td>
+        <td class="ex-col ex">Squat</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">50kg</td>
@@ -454,6 +506,7 @@
       </tr>
       <tr data-exercise="Cossack Squat">
         <td class="date"><a href="#seance-38d9d3f5-b6e7-8010-a346-e31ade657a01" class="seance-link" data-seance="38d9d3f5-b6e7-8010-a346-e31ade657a01">4 juil.</a></td>
+        <td class="ex-col ex">Cossack Squat</td>
         <td></td>
         <td></td>
         <td class="charge">12kg</td>
@@ -461,6 +514,7 @@
       </tr>
       <tr data-exercise="Jefferson curl">
         <td class="date"><a href="#seance-38d9d3f5-b6e7-8010-a346-e31ade657a01" class="seance-link" data-seance="38d9d3f5-b6e7-8010-a346-e31ade657a01">4 juil.</a></td>
+        <td class="ex-col ex">Jefferson curl</td>
         <td></td>
         <td></td>
         <td class="charge">16kg</td>
@@ -468,6 +522,7 @@
       </tr>
       <tr data-exercise="Jefferson Curl Squat">
         <td class="date"><a href="#seance-38d9d3f5-b6e7-8010-a346-e31ade657a01" class="seance-link" data-seance="38d9d3f5-b6e7-8010-a346-e31ade657a01">4 juil.</a></td>
+        <td class="ex-col ex">Jefferson Curl Squat</td>
         <td></td>
         <td></td>
         <td class="charge">12 kg</td>
@@ -475,6 +530,7 @@
       </tr>
       <tr data-exercise="Loaded Spinal Circle">
         <td class="date"><a href="#seance-38d9d3f5-b6e7-8010-a346-e31ade657a01" class="seance-link" data-seance="38d9d3f5-b6e7-8010-a346-e31ade657a01">4 juil.</a></td>
+        <td class="ex-col ex">Loaded Spinal Circle</td>
         <td></td>
         <td></td>
         <td class="charge">9kg</td>
@@ -482,6 +538,7 @@
       </tr>
       <tr data-exercise="Thoracic Extension Pull-over">
         <td class="date"><a href="#seance-38d9d3f5-b6e7-8010-a346-e31ade657a01" class="seance-link" data-seance="38d9d3f5-b6e7-8010-a346-e31ade657a01">4 juil.</a></td>
+        <td class="ex-col ex">Thoracic Extension Pull-over</td>
         <td></td>
         <td></td>
         <td class="charge">10kg</td>
@@ -489,6 +546,7 @@
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
         <td class="date"><a href="#seance-38d9d3f5-b6e7-8068-84c6-c0369a0d6876" class="seance-link" data-seance="38d9d3f5-b6e7-8068-84c6-c0369a0d6876">1 juil.</a></td>
+        <td class="ex-col ex">Half-Kneeling Landmine Press</td>
         <td></td>
         <td></td>
         <td class="charge">Barre + 10kg</td>
@@ -496,6 +554,7 @@
       </tr>
       <tr data-exercise="Landmine Balistic Row">
         <td class="date"><a href="#seance-38d9d3f5-b6e7-8068-84c6-c0369a0d6876" class="seance-link" data-seance="38d9d3f5-b6e7-8068-84c6-c0369a0d6876">1 juil.</a></td>
+        <td class="ex-col ex">Landmine Balistic Row</td>
         <td></td>
         <td></td>
         <td class="charge">Barre + 15kg</td>
@@ -503,6 +562,7 @@
       </tr>
       <tr data-exercise="Back Extension Iso Hold, Explosive Back Extension">
         <td class="date"><a href="#seance-38d9d3f5-b6e7-800f-b19f-c57b89de59b0" class="seance-link" data-seance="38d9d3f5-b6e7-800f-b19f-c57b89de59b0">30 juin</a></td>
+        <td class="ex-col ex">Back Extension Iso Hold, Explosive Back Extension</td>
         <td></td>
         <td></td>
         <td class="charge">105kg iso Galette 15kg dynamique</td>
@@ -510,6 +570,7 @@
       </tr>
       <tr data-exercise="Hip Thrust, KB swing">
         <td class="date"><a href="#seance-38d9d3f5-b6e7-800f-b19f-c57b89de59b0" class="seance-link" data-seance="38d9d3f5-b6e7-800f-b19f-c57b89de59b0">30 juin</a></td>
+        <td class="ex-col ex">Hip Thrust, KB swing</td>
         <td></td>
         <td></td>
         <td class="charge">150kg + 24kg</td>
@@ -517,6 +578,7 @@
       </tr>
       <tr data-exercise="Unilateral Landmine RDL">
         <td class="date"><a href="#seance-38d9d3f5-b6e7-800f-b19f-c57b89de59b0" class="seance-link" data-seance="38d9d3f5-b6e7-800f-b19f-c57b89de59b0">30 juin</a></td>
+        <td class="ex-col ex">Unilateral Landmine RDL</td>
         <td></td>
         <td></td>
         <td class="charge">Barre + 25kg</td>
@@ -524,6 +586,7 @@
       </tr>
       <tr data-exercise="Cossack Squat">
         <td class="date"><a href="#seance-3869d3f5-b6e7-8066-be56-c4568e7b1d5a" class="seance-link" data-seance="3869d3f5-b6e7-8066-be56-c4568e7b1d5a">26 juin</a></td>
+        <td class="ex-col ex">Cossack Squat</td>
         <td></td>
         <td></td>
         <td class="charge">12kg</td>
@@ -531,6 +594,7 @@
       </tr>
       <tr data-exercise="Jefferson curl">
         <td class="date"><a href="#seance-3869d3f5-b6e7-8066-be56-c4568e7b1d5a" class="seance-link" data-seance="3869d3f5-b6e7-8066-be56-c4568e7b1d5a">26 juin</a></td>
+        <td class="ex-col ex">Jefferson curl</td>
         <td></td>
         <td></td>
         <td class="charge">16kg</td>
@@ -538,6 +602,7 @@
       </tr>
       <tr data-exercise="Jefferson Curl Squat">
         <td class="date"><a href="#seance-3869d3f5-b6e7-8066-be56-c4568e7b1d5a" class="seance-link" data-seance="3869d3f5-b6e7-8066-be56-c4568e7b1d5a">26 juin</a></td>
+        <td class="ex-col ex">Jefferson Curl Squat</td>
         <td></td>
         <td></td>
         <td class="charge">12 kg</td>
@@ -545,6 +610,7 @@
       </tr>
       <tr data-exercise="Loaded Spinal Circle">
         <td class="date"><a href="#seance-3869d3f5-b6e7-8066-be56-c4568e7b1d5a" class="seance-link" data-seance="3869d3f5-b6e7-8066-be56-c4568e7b1d5a">26 juin</a></td>
+        <td class="ex-col ex">Loaded Spinal Circle</td>
         <td></td>
         <td></td>
         <td class="charge">9kg</td>
@@ -552,6 +618,7 @@
       </tr>
       <tr data-exercise="Thoracic Extension Pull-over">
         <td class="date"><a href="#seance-3869d3f5-b6e7-8066-be56-c4568e7b1d5a" class="seance-link" data-seance="3869d3f5-b6e7-8066-be56-c4568e7b1d5a">26 juin</a></td>
+        <td class="ex-col ex">Thoracic Extension Pull-over</td>
         <td></td>
         <td></td>
         <td class="charge">10kg</td>
@@ -559,6 +626,7 @@
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
         <td class="date"><a href="#seance-3869d3f5-b6e7-8092-9e6d-decf1776c44a" class="seance-link" data-seance="3869d3f5-b6e7-8092-9e6d-decf1776c44a">24 juin</a></td>
+        <td class="ex-col ex">Half-Kneeling Landmine Press</td>
         <td></td>
         <td></td>
         <td class="charge">Barre + 10kg</td>
@@ -566,6 +634,7 @@
       </tr>
       <tr data-exercise="Landmine Balistic Row">
         <td class="date"><a href="#seance-3869d3f5-b6e7-8092-9e6d-decf1776c44a" class="seance-link" data-seance="3869d3f5-b6e7-8092-9e6d-decf1776c44a">24 juin</a></td>
+        <td class="ex-col ex">Landmine Balistic Row</td>
         <td></td>
         <td></td>
         <td class="charge">Barre + 15kg</td>
@@ -573,6 +642,7 @@
       </tr>
       <tr data-exercise="Zercher Split Squat, Zercher Lunge">
         <td class="date"><a href="#seance-37f9d3f5-b6e7-808e-94ec-df92b025d666" class="seance-link" data-seance="37f9d3f5-b6e7-808e-94ec-df92b025d666">19 juin</a></td>
+        <td class="ex-col ex">Zercher Split Squat, Zercher Lunge</td>
         <td></td>
         <td></td>
         <td class="charge">Barre + 10kg</td>
@@ -580,6 +650,7 @@
       </tr>
       <tr data-exercise="Cossack Squat">
         <td class="date"><a href="#seance-37f9d3f5-b6e7-8034-8d70-e26ef07db7ef" class="seance-link" data-seance="37f9d3f5-b6e7-8034-8d70-e26ef07db7ef">18 juin</a></td>
+        <td class="ex-col ex">Cossack Squat</td>
         <td></td>
         <td></td>
         <td class="charge">12kg</td>
@@ -587,6 +658,7 @@
       </tr>
       <tr data-exercise="Jefferson curl">
         <td class="date"><a href="#seance-37f9d3f5-b6e7-8034-8d70-e26ef07db7ef" class="seance-link" data-seance="37f9d3f5-b6e7-8034-8d70-e26ef07db7ef">18 juin</a></td>
+        <td class="ex-col ex">Jefferson curl</td>
         <td></td>
         <td></td>
         <td class="charge">16kg</td>
@@ -594,6 +666,7 @@
       </tr>
       <tr data-exercise="Jefferson Curl Squat">
         <td class="date"><a href="#seance-37f9d3f5-b6e7-8034-8d70-e26ef07db7ef" class="seance-link" data-seance="37f9d3f5-b6e7-8034-8d70-e26ef07db7ef">18 juin</a></td>
+        <td class="ex-col ex">Jefferson Curl Squat</td>
         <td></td>
         <td></td>
         <td class="charge">12 kg</td>
@@ -601,6 +674,7 @@
       </tr>
       <tr data-exercise="Loaded Spinal Circle">
         <td class="date"><a href="#seance-37f9d3f5-b6e7-8034-8d70-e26ef07db7ef" class="seance-link" data-seance="37f9d3f5-b6e7-8034-8d70-e26ef07db7ef">18 juin</a></td>
+        <td class="ex-col ex">Loaded Spinal Circle</td>
         <td></td>
         <td></td>
         <td class="charge">9kg</td>
@@ -608,6 +682,7 @@
       </tr>
       <tr data-exercise="Thoracic Extension Pull-over">
         <td class="date"><a href="#seance-37f9d3f5-b6e7-8034-8d70-e26ef07db7ef" class="seance-link" data-seance="37f9d3f5-b6e7-8034-8d70-e26ef07db7ef">18 juin</a></td>
+        <td class="ex-col ex">Thoracic Extension Pull-over</td>
         <td></td>
         <td></td>
         <td class="charge">10kg</td>
@@ -615,6 +690,7 @@
       </tr>
       <tr data-exercise="Back Extension Iso Hold, Explosive Back Extension">
         <td class="date"><a href="#seance-37f9d3f5-b6e7-80c4-925b-d6ae78ee4076" class="seance-link" data-seance="37f9d3f5-b6e7-80c4-925b-d6ae78ee4076">17 juin</a></td>
+        <td class="ex-col ex">Back Extension Iso Hold, Explosive Back Extension</td>
         <td></td>
         <td></td>
         <td class="charge">90kg iso
@@ -623,6 +699,7 @@ Galette 15kg dynamique</td>
       </tr>
       <tr data-exercise="Hip Thrust, KB swing">
         <td class="date"><a href="#seance-37f9d3f5-b6e7-80c4-925b-d6ae78ee4076" class="seance-link" data-seance="37f9d3f5-b6e7-80c4-925b-d6ae78ee4076">17 juin</a></td>
+        <td class="ex-col ex">Hip Thrust, KB swing</td>
         <td></td>
         <td></td>
         <td class="charge">150kg statique 
@@ -631,6 +708,7 @@ Galette 15kg dynamique</td>
       </tr>
       <tr data-exercise="Turkish Get-Up Sit-Up">
         <td class="date"><a href="#seance-37f9d3f5-b6e7-80c4-925b-d6ae78ee4076" class="seance-link" data-seance="37f9d3f5-b6e7-80c4-925b-d6ae78ee4076">17 juin</a></td>
+        <td class="ex-col ex">Turkish Get-Up Sit-Up</td>
         <td></td>
         <td></td>
         <td class="charge">10kg</td>
@@ -638,6 +716,7 @@ Galette 15kg dynamique</td>
       </tr>
       <tr data-exercise="Unilateral Landmine RDL">
         <td class="date"><a href="#seance-37f9d3f5-b6e7-80c4-925b-d6ae78ee4076" class="seance-link" data-seance="37f9d3f5-b6e7-80c4-925b-d6ae78ee4076">17 juin</a></td>
+        <td class="ex-col ex">Unilateral Landmine RDL</td>
         <td></td>
         <td></td>
         <td class="charge">Barre + 20kg
@@ -646,6 +725,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
         <td class="date"><a href="#seance-37f9d3f5-b6e7-80a6-a502-de73732a7b5e" class="seance-link" data-seance="37f9d3f5-b6e7-80a6-a502-de73732a7b5e">15 juin</a></td>
+        <td class="ex-col ex">Half-Kneeling Landmine Press</td>
         <td></td>
         <td></td>
         <td class="charge">Barre + 10kg</td>
@@ -653,6 +733,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Landmine Balistic Row">
         <td class="date"><a href="#seance-37f9d3f5-b6e7-80a6-a502-de73732a7b5e" class="seance-link" data-seance="37f9d3f5-b6e7-80a6-a502-de73732a7b5e">15 juin</a></td>
+        <td class="ex-col ex">Landmine Balistic Row</td>
         <td></td>
         <td></td>
         <td class="charge">Barre + 15kg</td>
@@ -660,6 +741,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Assymetrical overhead">
         <td class="date"><a href="#seance-3769d3f5-b6e7-805b-8353-ded50660a985" class="seance-link" data-seance="3769d3f5-b6e7-805b-8353-ded50660a985">12 juin</a></td>
+        <td class="ex-col ex">Assymetrical overhead</td>
         <td></td>
         <td></td>
         <td class="charge">KB 12kg et 20kg</td>
@@ -667,6 +749,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Bench Press">
         <td class="date"><a href="#seance-3769d3f5-b6e7-805b-8353-ded50660a985" class="seance-link" data-seance="3769d3f5-b6e7-805b-8353-ded50660a985">12 juin</a></td>
+        <td class="ex-col ex">Bench Press</td>
         <td></td>
         <td></td>
         <td class="charge">3x 60 kg
@@ -679,6 +762,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Skull crushers">
         <td class="date"><a href="#seance-3769d3f5-b6e7-805b-8353-ded50660a985" class="seance-link" data-seance="3769d3f5-b6e7-805b-8353-ded50660a985">12 juin</a></td>
+        <td class="ex-col ex">Skull crushers</td>
         <td></td>
         <td></td>
         <td class="charge">Barre EZ + 10kg</td>
@@ -686,6 +770,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Biceps curl">
         <td class="date"><a href="#seance-3769d3f5-b6e7-80c2-8d10-ea3a95a14fd3" class="seance-link" data-seance="3769d3f5-b6e7-80c2-8d10-ea3a95a14fd3">9 juin</a></td>
+        <td class="ex-col ex">Biceps curl</td>
         <td></td>
         <td></td>
         <td class="charge">2x 10kg DB</td>
@@ -693,6 +778,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Farmer carry">
         <td class="date"><a href="#seance-3769d3f5-b6e7-80c2-8d10-ea3a95a14fd3" class="seance-link" data-seance="3769d3f5-b6e7-80c2-8d10-ea3a95a14fd3">9 juin</a></td>
+        <td class="ex-col ex">Farmer carry</td>
         <td></td>
         <td></td>
         <td class="charge">2x 24kg KB</td>
@@ -700,6 +786,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pull up">
         <td class="date"><a href="#seance-3769d3f5-b6e7-80c2-8d10-ea3a95a14fd3" class="seance-link" data-seance="3769d3f5-b6e7-80c2-8d10-ea3a95a14fd3">9 juin</a></td>
+        <td class="ex-col ex">Pull up</td>
         <td></td>
         <td></td>
         <td class="charge">3x vide
@@ -713,6 +800,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Seal row">
         <td class="date"><a href="#seance-3769d3f5-b6e7-80c2-8d10-ea3a95a14fd3" class="seance-link" data-seance="3769d3f5-b6e7-80c2-8d10-ea3a95a14fd3">9 juin</a></td>
+        <td class="ex-col ex">Seal row</td>
         <td></td>
         <td></td>
         <td class="charge">2x 16kg DB</td>
@@ -720,6 +808,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Legs curl">
         <td class="date"><a href="#seance-3769d3f5-b6e7-806f-97ae-c782cb0bd787" class="seance-link" data-seance="3769d3f5-b6e7-806f-97ae-c782cb0bd787">8 juin</a></td>
+        <td class="ex-col ex">Legs curl</td>
         <td></td>
         <td></td>
         <td class="charge">50kg</td>
@@ -727,6 +816,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Squat">
         <td class="date"><a href="#seance-3769d3f5-b6e7-806f-97ae-c782cb0bd787" class="seance-link" data-seance="3769d3f5-b6e7-806f-97ae-c782cb0bd787">8 juin</a></td>
+        <td class="ex-col ex">Squat</td>
         <td></td>
         <td></td>
         <td class="charge">3x60
@@ -739,6 +829,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Hip Thrust">
         <td class="date"><a href="#seance-3719d3f5-b6e7-8014-a8d9-c7027dc830f6" class="seance-link" data-seance="3719d3f5-b6e7-8014-a8d9-c7027dc830f6">6 juin</a></td>
+        <td class="ex-col ex">Hip Thrust</td>
         <td></td>
         <td></td>
         <td class="charge">110kg</td>
@@ -746,6 +837,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Split Squat">
         <td class="date"><a href="#seance-3719d3f5-b6e7-8014-a8d9-c7027dc830f6" class="seance-link" data-seance="3719d3f5-b6e7-8014-a8d9-c7027dc830f6">6 juin</a></td>
+        <td class="ex-col ex">Split Squat</td>
         <td></td>
         <td></td>
         <td class="charge">65kg</td>
@@ -753,6 +845,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Suitcase carry">
         <td class="date"><a href="#seance-3719d3f5-b6e7-8014-a8d9-c7027dc830f6" class="seance-link" data-seance="3719d3f5-b6e7-8014-a8d9-c7027dc830f6">6 juin</a></td>
+        <td class="ex-col ex">Suitcase carry</td>
         <td></td>
         <td></td>
         <td class="charge">26kg DB</td>
@@ -760,6 +853,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Front Rack Carry">
         <td class="date"><a href="#seance-3719d3f5-b6e7-8093-ae4a-c164a8be3a4e" class="seance-link" data-seance="3719d3f5-b6e7-8093-ae4a-c164a8be3a4e">4 juin</a></td>
+        <td class="ex-col ex">Front Rack Carry</td>
         <td>4</td>
         <td>40m</td>
         <td class="charge">2x24kg</td>
@@ -767,6 +861,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Half Kneeling Lateral Tilts">
         <td class="date"><a href="#seance-3719d3f5-b6e7-8093-ae4a-c164a8be3a4e" class="seance-link" data-seance="3719d3f5-b6e7-8093-ae4a-c164a8be3a4e">4 juin</a></td>
+        <td class="ex-col ex">Half Kneeling Lateral Tilts</td>
         <td>4</td>
         <td>10 droite et ensuite gauche</td>
         <td class="charge">10kg</td>
@@ -774,6 +869,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Landmine Rotation">
         <td class="date"><a href="#seance-3719d3f5-b6e7-8093-ae4a-c164a8be3a4e" class="seance-link" data-seance="3719d3f5-b6e7-8093-ae4a-c164a8be3a4e">4 juin</a></td>
+        <td class="ex-col ex">Landmine Rotation</td>
         <td>4</td>
         <td>8</td>
         <td class="charge">15kg</td>
@@ -781,6 +877,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
         <td class="date"><a href="#seance-3719d3f5-b6e7-8093-ae4a-c164a8be3a4e" class="seance-link" data-seance="3719d3f5-b6e7-8093-ae4a-c164a8be3a4e">4 juin</a></td>
+        <td class="ex-col ex">Pallof Rotation</td>
         <td>4</td>
         <td>12 faire droite et après gauche.</td>
         <td class="charge">13,5kg</td>
@@ -788,6 +885,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Suitcase carry">
         <td class="date"><a href="#seance-3719d3f5-b6e7-8093-ae4a-c164a8be3a4e" class="seance-link" data-seance="3719d3f5-b6e7-8093-ae4a-c164a8be3a4e">4 juin</a></td>
+        <td class="ex-col ex">Suitcase carry</td>
         <td>3</td>
         <td>40m D/G</td>
         <td class="charge">24kg</td>
@@ -795,6 +893,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Bench Press">
         <td class="date"><a href="#seance-3719d3f5-b6e7-80a4-9edb-da8f44708a4b" class="seance-link" data-seance="3719d3f5-b6e7-80a4-9edb-da8f44708a4b">3 juin</a></td>
+        <td class="ex-col ex">Bench Press</td>
         <td></td>
         <td></td>
         <td class="charge">67,5kg</td>
@@ -802,6 +901,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Strict press">
         <td class="date"><a href="#seance-3719d3f5-b6e7-80a4-9edb-da8f44708a4b" class="seance-link" data-seance="3719d3f5-b6e7-80a4-9edb-da8f44708a4b">3 juin</a></td>
+        <td class="ex-col ex">Strict press</td>
         <td></td>
         <td></td>
         <td class="charge">50kg</td>
@@ -809,6 +909,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
         <td class="date"><a href="#seance-3719d3f5-b6e7-80e4-a75b-fecf63edb6fc" class="seance-link" data-seance="3719d3f5-b6e7-80e4-a75b-fecf63edb6fc">2 juin</a></td>
+        <td class="ex-col ex">Pallof Rotation</td>
         <td></td>
         <td></td>
         <td class="charge">16kg</td>
@@ -816,6 +917,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pull up">
         <td class="date"><a href="#seance-3719d3f5-b6e7-80e4-a75b-fecf63edb6fc" class="seance-link" data-seance="3719d3f5-b6e7-80e4-a75b-fecf63edb6fc">2 juin</a></td>
+        <td class="ex-col ex">Pull up</td>
         <td></td>
         <td></td>
         <td class="charge">5kg</td>
@@ -823,6 +925,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Single-Arm Dumbbell Row">
         <td class="date"><a href="#seance-3719d3f5-b6e7-80e4-a75b-fecf63edb6fc" class="seance-link" data-seance="3719d3f5-b6e7-80e4-a75b-fecf63edb6fc">2 juin</a></td>
+        <td class="ex-col ex">Single-Arm Dumbbell Row</td>
         <td></td>
         <td></td>
         <td class="charge">4D/G à 40kg</td>
@@ -830,6 +933,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Hip Thrust">
         <td class="date"><a href="#seance-36a9d3f5-b6e7-8049-8632-e08e201ec82a" class="seance-link" data-seance="36a9d3f5-b6e7-8049-8632-e08e201ec82a">28 mai</a></td>
+        <td class="ex-col ex">Hip Thrust</td>
         <td></td>
         <td></td>
         <td class="charge">110kg</td>
@@ -837,6 +941,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Split Squat">
         <td class="date"><a href="#seance-36a9d3f5-b6e7-8049-8632-e08e201ec82a" class="seance-link" data-seance="36a9d3f5-b6e7-8049-8632-e08e201ec82a">28 mai</a></td>
+        <td class="ex-col ex">Split Squat</td>
         <td></td>
         <td></td>
         <td class="charge">65kg</td>
@@ -844,6 +949,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Suitcase carry">
         <td class="date"><a href="#seance-36a9d3f5-b6e7-8049-8632-e08e201ec82a" class="seance-link" data-seance="36a9d3f5-b6e7-8049-8632-e08e201ec82a">28 mai</a></td>
+        <td class="ex-col ex">Suitcase carry</td>
         <td></td>
         <td></td>
         <td class="charge">26kg DB</td>
@@ -851,6 +957,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Front Rack Carry">
         <td class="date"><a href="#seance-36a9d3f5-b6e7-801d-b965-c0961ff099be" class="seance-link" data-seance="36a9d3f5-b6e7-801d-b965-c0961ff099be">27 mai</a></td>
+        <td class="ex-col ex">Front Rack Carry</td>
         <td>4</td>
         <td>40m</td>
         <td class="charge">2x20kg</td>
@@ -858,6 +965,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Half Kneeling Lateral Tilts">
         <td class="date"><a href="#seance-36a9d3f5-b6e7-801d-b965-c0961ff099be" class="seance-link" data-seance="36a9d3f5-b6e7-801d-b965-c0961ff099be">27 mai</a></td>
+        <td class="ex-col ex">Half Kneeling Lateral Tilts</td>
         <td>4</td>
         <td>10 droite et ensuite gauche</td>
         <td class="charge">10kg</td>
@@ -865,6 +973,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Landmine Rotation">
         <td class="date"><a href="#seance-36a9d3f5-b6e7-801d-b965-c0961ff099be" class="seance-link" data-seance="36a9d3f5-b6e7-801d-b965-c0961ff099be">27 mai</a></td>
+        <td class="ex-col ex">Landmine Rotation</td>
         <td>4</td>
         <td>8</td>
         <td class="charge">15kg</td>
@@ -872,6 +981,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
         <td class="date"><a href="#seance-36a9d3f5-b6e7-801d-b965-c0961ff099be" class="seance-link" data-seance="36a9d3f5-b6e7-801d-b965-c0961ff099be">27 mai</a></td>
+        <td class="ex-col ex">Pallof Rotation</td>
         <td>4</td>
         <td>12 faire droite et après gauche.</td>
         <td class="charge">12kg</td>
@@ -879,6 +989,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Suitcase carry">
         <td class="date"><a href="#seance-36a9d3f5-b6e7-801d-b965-c0961ff099be" class="seance-link" data-seance="36a9d3f5-b6e7-801d-b965-c0961ff099be">27 mai</a></td>
+        <td class="ex-col ex">Suitcase carry</td>
         <td>3</td>
         <td>40m D/G</td>
         <td class="charge">24kg</td>
@@ -886,6 +997,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Bench Press">
         <td class="date"><a href="#seance-36a9d3f5-b6e7-80e6-8386-c31eebf651f5" class="seance-link" data-seance="36a9d3f5-b6e7-80e6-8386-c31eebf651f5">26 mai</a></td>
+        <td class="ex-col ex">Bench Press</td>
         <td></td>
         <td></td>
         <td class="charge">65kg</td>
@@ -893,6 +1005,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Strict press">
         <td class="date"><a href="#seance-36a9d3f5-b6e7-80e6-8386-c31eebf651f5" class="seance-link" data-seance="36a9d3f5-b6e7-80e6-8386-c31eebf651f5">26 mai</a></td>
+        <td class="ex-col ex">Strict press</td>
         <td></td>
         <td></td>
         <td class="charge">48kg</td>
@@ -900,6 +1013,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
         <td class="date"><a href="#seance-36a9d3f5-b6e7-80f2-b38e-ec519df0a45d" class="seance-link" data-seance="36a9d3f5-b6e7-80f2-b38e-ec519df0a45d">25 mai</a></td>
+        <td class="ex-col ex">Pallof Rotation</td>
         <td></td>
         <td></td>
         <td class="charge">16kg</td>
@@ -907,6 +1021,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Single-Arm Dumbbell Row">
         <td class="date"><a href="#seance-36a9d3f5-b6e7-80f2-b38e-ec519df0a45d" class="seance-link" data-seance="36a9d3f5-b6e7-80f2-b38e-ec519df0a45d">25 mai</a></td>
+        <td class="ex-col ex">Single-Arm Dumbbell Row</td>
         <td></td>
         <td></td>
         <td class="charge">40kg</td>
@@ -914,6 +1029,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Hip Thrust">
         <td class="date"><a href="#seance-3659d3f5-b6e7-80d2-bf20-e78f00062b4b" class="seance-link" data-seance="3659d3f5-b6e7-80d2-bf20-e78f00062b4b">22 mai</a></td>
+        <td class="ex-col ex">Hip Thrust</td>
         <td></td>
         <td></td>
         <td class="charge">100kg sur machine</td>
@@ -921,6 +1037,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Split Squat">
         <td class="date"><a href="#seance-3659d3f5-b6e7-80d2-bf20-e78f00062b4b" class="seance-link" data-seance="3659d3f5-b6e7-80d2-bf20-e78f00062b4b">22 mai</a></td>
+        <td class="ex-col ex">Split Squat</td>
         <td></td>
         <td></td>
         <td class="charge">60kg</td>
@@ -928,6 +1045,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Suitcase carry">
         <td class="date"><a href="#seance-3659d3f5-b6e7-80d2-bf20-e78f00062b4b" class="seance-link" data-seance="3659d3f5-b6e7-80d2-bf20-e78f00062b4b">22 mai</a></td>
+        <td class="ex-col ex">Suitcase carry</td>
         <td></td>
         <td></td>
         <td class="charge">24kg DB</td>
@@ -935,6 +1053,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Bench Press">
         <td class="date"><a href="#seance-3659d3f5-b6e7-8012-8d41-d1dbba39e81d" class="seance-link" data-seance="3659d3f5-b6e7-8012-8d41-d1dbba39e81d">21 mai</a></td>
+        <td class="ex-col ex">Bench Press</td>
         <td></td>
         <td></td>
         <td class="charge">60kg</td>
@@ -942,6 +1061,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pallof Press">
         <td class="date"><a href="#seance-3659d3f5-b6e7-8012-8d41-d1dbba39e81d" class="seance-link" data-seance="3659d3f5-b6e7-8012-8d41-d1dbba39e81d">21 mai</a></td>
+        <td class="ex-col ex">Pallof Press</td>
         <td></td>
         <td></td>
         <td class="charge">11kg</td>
@@ -949,6 +1069,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Strict press">
         <td class="date"><a href="#seance-3659d3f5-b6e7-8012-8d41-d1dbba39e81d" class="seance-link" data-seance="3659d3f5-b6e7-8012-8d41-d1dbba39e81d">21 mai</a></td>
+        <td class="ex-col ex">Strict press</td>
         <td></td>
         <td></td>
         <td class="charge">45kg</td>
@@ -956,6 +1077,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
         <td class="date"><a href="#seance-3659d3f5-b6e7-8059-b1f2-d4af33646fdc" class="seance-link" data-seance="3659d3f5-b6e7-8059-b1f2-d4af33646fdc">20 mai</a></td>
+        <td class="ex-col ex">Pallof Rotation</td>
         <td></td>
         <td></td>
         <td class="charge">13,6kg</td>
@@ -963,6 +1085,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Single-Arm Dumbbell Row">
         <td class="date"><a href="#seance-3659d3f5-b6e7-8059-b1f2-d4af33646fdc" class="seance-link" data-seance="3659d3f5-b6e7-8059-b1f2-d4af33646fdc">20 mai</a></td>
+        <td class="ex-col ex">Single-Arm Dumbbell Row</td>
         <td></td>
         <td></td>
         <td class="charge">38kg</td>
@@ -970,6 +1093,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Deadlift">
         <td class="date"><a href="#seance-2019d3f5-b6e7-83e2-877b-0191ac0f811a" class="seance-link" data-seance="2019d3f5-b6e7-83e2-877b-0191ac0f811a">14 mai</a></td>
+        <td class="ex-col ex">Deadlift</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">60kg</td>
@@ -977,6 +1101,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Push Press Barbell">
         <td class="date"><a href="#seance-2019d3f5-b6e7-83e2-877b-0191ac0f811a" class="seance-link" data-seance="2019d3f5-b6e7-83e2-877b-0191ac0f811a">14 mai</a></td>
+        <td class="ex-col ex">Push Press Barbell</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">40kg</td>
@@ -984,6 +1109,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Rowing">
         <td class="date"><a href="#seance-2019d3f5-b6e7-83e2-877b-0191ac0f811a" class="seance-link" data-seance="2019d3f5-b6e7-83e2-877b-0191ac0f811a">14 mai</a></td>
+        <td class="ex-col ex">Rowing</td>
         <td>4</td>
         <td>8</td>
         <td class="charge">60kg</td>
@@ -991,6 +1117,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Squat">
         <td class="date"><a href="#seance-2019d3f5-b6e7-83e2-877b-0191ac0f811a" class="seance-link" data-seance="2019d3f5-b6e7-83e2-877b-0191ac0f811a">14 mai</a></td>
+        <td class="ex-col ex">Squat</td>
         <td>4</td>
         <td>3</td>
         <td class="charge">90kg</td>
@@ -998,6 +1125,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Bench Press">
         <td class="date"><a href="#seance-3629d3f5-b6e7-809a-bd09-fa9e88f3add0" class="seance-link" data-seance="3629d3f5-b6e7-809a-bd09-fa9e88f3add0">13 mai</a></td>
+        <td class="ex-col ex">Bench Press</td>
         <td>4</td>
         <td>6/8</td>
         <td class="charge">60kg</td>
@@ -1005,6 +1133,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Deadlift">
         <td class="date"><a href="#seance-3559d3f5-b6e7-806c-8845-e1c72b105319" class="seance-link" data-seance="3559d3f5-b6e7-806c-8845-e1c72b105319">7 mai</a></td>
+        <td class="ex-col ex">Deadlift</td>
         <td>4</td>
         <td>12</td>
         <td class="charge">60kg</td>
@@ -1012,6 +1141,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Front Rack Carry">
         <td class="date"><a href="#seance-3559d3f5-b6e7-806c-8845-e1c72b105319" class="seance-link" data-seance="3559d3f5-b6e7-806c-8845-e1c72b105319">7 mai</a></td>
+        <td class="ex-col ex">Front Rack Carry</td>
         <td>4</td>
         <td>40m</td>
         <td class="charge">2x16kg</td>
@@ -1019,6 +1149,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pull over">
         <td class="date"><a href="#seance-3559d3f5-b6e7-806c-8845-e1c72b105319" class="seance-link" data-seance="3559d3f5-b6e7-806c-8845-e1c72b105319">7 mai</a></td>
+        <td class="ex-col ex">Pull over</td>
         <td>4</td>
         <td>12</td>
         <td class="charge">12kg</td>
@@ -1026,6 +1157,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pull up">
         <td class="date"><a href="#seance-3559d3f5-b6e7-806c-8845-e1c72b105319" class="seance-link" data-seance="3559d3f5-b6e7-806c-8845-e1c72b105319">7 mai</a></td>
+        <td class="ex-col ex">Pull up</td>
         <td>4</td>
         <td>4 lesté + 8 à vide</td>
         <td class="charge">5kg</td>
@@ -1033,6 +1165,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Landmine sumo squat">
         <td class="date"><a href="#seance-3559d3f5-b6e7-809d-bdb4-e57ed1fb428e" class="seance-link" data-seance="3559d3f5-b6e7-809d-bdb4-e57ed1fb428e">5 mai</a></td>
+        <td class="ex-col ex">Landmine sumo squat</td>
         <td>4</td>
         <td>12</td>
         <td class="charge">Barre + 25kg</td>
@@ -1040,6 +1173,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Unilateral Landmine RDL">
         <td class="date"><a href="#seance-3559d3f5-b6e7-809d-bdb4-e57ed1fb428e" class="seance-link" data-seance="3559d3f5-b6e7-809d-bdb4-e57ed1fb428e">5 mai</a></td>
+        <td class="ex-col ex">Unilateral Landmine RDL</td>
         <td>4</td>
         <td>8-10 reps D/G</td>
         <td class="charge">Barre + 10kg</td>
@@ -1047,6 +1181,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Zercher Lunge">
         <td class="date"><a href="#seance-3559d3f5-b6e7-809d-bdb4-e57ed1fb428e" class="seance-link" data-seance="3559d3f5-b6e7-809d-bdb4-e57ed1fb428e">5 mai</a></td>
+        <td class="ex-col ex">Zercher Lunge</td>
         <td>4</td>
         <td>10 reps D/G</td>
         <td class="charge">Barre + 5kg</td>
@@ -1054,6 +1189,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Dips bench support">
         <td class="date"><a href="#seance-3559d3f5-b6e7-8028-b833-dfcb7042812c" class="seance-link" data-seance="3559d3f5-b6e7-8028-b833-dfcb7042812c">4 mai</a></td>
+        <td class="ex-col ex">Dips bench support</td>
         <td>4</td>
         <td>4 lesté + 8 poids de corps</td>
         <td class="charge">5kg</td>
@@ -1061,6 +1197,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Rotation">
         <td class="date"><a href="#seance-3559d3f5-b6e7-8028-b833-dfcb7042812c" class="seance-link" data-seance="3559d3f5-b6e7-8028-b833-dfcb7042812c">4 mai</a></td>
+        <td class="ex-col ex">Half-Kneeling Landmine Rotation</td>
         <td>4</td>
         <td>10 D/G</td>
         <td class="charge">10kg</td>
@@ -1068,6 +1205,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Open Chest Press">
         <td class="date"><a href="#seance-3559d3f5-b6e7-8028-b833-dfcb7042812c" class="seance-link" data-seance="3559d3f5-b6e7-8028-b833-dfcb7042812c">4 mai</a></td>
+        <td class="ex-col ex">Open Chest Press</td>
         <td>4</td>
         <td>12</td>
         <td class="charge">2x12kg</td>
@@ -1075,6 +1213,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Single strict press">
         <td class="date"><a href="#seance-3559d3f5-b6e7-8028-b833-dfcb7042812c" class="seance-link" data-seance="3559d3f5-b6e7-8028-b833-dfcb7042812c">4 mai</a></td>
+        <td class="ex-col ex">Single strict press</td>
         <td>4-5</td>
         <td>12</td>
         <td class="charge">10kg</td>
@@ -1082,6 +1221,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Deadlift">
         <td class="date"><a href="#seance-34f9d3f5-b6e7-80bf-8816-f6f899824f40" class="seance-link" data-seance="34f9d3f5-b6e7-80bf-8816-f6f899824f40">30 avr.</a></td>
+        <td class="ex-col ex">Deadlift</td>
         <td>4</td>
         <td>12-15</td>
         <td class="charge">60kg</td>
@@ -1089,6 +1229,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Front Rack Carry">
         <td class="date"><a href="#seance-34f9d3f5-b6e7-80bf-8816-f6f899824f40" class="seance-link" data-seance="34f9d3f5-b6e7-80bf-8816-f6f899824f40">30 avr.</a></td>
+        <td class="ex-col ex">Front Rack Carry</td>
         <td>4</td>
         <td>30” à 1min</td>
         <td class="charge">2x16kg</td>
@@ -1096,6 +1237,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pull over">
         <td class="date"><a href="#seance-34f9d3f5-b6e7-80bf-8816-f6f899824f40" class="seance-link" data-seance="34f9d3f5-b6e7-80bf-8816-f6f899824f40">30 avr.</a></td>
+        <td class="ex-col ex">Pull over</td>
         <td>4</td>
         <td>10-12</td>
         <td class="charge">12kg</td>
@@ -1103,6 +1245,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Cossack Squat">
         <td class="date"><a href="#seance-34f9d3f5-b6e7-8082-a41d-c913978c835c" class="seance-link" data-seance="34f9d3f5-b6e7-8082-a41d-c913978c835c">29 avr.</a></td>
+        <td class="ex-col ex">Cossack Squat</td>
         <td>4</td>
         <td>8 D/G</td>
         <td class="charge">12kg</td>
@@ -1110,6 +1253,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Deep Squat Standing">
         <td class="date"><a href="#seance-34f9d3f5-b6e7-8082-a41d-c913978c835c" class="seance-link" data-seance="34f9d3f5-b6e7-8082-a41d-c913978c835c">29 avr.</a></td>
+        <td class="ex-col ex">Deep Squat Standing</td>
         <td>4</td>
         <td>45” - 1’</td>
         <td class="charge">16kg</td>
@@ -1117,6 +1261,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Jefferson Curl Squat">
         <td class="date"><a href="#seance-34f9d3f5-b6e7-8082-a41d-c913978c835c" class="seance-link" data-seance="34f9d3f5-b6e7-8082-a41d-c913978c835c">29 avr.</a></td>
+        <td class="ex-col ex">Jefferson Curl Squat</td>
         <td>4</td>
         <td>8</td>
         <td class="charge">6kg</td>
@@ -1124,6 +1269,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pigeon Loaded">
         <td class="date"><a href="#seance-34f9d3f5-b6e7-8082-a41d-c913978c835c" class="seance-link" data-seance="34f9d3f5-b6e7-8082-a41d-c913978c835c">29 avr.</a></td>
+        <td class="ex-col ex">Pigeon Loaded</td>
         <td>4</td>
         <td>8 D/G</td>
         <td class="charge">6kg</td>
@@ -1131,6 +1277,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Landmine sumo squat">
         <td class="date"><a href="#seance-34f9d3f5-b6e7-802d-8d9d-cd7c3b817cf3" class="seance-link" data-seance="34f9d3f5-b6e7-802d-8d9d-cd7c3b817cf3">28 avr.</a></td>
+        <td class="ex-col ex">Landmine sumo squat</td>
         <td>4</td>
         <td>12-15</td>
         <td class="charge">Barre + 25kg</td>
@@ -1138,6 +1285,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Unilateral Landmine RDL">
         <td class="date"><a href="#seance-34f9d3f5-b6e7-802d-8d9d-cd7c3b817cf3" class="seance-link" data-seance="34f9d3f5-b6e7-802d-8d9d-cd7c3b817cf3">28 avr.</a></td>
+        <td class="ex-col ex">Unilateral Landmine RDL</td>
         <td>4</td>
         <td>8-10 reps D/G</td>
         <td class="charge">Barre + 10kg</td>
@@ -1145,6 +1293,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Zercher Lunge">
         <td class="date"><a href="#seance-34f9d3f5-b6e7-802d-8d9d-cd7c3b817cf3" class="seance-link" data-seance="34f9d3f5-b6e7-802d-8d9d-cd7c3b817cf3">28 avr.</a></td>
+        <td class="ex-col ex">Zercher Lunge</td>
         <td>4</td>
         <td>10 reps D/G</td>
         <td class="charge">Barre</td>
@@ -1152,6 +1301,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Open Chest Press">
         <td class="date"><a href="#seance-34f9d3f5-b6e7-8018-991b-da8b0f614ea8" class="seance-link" data-seance="34f9d3f5-b6e7-8018-991b-da8b0f614ea8">27 avr.</a></td>
+        <td class="ex-col ex">Open Chest Press</td>
         <td>4</td>
         <td>15</td>
         <td class="charge">2x16kg</td>
@@ -1159,6 +1309,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Single strict press">
         <td class="date"><a href="#seance-34f9d3f5-b6e7-8018-991b-da8b0f614ea8" class="seance-link" data-seance="34f9d3f5-b6e7-8018-991b-da8b0f614ea8">27 avr.</a></td>
+        <td class="ex-col ex">Single strict press</td>
         <td>4-5</td>
         <td>10-12</td>
         <td class="charge">10kg</td>
@@ -1166,6 +1317,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Deadlift">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd" class="seance-link" data-seance="3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd">24 avr.</a></td>
+        <td class="ex-col ex">Deadlift</td>
         <td></td>
         <td></td>
         <td class="charge">100kg</td>
@@ -1173,6 +1325,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Double DB Snatch">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd" class="seance-link" data-seance="3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd">24 avr.</a></td>
+        <td class="ex-col ex">Double DB Snatch</td>
         <td></td>
         <td></td>
         <td class="charge">2x6kg</td>
@@ -1180,6 +1333,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Hip Thrust">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd" class="seance-link" data-seance="3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd">24 avr.</a></td>
+        <td class="ex-col ex">Hip Thrust</td>
         <td></td>
         <td></td>
         <td class="charge">100kg</td>
@@ -1187,6 +1341,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="KB swing">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd" class="seance-link" data-seance="3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd">24 avr.</a></td>
+        <td class="ex-col ex">KB swing</td>
         <td></td>
         <td></td>
         <td class="charge">KB 16kg</td>
@@ -1194,6 +1349,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="thrusters">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd" class="seance-link" data-seance="3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd">24 avr.</a></td>
+        <td class="ex-col ex">thrusters</td>
         <td></td>
         <td></td>
         <td class="charge">2x6kg</td>
@@ -1201,6 +1357,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Trap Bar Jump">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd" class="seance-link" data-seance="3409d3f5-b6e7-80f7-b30f-c8fe26b0a4bd">24 avr.</a></td>
+        <td class="ex-col ex">Trap Bar Jump</td>
         <td></td>
         <td></td>
         <td class="charge">2x16kg</td>
@@ -1208,6 +1365,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Bench Press">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80c8-96d4-e0ecd1353908" class="seance-link" data-seance="3409d3f5-b6e7-80c8-96d4-e0ecd1353908">22 avr.</a></td>
+        <td class="ex-col ex">Bench Press</td>
         <td></td>
         <td></td>
         <td class="charge">70kg</td>
@@ -1215,6 +1373,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Front Rack Carry">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80c8-96d4-e0ecd1353908" class="seance-link" data-seance="3409d3f5-b6e7-80c8-96d4-e0ecd1353908">22 avr.</a></td>
+        <td class="ex-col ex">Front Rack Carry</td>
         <td></td>
         <td></td>
         <td class="charge">2x16kg KB</td>
@@ -1222,6 +1381,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Pull up">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80c8-96d4-e0ecd1353908" class="seance-link" data-seance="3409d3f5-b6e7-80c8-96d4-e0ecd1353908">22 avr.</a></td>
+        <td class="ex-col ex">Pull up</td>
         <td></td>
         <td></td>
         <td class="charge">20kg</td>
@@ -1229,6 +1389,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Push Press DB">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80c8-96d4-e0ecd1353908" class="seance-link" data-seance="3409d3f5-b6e7-80c8-96d4-e0ecd1353908">22 avr.</a></td>
+        <td class="ex-col ex">Push Press DB</td>
         <td></td>
         <td></td>
         <td class="charge">2x8kg DB</td>
@@ -1236,6 +1397,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Rowing">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80c8-96d4-e0ecd1353908" class="seance-link" data-seance="3409d3f5-b6e7-80c8-96d4-e0ecd1353908">22 avr.</a></td>
+        <td class="ex-col ex">Rowing</td>
         <td></td>
         <td></td>
         <td class="charge">50kg</td>
@@ -1243,6 +1405,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Cossak squat landmine">
         <td class="date"><a href="#seance-3409d3f5-b6e7-8081-bbfd-d0c92c52d230" class="seance-link" data-seance="3409d3f5-b6e7-8081-bbfd-d0c92c52d230">20 avr.</a></td>
+        <td class="ex-col ex">Cossak squat landmine</td>
         <td></td>
         <td></td>
         <td class="charge">Barre + 40kg</td>
@@ -1250,6 +1413,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="KB Squat">
         <td class="date"><a href="#seance-3409d3f5-b6e7-8081-bbfd-d0c92c52d230" class="seance-link" data-seance="3409d3f5-b6e7-8081-bbfd-d0c92c52d230">20 avr.</a></td>
+        <td class="ex-col ex">KB Squat</td>
         <td></td>
         <td></td>
         <td class="charge">16kg</td>
@@ -1257,6 +1421,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Sled Push">
         <td class="date"><a href="#seance-3409d3f5-b6e7-8081-bbfd-d0c92c52d230" class="seance-link" data-seance="3409d3f5-b6e7-8081-bbfd-d0c92c52d230">20 avr.</a></td>
+        <td class="ex-col ex">Sled Push</td>
         <td></td>
         <td></td>
         <td class="charge">120kg</td>
@@ -1264,6 +1429,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Split Squat">
         <td class="date"><a href="#seance-3409d3f5-b6e7-8081-bbfd-d0c92c52d230" class="seance-link" data-seance="3409d3f5-b6e7-8081-bbfd-d0c92c52d230">20 avr.</a></td>
+        <td class="ex-col ex">Split Squat</td>
         <td></td>
         <td></td>
         <td class="charge">30kg</td>
@@ -1271,6 +1437,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Squat">
         <td class="date"><a href="#seance-3409d3f5-b6e7-8081-bbfd-d0c92c52d230" class="seance-link" data-seance="3409d3f5-b6e7-8081-bbfd-d0c92c52d230">20 avr.</a></td>
+        <td class="ex-col ex">Squat</td>
         <td></td>
         <td></td>
         <td class="charge">80kg</td>
@@ -1278,6 +1445,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Suitcase carry">
         <td class="date"><a href="#seance-3409d3f5-b6e7-8081-bbfd-d0c92c52d230" class="seance-link" data-seance="3409d3f5-b6e7-8081-bbfd-d0c92c52d230">20 avr.</a></td>
+        <td class="ex-col ex">Suitcase carry</td>
         <td></td>
         <td></td>
         <td class="charge">24kg</td>
@@ -1285,6 +1453,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Floor Press">
         <td class="date"><a href="#seance-3409d3f5-b6e7-8077-9944-df2d28fc1d0d" class="seance-link" data-seance="3409d3f5-b6e7-8077-9944-df2d28fc1d0d">15 avr.</a></td>
+        <td class="ex-col ex">Floor Press</td>
         <td>4</td>
         <td>6-8</td>
         <td class="charge">2x20kg</td>
@@ -1292,6 +1461,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Landmine rotation switch">
         <td class="date"><a href="#seance-3409d3f5-b6e7-8077-9944-df2d28fc1d0d" class="seance-link" data-seance="3409d3f5-b6e7-8077-9944-df2d28fc1d0d">15 avr.</a></td>
+        <td class="ex-col ex">Landmine rotation switch</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">Barre + 5kg</td>
@@ -1299,6 +1469,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Rowing">
         <td class="date"><a href="#seance-3409d3f5-b6e7-8077-9944-df2d28fc1d0d" class="seance-link" data-seance="3409d3f5-b6e7-8077-9944-df2d28fc1d0d">15 avr.</a></td>
+        <td class="ex-col ex">Rowing</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">40kg</td>
@@ -1306,6 +1477,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Seal row">
         <td class="date"><a href="#seance-3409d3f5-b6e7-8077-9944-df2d28fc1d0d" class="seance-link" data-seance="3409d3f5-b6e7-8077-9944-df2d28fc1d0d">15 avr.</a></td>
+        <td class="ex-col ex">Seal row</td>
         <td>4-5</td>
         <td>8-10</td>
         <td class="charge">2x16kg</td>
@@ -1313,6 +1485,7 @@ Pied surélevé pour augmenter amplitude</td>
       </tr>
       <tr data-exercise="Single Arm Bench Press">
         <td class="date"><a href="#seance-3409d3f5-b6e7-8077-9944-df2d28fc1d0d" class="seance-link" data-seance="3409d3f5-b6e7-8077-9944-df2d28fc1d0d">15 avr.</a></td>
+        <td class="ex-col ex">Single Arm Bench Press</td>
         <td>4</td>
         <td>6-8 reps
 D/G</td>
@@ -1321,6 +1494,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Landmine sumo squat">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80a8-b998-d3dbadb9dda8" class="seance-link" data-seance="3409d3f5-b6e7-80a8-b998-d3dbadb9dda8">13 avr.</a></td>
+        <td class="ex-col ex">Landmine sumo squat</td>
         <td>4</td>
         <td>6-8</td>
         <td class="charge">Barre + 50kg</td>
@@ -1328,6 +1502,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Suitcase carry">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80a8-b998-d3dbadb9dda8" class="seance-link" data-seance="3409d3f5-b6e7-80a8-b998-d3dbadb9dda8">13 avr.</a></td>
+        <td class="ex-col ex">Suitcase carry</td>
         <td>4-5</td>
         <td>20 - 40m</td>
         <td class="charge">KB 24 kg</td>
@@ -1335,6 +1510,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Unilateral Landmine RDL">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80a8-b998-d3dbadb9dda8" class="seance-link" data-seance="3409d3f5-b6e7-80a8-b998-d3dbadb9dda8">13 avr.</a></td>
+        <td class="ex-col ex">Unilateral Landmine RDL</td>
         <td>4</td>
         <td>6-8 reps D/G</td>
         <td class="charge">Barre + 10kg</td>
@@ -1342,6 +1518,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Zercher Split Squat">
         <td class="date"><a href="#seance-3409d3f5-b6e7-80a8-b998-d3dbadb9dda8" class="seance-link" data-seance="3409d3f5-b6e7-80a8-b998-d3dbadb9dda8">13 avr.</a></td>
+        <td class="ex-col ex">Zercher Split Squat</td>
         <td>4</td>
         <td>8-10 reps 
 D/G</td>
@@ -1350,6 +1527,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Bench Press">
         <td class="date"><a href="#seance-3399d3f5-b6e7-8009-adae-d9bd1a1af795" class="seance-link" data-seance="3399d3f5-b6e7-8009-adae-d9bd1a1af795">10 avr.</a></td>
+        <td class="ex-col ex">Bench Press</td>
         <td></td>
         <td></td>
         <td class="charge">70kg</td>
@@ -1357,6 +1535,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Landmine sumo squat">
         <td class="date"><a href="#seance-3399d3f5-b6e7-8009-adae-d9bd1a1af795" class="seance-link" data-seance="3399d3f5-b6e7-8009-adae-d9bd1a1af795">10 avr.</a></td>
+        <td class="ex-col ex">Landmine sumo squat</td>
         <td></td>
         <td></td>
         <td class="charge">Barre + 50kg</td>
@@ -1364,6 +1543,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Seal row">
         <td class="date"><a href="#seance-3399d3f5-b6e7-8009-adae-d9bd1a1af795" class="seance-link" data-seance="3399d3f5-b6e7-8009-adae-d9bd1a1af795">10 avr.</a></td>
+        <td class="ex-col ex">Seal row</td>
         <td></td>
         <td></td>
         <td class="charge">2x16kg</td>
@@ -1371,6 +1551,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Antirotation Barbell">
         <td class="date"><a href="#seance-3399d3f5-b6e7-802d-bdf7-c3e034ceeae2" class="seance-link" data-seance="3399d3f5-b6e7-802d-bdf7-c3e034ceeae2">7 avr.</a></td>
+        <td class="ex-col ex">Antirotation Barbell</td>
         <td>4</td>
         <td>6 D/G (donc 12 torsion au total)</td>
         <td class="charge">Barre + 10kg</td>
@@ -1378,6 +1559,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Landmine Balistic Row">
         <td class="date"><a href="#seance-3399d3f5-b6e7-802d-bdf7-c3e034ceeae2" class="seance-link" data-seance="3399d3f5-b6e7-802d-bdf7-c3e034ceeae2">7 avr.</a></td>
+        <td class="ex-col ex">Landmine Balistic Row</td>
         <td>4</td>
         <td>4-6</td>
         <td class="charge">Barre + 20kg</td>
@@ -1385,6 +1567,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Push Press Barbell">
         <td class="date"><a href="#seance-3399d3f5-b6e7-802d-bdf7-c3e034ceeae2" class="seance-link" data-seance="3399d3f5-b6e7-802d-bdf7-c3e034ceeae2">7 avr.</a></td>
+        <td class="ex-col ex">Push Press Barbell</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">Barre + 30kg</td>
@@ -1392,6 +1575,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Rowing">
         <td class="date"><a href="#seance-3399d3f5-b6e7-802d-bdf7-c3e034ceeae2" class="seance-link" data-seance="3399d3f5-b6e7-802d-bdf7-c3e034ceeae2">7 avr.</a></td>
+        <td class="ex-col ex">Rowing</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">60kg</td>
@@ -1399,6 +1583,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Single strict press">
         <td class="date"><a href="#seance-3399d3f5-b6e7-802d-bdf7-c3e034ceeae2" class="seance-link" data-seance="3399d3f5-b6e7-802d-bdf7-c3e034ceeae2">7 avr.</a></td>
+        <td class="ex-col ex">Single strict press</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">16kg</td>
@@ -1406,6 +1591,7 @@ D/G</td>
       </tr>
       <tr data-exercise="KB swing">
         <td class="date"><a href="#seance-3399d3f5-b6e7-8083-9f25-dacd2191f5cc" class="seance-link" data-seance="3399d3f5-b6e7-8083-9f25-dacd2191f5cc">6 avr.</a></td>
+        <td class="ex-col ex">KB swing</td>
         <td>3</td>
         <td>12</td>
         <td class="charge">24kg</td>
@@ -1413,6 +1599,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Unilateral Box Jump">
         <td class="date"><a href="#seance-3399d3f5-b6e7-8083-9f25-dacd2191f5cc" class="seance-link" data-seance="3399d3f5-b6e7-8083-9f25-dacd2191f5cc">6 avr.</a></td>
+        <td class="ex-col ex">Unilateral Box Jump</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">50cm</td>
@@ -1420,6 +1607,7 @@ D/G</td>
       </tr>
       <tr data-exercise="KB swing">
         <td class="date"><a href="#seance-3319d3f5-b6e7-800a-8066-e1d22de499cd" class="seance-link" data-seance="3319d3f5-b6e7-800a-8066-e1d22de499cd">2 avr.</a></td>
+        <td class="ex-col ex">KB swing</td>
         <td>3</td>
         <td>12</td>
         <td class="charge">24kg</td>
@@ -1427,6 +1615,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Unilateral Box Jump">
         <td class="date"><a href="#seance-3319d3f5-b6e7-800a-8066-e1d22de499cd" class="seance-link" data-seance="3319d3f5-b6e7-800a-8066-e1d22de499cd">2 avr.</a></td>
+        <td class="ex-col ex">Unilateral Box Jump</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">50cm</td>
@@ -1434,6 +1623,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
         <td class="date"><a href="#seance-3319d3f5-b6e7-8073-92d1-db39ca92704e" class="seance-link" data-seance="3319d3f5-b6e7-8073-92d1-db39ca92704e">31 mars</a></td>
+        <td class="ex-col ex">Half-Kneeling Landmine Press</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">Barre + 15kg</td>
@@ -1441,6 +1631,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Landmine Balistic Row">
         <td class="date"><a href="#seance-3319d3f5-b6e7-8073-92d1-db39ca92704e" class="seance-link" data-seance="3319d3f5-b6e7-8073-92d1-db39ca92704e">31 mars</a></td>
+        <td class="ex-col ex">Landmine Balistic Row</td>
         <td>4</td>
         <td>4-6</td>
         <td class="charge">Barre + 20kg</td>
@@ -1448,6 +1639,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Push Press Barbell">
         <td class="date"><a href="#seance-3319d3f5-b6e7-8073-92d1-db39ca92704e" class="seance-link" data-seance="3319d3f5-b6e7-8073-92d1-db39ca92704e">31 mars</a></td>
+        <td class="ex-col ex">Push Press Barbell</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">Barre + 30kg</td>
@@ -1455,6 +1647,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Rowing">
         <td class="date"><a href="#seance-3319d3f5-b6e7-8073-92d1-db39ca92704e" class="seance-link" data-seance="3319d3f5-b6e7-8073-92d1-db39ca92704e">31 mars</a></td>
+        <td class="ex-col ex">Rowing</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">60kg</td>
@@ -1462,6 +1655,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Deadlift">
         <td class="date"><a href="#seance-3319d3f5-b6e7-805a-b136-efd9caf51d9b" class="seance-link" data-seance="3319d3f5-b6e7-805a-b136-efd9caf51d9b">30 mars</a></td>
+        <td class="ex-col ex">Deadlift</td>
         <td>4</td>
         <td>3</td>
         <td class="charge">90kg</td>
@@ -1469,6 +1663,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Step Up Jump">
         <td class="date"><a href="#seance-3319d3f5-b6e7-805a-b136-efd9caf51d9b" class="seance-link" data-seance="3319d3f5-b6e7-805a-b136-efd9caf51d9b">30 mars</a></td>
+        <td class="ex-col ex">Step Up Jump</td>
         <td>4</td>
         <td>6 D/G</td>
         <td class="charge">2x6kg</td>
@@ -1476,6 +1671,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Trap Bar Jump">
         <td class="date"><a href="#seance-3319d3f5-b6e7-805a-b136-efd9caf51d9b" class="seance-link" data-seance="3319d3f5-b6e7-805a-b136-efd9caf51d9b">30 mars</a></td>
+        <td class="ex-col ex">Trap Bar Jump</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">2x14</td>
@@ -1483,6 +1679,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Turkish Get-Up Sit-Up">
         <td class="date"><a href="#seance-3319d3f5-b6e7-805a-b136-efd9caf51d9b" class="seance-link" data-seance="3319d3f5-b6e7-805a-b136-efd9caf51d9b">30 mars</a></td>
+        <td class="ex-col ex">Turkish Get-Up Sit-Up</td>
         <td>4</td>
         <td>6 D/G</td>
         <td class="charge">4kg</td>
@@ -1490,6 +1687,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Cossack Squat">
         <td class="date"><a href="#seance-32b9d3f5-b6e7-8043-bf04-cbccc8eab405" class="seance-link" data-seance="32b9d3f5-b6e7-8043-bf04-cbccc8eab405">27 mars</a></td>
+        <td class="ex-col ex">Cossack Squat</td>
         <td>3</td>
         <td>10</td>
         <td class="charge">20kg</td>
@@ -1497,6 +1695,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Jefferson Curl Squat">
         <td class="date"><a href="#seance-32b9d3f5-b6e7-8043-bf04-cbccc8eab405" class="seance-link" data-seance="32b9d3f5-b6e7-8043-bf04-cbccc8eab405">27 mars</a></td>
+        <td class="ex-col ex">Jefferson Curl Squat</td>
         <td>3</td>
         <td>5</td>
         <td class="charge">KB 6kg</td>
@@ -1504,6 +1703,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Single-Leg RDL">
         <td class="date"><a href="#seance-32b9d3f5-b6e7-8043-bf04-cbccc8eab405" class="seance-link" data-seance="32b9d3f5-b6e7-8043-bf04-cbccc8eab405">27 mars</a></td>
+        <td class="ex-col ex">Single-Leg RDL</td>
         <td>3</td>
         <td>4-6 reps Droite et ensuite gauche</td>
         <td class="charge">13kg</td>
@@ -1511,6 +1711,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Broad Jump">
         <td class="date"><a href="#seance-32b9d3f5-b6e7-8084-9320-cefb73349bf8" class="seance-link" data-seance="32b9d3f5-b6e7-8084-9320-cefb73349bf8">26 mars</a></td>
+        <td class="ex-col ex">Broad Jump</td>
         <td>4</td>
         <td>8</td>
         <td class="charge">2m longueur saut</td>
@@ -1518,6 +1719,7 @@ D/G</td>
       </tr>
       <tr data-exercise="KB swing">
         <td class="date"><a href="#seance-32b9d3f5-b6e7-8084-9320-cefb73349bf8" class="seance-link" data-seance="32b9d3f5-b6e7-8084-9320-cefb73349bf8">26 mars</a></td>
+        <td class="ex-col ex">KB swing</td>
         <td>3</td>
         <td>12</td>
         <td class="charge">KB 24kg.</td>
@@ -1525,6 +1727,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
         <td class="date"><a href="#seance-32b9d3f5-b6e7-80b9-b5ee-e56e959035a7" class="seance-link" data-seance="32b9d3f5-b6e7-80b9-b5ee-e56e959035a7">24 mars</a></td>
+        <td class="ex-col ex">Half-Kneeling Landmine Press</td>
         <td>4</td>
         <td>3-4</td>
         <td class="charge">Barre + 15kg</td>
@@ -1532,6 +1735,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Landmine Balistic Row">
         <td class="date"><a href="#seance-32b9d3f5-b6e7-80b9-b5ee-e56e959035a7" class="seance-link" data-seance="32b9d3f5-b6e7-80b9-b5ee-e56e959035a7">24 mars</a></td>
+        <td class="ex-col ex">Landmine Balistic Row</td>
         <td>4</td>
         <td>3-4</td>
         <td class="charge">Barre + 20kg</td>
@@ -1539,6 +1743,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Push Press Barbell">
         <td class="date"><a href="#seance-32b9d3f5-b6e7-80b9-b5ee-e56e959035a7" class="seance-link" data-seance="32b9d3f5-b6e7-80b9-b5ee-e56e959035a7">24 mars</a></td>
+        <td class="ex-col ex">Push Press Barbell</td>
         <td>4</td>
         <td>5</td>
         <td class="charge">Barre + 30kg</td>
@@ -1546,6 +1751,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Rowing">
         <td class="date"><a href="#seance-32b9d3f5-b6e7-80b9-b5ee-e56e959035a7" class="seance-link" data-seance="32b9d3f5-b6e7-80b9-b5ee-e56e959035a7">24 mars</a></td>
+        <td class="ex-col ex">Rowing</td>
         <td>4</td>
         <td>5</td>
         <td class="charge">60kg</td>
@@ -1553,6 +1759,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Deadlift">
         <td class="date"><a href="#seance-32b9d3f5-b6e7-80bf-84e9-e41e18516b85" class="seance-link" data-seance="32b9d3f5-b6e7-80bf-84e9-e41e18516b85">23 mars</a></td>
+        <td class="ex-col ex">Deadlift</td>
         <td>4</td>
         <td>4 D/G</td>
         <td class="charge">85kg</td>
@@ -1560,6 +1767,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Step Up Jump">
         <td class="date"><a href="#seance-32b9d3f5-b6e7-80bf-84e9-e41e18516b85" class="seance-link" data-seance="32b9d3f5-b6e7-80bf-84e9-e41e18516b85">23 mars</a></td>
+        <td class="ex-col ex">Step Up Jump</td>
         <td>4</td>
         <td>3-4 D/G</td>
         <td class="charge">2x4kg</td>
@@ -1567,6 +1775,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Trap Bar Jump">
         <td class="date"><a href="#seance-32b9d3f5-b6e7-80bf-84e9-e41e18516b85" class="seance-link" data-seance="32b9d3f5-b6e7-80bf-84e9-e41e18516b85">23 mars</a></td>
+        <td class="ex-col ex">Trap Bar Jump</td>
         <td>4</td>
         <td>3-4</td>
         <td class="charge">2x14kg</td>
@@ -1574,6 +1783,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Cossack Squat">
         <td class="date"><a href="#seance-3289d3f5-b6e7-80cc-b7b2-dba229457d4a" class="seance-link" data-seance="3289d3f5-b6e7-80cc-b7b2-dba229457d4a">21 mars</a></td>
+        <td class="ex-col ex">Cossack Squat</td>
         <td>3</td>
         <td>10</td>
         <td class="charge">KB 16kg</td>
@@ -1581,6 +1791,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Rotation">
         <td class="date"><a href="#seance-3289d3f5-b6e7-80cc-b7b2-dba229457d4a" class="seance-link" data-seance="3289d3f5-b6e7-80cc-b7b2-dba229457d4a">21 mars</a></td>
+        <td class="ex-col ex">Half-Kneeling Landmine Rotation</td>
         <td>4-5</td>
         <td>8-10</td>
         <td class="charge">Barre + 5kg</td>
@@ -1588,6 +1799,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Jefferson Curl Squat">
         <td class="date"><a href="#seance-3289d3f5-b6e7-80cc-b7b2-dba229457d4a" class="seance-link" data-seance="3289d3f5-b6e7-80cc-b7b2-dba229457d4a">21 mars</a></td>
+        <td class="ex-col ex">Jefferson Curl Squat</td>
         <td>3</td>
         <td>5</td>
         <td class="charge">KB 6kg</td>
@@ -1595,6 +1807,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Single-Leg RDL">
         <td class="date"><a href="#seance-3289d3f5-b6e7-80cc-b7b2-dba229457d4a" class="seance-link" data-seance="3289d3f5-b6e7-80cc-b7b2-dba229457d4a">21 mars</a></td>
+        <td class="ex-col ex">Single-Leg RDL</td>
         <td>3</td>
         <td>4-6 reps Droite et ensuite gauche</td>
         <td class="charge">6 rep. Barre + 10kg.</td>
@@ -1602,6 +1815,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Back Extension Iso Hold, Hollow">
         <td class="date"><a href="#seance-3249d3f5-b6e7-80cd-a9a9-d0a9d446b3ee" class="seance-link" data-seance="3249d3f5-b6e7-80cd-a9a9-d0a9d446b3ee">19 mars</a></td>
+        <td class="ex-col ex">Back Extension Iso Hold, Hollow</td>
         <td>4</td>
         <td>30 à 1’
 +30s de Hollow</td>
@@ -1611,6 +1825,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Deadlift">
         <td class="date"><a href="#seance-3249d3f5-b6e7-80cd-a9a9-d0a9d446b3ee" class="seance-link" data-seance="3249d3f5-b6e7-80cd-a9a9-d0a9d446b3ee">19 mars</a></td>
+        <td class="ex-col ex">Deadlift</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">60kg</td>
@@ -1618,6 +1833,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Front Rack Carry">
         <td class="date"><a href="#seance-3249d3f5-b6e7-80cd-a9a9-d0a9d446b3ee" class="seance-link" data-seance="3249d3f5-b6e7-80cd-a9a9-d0a9d446b3ee">19 mars</a></td>
+        <td class="ex-col ex">Front Rack Carry</td>
         <td>4</td>
         <td>40m</td>
         <td class="charge">2x20kg</td>
@@ -1625,6 +1841,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Pull up">
         <td class="date"><a href="#seance-3249d3f5-b6e7-8029-9b0f-f52bf14b67b9" class="seance-link" data-seance="3249d3f5-b6e7-8029-9b0f-f52bf14b67b9">17 mars</a></td>
+        <td class="ex-col ex">Pull up</td>
         <td>3</td>
         <td>3</td>
         <td class="charge">17kg</td>
@@ -1632,6 +1849,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Single Arm Bench Press">
         <td class="date"><a href="#seance-3249d3f5-b6e7-8029-9b0f-f52bf14b67b9" class="seance-link" data-seance="3249d3f5-b6e7-8029-9b0f-f52bf14b67b9">17 mars</a></td>
+        <td class="ex-col ex">Single Arm Bench Press</td>
         <td>3</td>
         <td>6 D/G</td>
         <td class="charge">24kg</td>
@@ -1639,6 +1857,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Single-Arm Dumbbell Row">
         <td class="date"><a href="#seance-3249d3f5-b6e7-8029-9b0f-f52bf14b67b9" class="seance-link" data-seance="3249d3f5-b6e7-8029-9b0f-f52bf14b67b9">17 mars</a></td>
+        <td class="ex-col ex">Single-Arm Dumbbell Row</td>
         <td>3</td>
         <td>6 D/G</td>
         <td class="charge">24kg</td>
@@ -1646,6 +1865,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Strict press">
         <td class="date"><a href="#seance-3249d3f5-b6e7-8029-9b0f-f52bf14b67b9" class="seance-link" data-seance="3249d3f5-b6e7-8029-9b0f-f52bf14b67b9">17 mars</a></td>
+        <td class="ex-col ex">Strict press</td>
         <td>3</td>
         <td>3</td>
         <td class="charge">42,5kg</td>
@@ -1653,6 +1873,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Hip Thrust">
         <td class="date"><a href="#seance-3249d3f5-b6e7-8031-af57-f642f1f25f09" class="seance-link" data-seance="3249d3f5-b6e7-8031-af57-f642f1f25f09">16 mars</a></td>
+        <td class="ex-col ex">Hip Thrust</td>
         <td>3</td>
         <td>6 reps</td>
         <td class="charge">6 rep. Barre + 70kg</td>
@@ -1660,6 +1881,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Landmine sumo squat">
         <td class="date"><a href="#seance-3249d3f5-b6e7-8031-af57-f642f1f25f09" class="seance-link" data-seance="3249d3f5-b6e7-8031-af57-f642f1f25f09">16 mars</a></td>
+        <td class="ex-col ex">Landmine sumo squat</td>
         <td>3</td>
         <td>5</td>
         <td class="charge">Barre + 60kg</td>
@@ -1667,6 +1889,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Pallof Press">
         <td class="date"><a href="#seance-3249d3f5-b6e7-8031-af57-f642f1f25f09" class="seance-link" data-seance="3249d3f5-b6e7-8031-af57-f642f1f25f09">16 mars</a></td>
+        <td class="ex-col ex">Pallof Press</td>
         <td>4-5</td>
         <td>8-10</td>
         <td class="charge">11kg</td>
@@ -1674,6 +1897,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Zercher Lunge">
         <td class="date"><a href="#seance-3249d3f5-b6e7-8031-af57-f642f1f25f09" class="seance-link" data-seance="3249d3f5-b6e7-8031-af57-f642f1f25f09">16 mars</a></td>
+        <td class="ex-col ex">Zercher Lunge</td>
         <td>3</td>
         <td>4-6 reps Droite et ensuite gauche</td>
         <td class="charge">6 rep. Barre + 20kg</td>
@@ -1681,6 +1905,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Floor Press">
         <td class="date"><a href="#seance-31d9d3f5-b6e7-8042-936a-f11bf2a3fb71" class="seance-link" data-seance="31d9d3f5-b6e7-8042-936a-f11bf2a3fb71">13 mars</a></td>
+        <td class="ex-col ex">Floor Press</td>
         <td>4</td>
         <td>3-4</td>
         <td class="charge">28kg DB</td>
@@ -1688,6 +1913,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Seal row">
         <td class="date"><a href="#seance-31d9d3f5-b6e7-8042-936a-f11bf2a3fb71" class="seance-link" data-seance="31d9d3f5-b6e7-8042-936a-f11bf2a3fb71">13 mars</a></td>
+        <td class="ex-col ex">Seal row</td>
         <td>3</td>
         <td>3-4</td>
         <td class="charge">22kg DB</td>
@@ -1695,6 +1921,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Single strict press">
         <td class="date"><a href="#seance-31d9d3f5-b6e7-8042-936a-f11bf2a3fb71" class="seance-link" data-seance="31d9d3f5-b6e7-8042-936a-f11bf2a3fb71">13 mars</a></td>
+        <td class="ex-col ex">Single strict press</td>
         <td>3</td>
         <td>6</td>
         <td class="charge">12kg DB</td>
@@ -1702,6 +1929,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Single-Arm Dumbbell Row">
         <td class="date"><a href="#seance-31d9d3f5-b6e7-8042-936a-f11bf2a3fb71" class="seance-link" data-seance="31d9d3f5-b6e7-8042-936a-f11bf2a3fb71">13 mars</a></td>
+        <td class="ex-col ex">Single-Arm Dumbbell Row</td>
         <td>3</td>
         <td>6</td>
         <td class="charge">18kg DB</td>
@@ -1709,6 +1937,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Pull up">
         <td class="date"><a href="#seance-31d9d3f5-b6e7-8003-8a6c-f04b7e53d99c" class="seance-link" data-seance="31d9d3f5-b6e7-8003-8a6c-f04b7e53d99c">10 mars</a></td>
+        <td class="ex-col ex">Pull up</td>
         <td>3</td>
         <td>3</td>
         <td class="charge">16,125kg</td>
@@ -1716,6 +1945,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Renegade Row">
         <td class="date"><a href="#seance-31d9d3f5-b6e7-8003-8a6c-f04b7e53d99c" class="seance-link" data-seance="31d9d3f5-b6e7-8003-8a6c-f04b7e53d99c">10 mars</a></td>
+        <td class="ex-col ex">Renegade Row</td>
         <td>3</td>
         <td>6-8 D/G</td>
         <td class="charge">14</td>
@@ -1723,6 +1953,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Single Arm Floor Press Bridge">
         <td class="date"><a href="#seance-31d9d3f5-b6e7-8003-8a6c-f04b7e53d99c" class="seance-link" data-seance="31d9d3f5-b6e7-8003-8a6c-f04b7e53d99c">10 mars</a></td>
+        <td class="ex-col ex">Single Arm Floor Press Bridge</td>
         <td>3</td>
         <td>6-8 D/G</td>
         <td class="charge">22</td>
@@ -1730,6 +1961,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Strict press">
         <td class="date"><a href="#seance-31d9d3f5-b6e7-8003-8a6c-f04b7e53d99c" class="seance-link" data-seance="31d9d3f5-b6e7-8003-8a6c-f04b7e53d99c">10 mars</a></td>
+        <td class="ex-col ex">Strict press</td>
         <td>3</td>
         <td>3</td>
         <td class="charge">42,5kg</td>
@@ -1737,6 +1969,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Rotation">
         <td class="date"><a href="#seance-3169d3f5-b6e7-8007-ae47-e0125b8badc4" class="seance-link" data-seance="3169d3f5-b6e7-8007-ae47-e0125b8badc4">6 mars</a></td>
+        <td class="ex-col ex">Half-Kneeling Landmine Rotation</td>
         <td>3</td>
         <td>8 D/G</td>
         <td class="charge">Barre + 10kg</td>
@@ -1744,6 +1977,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Pull up">
         <td class="date"><a href="#seance-3169d3f5-b6e7-80e6-a97e-c1311e1a28fc" class="seance-link" data-seance="3169d3f5-b6e7-80e6-a97e-c1311e1a28fc">5 mars</a></td>
+        <td class="ex-col ex">Pull up</td>
         <td>3</td>
         <td>3-4</td>
         <td class="charge">15kg</td>
@@ -1751,6 +1985,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Renegade Row">
         <td class="date"><a href="#seance-3169d3f5-b6e7-80e6-a97e-c1311e1a28fc" class="seance-link" data-seance="3169d3f5-b6e7-80e6-a97e-c1311e1a28fc">5 mars</a></td>
+        <td class="ex-col ex">Renegade Row</td>
         <td>3</td>
         <td>6-8 D/G</td>
         <td class="charge">12kg</td>
@@ -1758,6 +1993,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Single Arm Floor Press Bridge">
         <td class="date"><a href="#seance-3169d3f5-b6e7-80e6-a97e-c1311e1a28fc" class="seance-link" data-seance="3169d3f5-b6e7-80e6-a97e-c1311e1a28fc">5 mars</a></td>
+        <td class="ex-col ex">Single Arm Floor Press Bridge</td>
         <td>3</td>
         <td>6-8 D/G</td>
         <td class="charge">20kg</td>
@@ -1765,6 +2001,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Strict press">
         <td class="date"><a href="#seance-3169d3f5-b6e7-80e6-a97e-c1311e1a28fc" class="seance-link" data-seance="3169d3f5-b6e7-80e6-a97e-c1311e1a28fc">5 mars</a></td>
+        <td class="ex-col ex">Strict press</td>
         <td>3</td>
         <td>3-4</td>
         <td class="charge">40kg</td>
@@ -1772,6 +2009,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Deadlift Trap Bar">
         <td class="date"><a href="#seance-3169d3f5-b6e7-8022-bc35-fd0a27299ebe" class="seance-link" data-seance="3169d3f5-b6e7-8022-bc35-fd0a27299ebe">3 mars</a></td>
+        <td class="ex-col ex">Deadlift Trap Bar</td>
         <td>3</td>
         <td>3</td>
         <td class="charge">100kg barre simple</td>
@@ -1779,6 +2017,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Hip Thrust">
         <td class="date"><a href="#seance-3169d3f5-b6e7-8022-bc35-fd0a27299ebe" class="seance-link" data-seance="3169d3f5-b6e7-8022-bc35-fd0a27299ebe">3 mars</a></td>
+        <td class="ex-col ex">Hip Thrust</td>
         <td>3</td>
         <td>4-6 reps</td>
         <td class="charge">6 rep. Barre + 70kg</td>
@@ -1786,6 +2025,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Pallof Press">
         <td class="date"><a href="#seance-3169d3f5-b6e7-8022-bc35-fd0a27299ebe" class="seance-link" data-seance="3169d3f5-b6e7-8022-bc35-fd0a27299ebe">3 mars</a></td>
+        <td class="ex-col ex">Pallof Press</td>
         <td>4-5</td>
         <td>8-10</td>
         <td class="charge">9kg</td>
@@ -1793,6 +2033,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Unilateral Landmine RDL">
         <td class="date"><a href="#seance-3169d3f5-b6e7-8022-bc35-fd0a27299ebe" class="seance-link" data-seance="3169d3f5-b6e7-8022-bc35-fd0a27299ebe">3 mars</a></td>
+        <td class="ex-col ex">Unilateral Landmine RDL</td>
         <td>3</td>
         <td>4-6 reps Droite et ensuite gauche</td>
         <td class="charge">6 rep. Barre + 20kg</td>
@@ -1800,6 +2041,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Adductor Side Plank on Bench">
         <td class="date"><a href="#seance-3149d3f5-b6e7-8025-9895-c8cfbac1919a" class="seance-link" data-seance="3149d3f5-b6e7-8025-9895-c8cfbac1919a">1 mars</a></td>
+        <td class="ex-col ex">Adductor Side Plank on Bench</td>
         <td>3</td>
         <td>8-10 D/G</td>
         <td class="charge">Barre + 10kg</td>
@@ -1807,6 +2049,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Cossack Squat">
         <td class="date"><a href="#seance-3149d3f5-b6e7-8025-9895-c8cfbac1919a" class="seance-link" data-seance="3149d3f5-b6e7-8025-9895-c8cfbac1919a">1 mars</a></td>
+        <td class="ex-col ex">Cossack Squat</td>
         <td>4</td>
         <td>6-8 reps</td>
         <td class="charge">Barre + 15kg</td>
@@ -1814,6 +2057,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Single Leg Hip Thrust">
         <td class="date"><a href="#seance-3149d3f5-b6e7-8025-9895-c8cfbac1919a" class="seance-link" data-seance="3149d3f5-b6e7-8025-9895-c8cfbac1919a">1 mars</a></td>
+        <td class="ex-col ex">Single Leg Hip Thrust</td>
         <td>3</td>
         <td>8-10 D/G</td>
         <td class="charge">DB 16kg</td>
@@ -1821,6 +2065,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Hip Thrust">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80ea-8643-d47f585b4db0" class="seance-link" data-seance="30f9d3f5-b6e7-80ea-8643-d47f585b4db0">26 fév.</a></td>
+        <td class="ex-col ex">Hip Thrust</td>
         <td>4</td>
         <td>8-10 reps</td>
         <td class="charge">Barre + 40kg</td>
@@ -1828,6 +2073,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Split Squat">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80ea-8643-d47f585b4db0" class="seance-link" data-seance="30f9d3f5-b6e7-80ea-8643-d47f585b4db0">26 fév.</a></td>
+        <td class="ex-col ex">Split Squat</td>
         <td>4</td>
         <td>8 reps D/G</td>
         <td class="charge">2x12kg</td>
@@ -1835,6 +2081,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Squat, Dead Bug">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80ea-8643-d47f585b4db0" class="seance-link" data-seance="30f9d3f5-b6e7-80ea-8643-d47f585b4db0">26 fév.</a></td>
+        <td class="ex-col ex">Squat, Dead Bug</td>
         <td>4</td>
         <td>6-8</td>
         <td class="charge">72,5kg</td>
@@ -1842,6 +2089,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Suitcase carry">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80ea-8643-d47f585b4db0" class="seance-link" data-seance="30f9d3f5-b6e7-80ea-8643-d47f585b4db0">26 fév.</a></td>
+        <td class="ex-col ex">Suitcase carry</td>
         <td>4-5</td>
         <td>20 - 40m</td>
         <td class="charge">KB 24kg</td>
@@ -1849,6 +2097,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Antirotation Barbell">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80a4-a31c-dc1dc4836c66" class="seance-link" data-seance="30f9d3f5-b6e7-80a4-a31c-dc1dc4836c66">24 fév.</a></td>
+        <td class="ex-col ex">Antirotation Barbell</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">Barre à vide</td>
@@ -1856,6 +2105,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80a4-a31c-dc1dc4836c66" class="seance-link" data-seance="30f9d3f5-b6e7-80a4-a31c-dc1dc4836c66">24 fév.</a></td>
+        <td class="ex-col ex">Half-Kneeling Landmine Press</td>
         <td>4</td>
         <td>6-8 reps</td>
         <td class="charge">Barre + 15kg</td>
@@ -1863,6 +2113,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Landmine Rotation">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80a4-a31c-dc1dc4836c66" class="seance-link" data-seance="30f9d3f5-b6e7-80a4-a31c-dc1dc4836c66">24 fév.</a></td>
+        <td class="ex-col ex">Landmine Rotation</td>
         <td>4-5</td>
         <td>8-10</td>
         <td class="charge">Barre + 10kg</td>
@@ -1870,6 +2121,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Single-arm dumbbell row (bench-supported)">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80a4-a31c-dc1dc4836c66" class="seance-link" data-seance="30f9d3f5-b6e7-80a4-a31c-dc1dc4836c66">24 fév.</a></td>
+        <td class="ex-col ex">Single-arm dumbbell row (bench-supported)</td>
         <td>4</td>
         <td>6-8 D/G</td>
         <td class="charge">DB 16kg</td>
@@ -1877,6 +2129,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Back Extension Iso Hold">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80b8-b33e-dfdb1af0dec8" class="seance-link" data-seance="30f9d3f5-b6e7-80b8-b33e-dfdb1af0dec8">23 fév.</a></td>
+        <td class="ex-col ex">Back Extension Iso Hold</td>
         <td>4</td>
         <td>30 à 1’</td>
         <td class="charge">10kg</td>
@@ -1884,6 +2137,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Deadlift">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80b8-b33e-dfdb1af0dec8" class="seance-link" data-seance="30f9d3f5-b6e7-80b8-b33e-dfdb1af0dec8">23 fév.</a></td>
+        <td class="ex-col ex">Deadlift</td>
         <td>4</td>
         <td>6 D/G</td>
         <td class="charge">80kg</td>
@@ -1891,6 +2145,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Jefferson curl">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80b8-b33e-dfdb1af0dec8" class="seance-link" data-seance="30f9d3f5-b6e7-80b8-b33e-dfdb1af0dec8">23 fév.</a></td>
+        <td class="ex-col ex">Jefferson curl</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">KB 12kg</td>
@@ -1898,6 +2153,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Loaded Spinal Circle">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80b8-b33e-dfdb1af0dec8" class="seance-link" data-seance="30f9d3f5-b6e7-80b8-b33e-dfdb1af0dec8">23 fév.</a></td>
+        <td class="ex-col ex">Loaded Spinal Circle</td>
         <td>3</td>
         <td>6 (3 cercles dans un sens et 3 dans l’autre)</td>
         <td class="charge">Médecine ball 10kg</td>
@@ -1905,6 +2161,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
         <td class="date"><a href="#seance-30f9d3f5-b6e7-80b8-b33e-dfdb1af0dec8" class="seance-link" data-seance="30f9d3f5-b6e7-80b8-b33e-dfdb1af0dec8">23 fév.</a></td>
+        <td class="ex-col ex">Pallof Rotation</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">9kg</td>
@@ -1912,6 +2169,7 @@ D/G</td>
       </tr>
       <tr data-exercise="KB swing">
         <td class="date"><a href="#seance-3049d3f5-b6e7-8082-9f40-eff396d4aa38" class="seance-link" data-seance="3049d3f5-b6e7-8082-9f40-eff396d4aa38">20 fév.</a></td>
+        <td class="ex-col ex">KB swing</td>
         <td>3</td>
         <td>10-12</td>
         <td class="charge">KB 24kg.</td>
@@ -1919,6 +2177,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Slam Ball High Pull Triple Extension">
         <td class="date"><a href="#seance-3049d3f5-b6e7-8082-9f40-eff396d4aa38" class="seance-link" data-seance="3049d3f5-b6e7-8082-9f40-eff396d4aa38">20 fév.</a></td>
+        <td class="ex-col ex">Slam Ball High Pull Triple Extension</td>
         <td>3</td>
         <td>8-10</td>
         <td class="charge">Balle 8kg</td>
@@ -1926,6 +2185,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Antirotation Barbell">
         <td class="date"><a href="#seance-3049d3f5-b6e7-8079-8a17-f0e67d99fed8" class="seance-link" data-seance="3049d3f5-b6e7-8079-8a17-f0e67d99fed8">19 fév.</a></td>
+        <td class="ex-col ex">Antirotation Barbell</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">Barre à vide</td>
@@ -1933,6 +2193,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
         <td class="date"><a href="#seance-3049d3f5-b6e7-8079-8a17-f0e67d99fed8" class="seance-link" data-seance="3049d3f5-b6e7-8079-8a17-f0e67d99fed8">19 fév.</a></td>
+        <td class="ex-col ex">Half-Kneeling Landmine Press</td>
         <td>4</td>
         <td>6-8 reps</td>
         <td class="charge">Barre + 10kg</td>
@@ -1940,6 +2201,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Landmine Rotation">
         <td class="date"><a href="#seance-3049d3f5-b6e7-8079-8a17-f0e67d99fed8" class="seance-link" data-seance="3049d3f5-b6e7-8079-8a17-f0e67d99fed8">19 fév.</a></td>
+        <td class="ex-col ex">Landmine Rotation</td>
         <td>4-5</td>
         <td>8-10</td>
         <td class="charge">Barre + 10kg</td>
@@ -1947,6 +2209,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Single deadlift">
         <td class="date"><a href="#seance-3049d3f5-b6e7-8079-8a17-f0e67d99fed8" class="seance-link" data-seance="3049d3f5-b6e7-8079-8a17-f0e67d99fed8">19 fév.</a></td>
+        <td class="ex-col ex">Single deadlift</td>
         <td>4</td>
         <td>6-8 D/G</td>
         <td class="charge">Barre + 10kg</td>
@@ -1954,6 +2217,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Hip Thrust">
         <td class="date"><a href="#seance-3049d3f5-b6e7-80c6-8ddc-d5fe790d01e0" class="seance-link" data-seance="3049d3f5-b6e7-80c6-8ddc-d5fe790d01e0">17 fév.</a></td>
+        <td class="ex-col ex">Hip Thrust</td>
         <td>4</td>
         <td>8-10 reps</td>
         <td class="charge">Barre + 30kg</td>
@@ -1961,6 +2225,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Split Squat">
         <td class="date"><a href="#seance-3049d3f5-b6e7-80c6-8ddc-d5fe790d01e0" class="seance-link" data-seance="3049d3f5-b6e7-80c6-8ddc-d5fe790d01e0">17 fév.</a></td>
+        <td class="ex-col ex">Split Squat</td>
         <td>4</td>
         <td>6-8 reps D/G</td>
         <td class="charge">2x haltère 12kg x 8 rep</td>
@@ -1968,6 +2233,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Squat, Dead Bug">
         <td class="date"><a href="#seance-3049d3f5-b6e7-80c6-8ddc-d5fe790d01e0" class="seance-link" data-seance="3049d3f5-b6e7-80c6-8ddc-d5fe790d01e0">17 fév.</a></td>
+        <td class="ex-col ex">Squat, Dead Bug</td>
         <td>4</td>
         <td>6-8</td>
         <td class="charge">80kg x 6rep</td>
@@ -1975,6 +2241,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Suitcase carry">
         <td class="date"><a href="#seance-3049d3f5-b6e7-80c6-8ddc-d5fe790d01e0" class="seance-link" data-seance="3049d3f5-b6e7-80c6-8ddc-d5fe790d01e0">17 fév.</a></td>
+        <td class="ex-col ex">Suitcase carry</td>
         <td>4-5</td>
         <td>20 - 40m</td>
         <td class="charge">KB 20kg x40m</td>
@@ -1982,6 +2249,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Back Extension Iso Hold">
         <td class="date"><a href="#seance-3049d3f5-b6e7-80bc-874b-f3d341c1bd63" class="seance-link" data-seance="3049d3f5-b6e7-80bc-874b-f3d341c1bd63">16 fév.</a></td>
+        <td class="ex-col ex">Back Extension Iso Hold</td>
         <td>4</td>
         <td>30 à 1’</td>
         <td class="charge">Galette 10kg</td>
@@ -1989,6 +2257,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Deadlift">
         <td class="date"><a href="#seance-3049d3f5-b6e7-80bc-874b-f3d341c1bd63" class="seance-link" data-seance="3049d3f5-b6e7-80bc-874b-f3d341c1bd63">16 fév.</a></td>
+        <td class="ex-col ex">Deadlift</td>
         <td>4</td>
         <td>6 D/G</td>
         <td class="charge">Barre vide 20kg</td>
@@ -1996,6 +2265,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Jefferson curl">
         <td class="date"><a href="#seance-3049d3f5-b6e7-80bc-874b-f3d341c1bd63" class="seance-link" data-seance="3049d3f5-b6e7-80bc-874b-f3d341c1bd63">16 fév.</a></td>
+        <td class="ex-col ex">Jefferson curl</td>
         <td>4</td>
         <td>6</td>
         <td class="charge">KB 6kg</td>
@@ -2003,6 +2273,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Loaded Spinal Circle">
         <td class="date"><a href="#seance-3049d3f5-b6e7-80bc-874b-f3d341c1bd63" class="seance-link" data-seance="3049d3f5-b6e7-80bc-874b-f3d341c1bd63">16 fév.</a></td>
+        <td class="ex-col ex">Loaded Spinal Circle</td>
         <td>3</td>
         <td>6 (3 cercles dans un sens et 3 dans l’autre)</td>
         <td class="charge">Medecine balle 8kg</td>
@@ -2010,6 +2281,7 @@ D/G</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
         <td class="date"><a href="#seance-3049d3f5-b6e7-80bc-874b-f3d341c1bd63" class="seance-link" data-seance="3049d3f5-b6e7-80bc-874b-f3d341c1bd63">16 fév.</a></td>
+        <td class="ex-col ex">Pallof Rotation</td>
         <td>4</td>
         <td>10</td>
         <td class="charge">Elastique</td>
@@ -9124,6 +9396,7 @@ Donc pas de charge lourde</div></td></tr>
   const select = document.getElementById('filter');
   const rows = Array.from(document.querySelectorAll('#tab-historique tbody tr'));
   const countEl = document.getElementById('visible-count');
+  const tableWrap = document.querySelector('#tab-historique .table-wrap');
   select.addEventListener('change', () => {
     const q = select.value;
     let visible = 0;
@@ -9133,6 +9406,7 @@ Donc pas de charge lourde</div></td></tr>
       if (match) visible++;
     }
     countEl.textContent = visible;
+    tableWrap.classList.toggle('filtered', !!q);
   });
 
   const tabs = {
