@@ -472,6 +472,7 @@ def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> 
         rows_html.append(f"""
       <tr data-exercise="{html.escape(name)}">
         <td class="date"><a href="#seance-{html.escape(r['session_id'])}" class="seance-link" data-seance="{html.escape(r['session_id'])}">{html.escape(format_date_fr(r['date']))}</a></td>
+        <td class="ex-col ex">{html.escape(name)}</td>
         <td>{html.escape(r['series'])}</td>
         <td>{html.escape(r['reps'])}</td>
         <td class="charge">{html.escape(r['charge_reelle'])}</td>
@@ -541,8 +542,12 @@ def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> 
   tbody td {{ padding: .7rem .5rem; border-bottom: 1px solid #16161b; vertical-align: middle; white-space: nowrap; }}
   tbody tr.hidden {{ display: none; }}
   td.date {{ color: #7a7a85; }}
+  .table-wrap td.ex-col {{ font-weight: 600; white-space: normal; }}
   td.charge {{ font-weight: 600; }}
   p.count {{ color: #55555f; font-size: .8rem; margin-top: 1rem; }}
+  /* Colonne Exercice masquée dès qu'un filtre est actif (déjà visible dans
+     le menu déroulant à ce moment-là, redondant sur chaque ligne). */
+  .table-wrap.filtered .ex-col {{ display: none; }}
 
   /* En dessous de 640px : chaque ligne devient une carte empilée au lieu
      de colonnes côte à côte qui débordent hors de l'écran. */
@@ -553,10 +558,11 @@ def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> 
     tbody tr {{ padding: .7rem 0; border-bottom: 1px solid #16161b; }}
     tbody td {{ border: none; padding: .1rem 0; text-align: left; white-space: normal; }}
     td.date {{ font-size: .8rem; }}
-    td:nth-child(2)::before {{ content: "Séries : "; color: #6a6a75; font-size: .72rem; }}
-    td:nth-child(3)::before {{ content: "Répétitions : "; color: #6a6a75; font-size: .72rem; }}
-    td:nth-child(4)::before {{ content: "Charge réelle : "; color: #6a6a75; font-size: .72rem; }}
-    td:nth-child(5)::before {{ content: "Récupération : "; color: #6a6a75; font-size: .72rem; }}
+    .table-wrap td.ex-col {{ font-size: 1rem; }}
+    td:nth-child(3)::before {{ content: "Séries : "; color: #6a6a75; font-size: .72rem; }}
+    td:nth-child(4)::before {{ content: "Répétitions : "; color: #6a6a75; font-size: .72rem; }}
+    td:nth-child(5)::before {{ content: "Charge réelle : "; color: #6a6a75; font-size: .72rem; }}
+    td:nth-child(6)::before {{ content: "Récupération : "; color: #6a6a75; font-size: .72rem; }}
     td:empty {{ display: none; }}
     summary.seance-row {{ gap: .4rem .8rem; }}
     table.ex-table, table.ex-table thead, table.ex-table tbody, table.ex-table tr, table.ex-table td {{ display: block; width: 100%; }}
@@ -593,7 +599,7 @@ def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> 
 <div class="table-wrap">
 <table>
   <thead>
-    <tr><th>Date</th><th>Séries</th><th>Répétitions</th><th>Charge réelle</th><th>Récupération</th></tr>
+    <tr><th>Date</th><th class="ex-col">Exercice</th><th>Séries</th><th>Répétitions</th><th>Charge réelle</th><th>Récupération</th></tr>
   </thead>
   <tbody class="mono">{"".join(rows_html)}
   </tbody>
@@ -610,6 +616,7 @@ def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> 
   const select = document.getElementById('filter');
   const rows = Array.from(document.querySelectorAll('#tab-historique tbody tr'));
   const countEl = document.getElementById('visible-count');
+  const tableWrap = document.querySelector('#tab-historique .table-wrap');
   select.addEventListener('change', () => {{
     const q = select.value;
     let visible = 0;
@@ -619,6 +626,7 @@ def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> 
       if (match) visible++;
     }}
     countEl.textContent = visible;
+    tableWrap.classList.toggle('filtered', !!q);
   }});
 
   const tabs = {{
