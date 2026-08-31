@@ -28,17 +28,17 @@
     padding: .5rem .7rem; font-size: .9rem; font-family: inherit; min-width: 220px;
   }
   .table-wrap { width: 100%; overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; }
   thead th {
     text-align: left; font-size: .7rem; letter-spacing: .04em; text-transform: uppercase;
     color: #6a6a75; font-weight: 500; padding: .6rem .5rem; border-bottom: 1px solid #1c1c22;
+    white-space: nowrap;
   }
-  thead th.wr, thead th.date { text-align: right; }
-  tbody td { padding: .8rem .5rem; border-bottom: 1px solid #16161b; vertical-align: middle; }
+  tbody td { padding: .7rem .5rem; border-bottom: 1px solid #16161b; vertical-align: middle; white-space: nowrap; }
   tbody tr.hidden { display: none; }
-  td.ex { font-weight: 600; }
-  td.wr { text-align: right; white-space: nowrap; }
-  td.date { text-align: right; color: #7a7a85; white-space: nowrap; }
+  td.date { color: #7a7a85; }
+  td.ex { font-weight: 600; white-space: normal; }
+  td.charge { font-weight: 600; }
   p.count { color: #55555f; font-size: .8rem; margin-top: 1rem; }
 
   /* En dessous de 640px : chaque ligne devient une carte empilée au lieu
@@ -49,9 +49,13 @@
     thead { display: none; }
     tbody tr { padding: .7rem 0; border-bottom: 1px solid #16161b; }
     tbody td { border: none; padding: .1rem 0; text-align: left; white-space: normal; }
+    td.date { font-size: .8rem; }
     td.ex { font-size: 1rem; }
-    td.wr::before { content: "Répétitions × Poids : "; color: #6a6a75; font-size: .72rem; }
-    td.date::before { content: "Date : "; color: #6a6a75; font-size: .72rem; }
+    td:nth-child(3)::before { content: "Séries : "; color: #6a6a75; font-size: .72rem; }
+    td:nth-child(4)::before { content: "Répétitions : "; color: #6a6a75; font-size: .72rem; }
+    td:nth-child(5)::before { content: "Charge réelle : "; color: #6a6a75; font-size: .72rem; }
+    td:nth-child(6)::before { content: "Récupération : "; color: #6a6a75; font-size: .72rem; }
+    td:empty { display: none; }
   }
 </style>
 </head>
@@ -70,447 +74,710 @@
 <div class="table-wrap">
 <table>
   <thead>
-    <tr><th>Exercice</th><th class="wr">Répétitions × Poids</th><th class="date">Date</th></tr>
+    <tr><th>Date</th><th>Mouvement</th><th>Séries</th><th>Répétitions</th><th>Charge réelle</th><th>Récupération</th></tr>
   </thead>
   <tbody class="mono">
       <tr data-exercise="Legs curl">
-        <td class="ex">Legs curl</td>
-        <td class="wr">4 / 8 D/G @ 18kg</td>
         <td class="date">31 aoû.</td>
+        <td class="ex">Legs curl</td>
+        <td>4</td>
+        <td>8 D/G</td>
+        <td class="charge">18kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Deadlift Trap Bar">
-        <td class="ex">Deadlift Trap Bar</td>
-        <td class="wr">Pyramidal / 6 - 3 - 1 - 2x3 110-120-130-123</td>
         <td class="date">30 aoû.</td>
+        <td class="ex">Deadlift Trap Bar</td>
+        <td>Pyramidal</td>
+        <td>6 - 3 - 1 - 2x3</td>
+        <td class="charge">110-120-130-123</td>
+        <td>2’30 - 3’ - 4’ - 2x3’</td>
       </tr>
       <tr data-exercise="Pull up">
-        <td class="ex">Pull up</td>
-        <td class="wr">4×5 @ 25kg</td>
         <td class="date">30 aoû.</td>
+        <td class="ex">Pull up</td>
+        <td>4</td>
+        <td>5</td>
+        <td class="charge">25kg</td>
+        <td>à partir de la 3 reps tu prends 15s de récup entre la rep 4 et la 5.
+
+  + 4’ à la fin de la série.</td>
       </tr>
       <tr data-exercise="Half Kneeling Med Ball Slam">
-        <td class="ex">Half Kneeling Med Ball Slam</td>
-        <td class="wr">4 / 10 D/G @ 6kg</td>
         <td class="date">28 aoû.</td>
+        <td class="ex">Half Kneeling Med Ball Slam</td>
+        <td>4</td>
+        <td>10 D/G</td>
+        <td class="charge">6kg</td>
+        <td>1</td>
       </tr>
       <tr data-exercise="Landmine rotation switch">
-        <td class="ex">Landmine rotation switch</td>
-        <td class="wr">4×10 @ 10kg</td>
         <td class="date">28 aoû.</td>
+        <td class="ex">Landmine rotation switch</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">10kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
-        <td class="ex">Pallof Rotation</td>
-        <td class="wr">4 / 10 D/G @ 10kg</td>
         <td class="date">28 aoû.</td>
+        <td class="ex">Pallof Rotation</td>
+        <td>4</td>
+        <td>10 D/G</td>
+        <td class="charge">10kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Suitcase carry">
-        <td class="ex">Suitcase carry</td>
-        <td class="wr">4 / 50m D/G @ 24kg</td>
         <td class="date">28 aoû.</td>
+        <td class="ex">Suitcase carry</td>
+        <td>4</td>
+        <td>50m D/G</td>
+        <td class="charge">24kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Legs curl">
-        <td class="ex">Legs curl</td>
-        <td class="wr">4 / 8 D/G @ 18kg</td>
         <td class="date">25 aoû.</td>
+        <td class="ex">Legs curl</td>
+        <td>4</td>
+        <td>8 D/G</td>
+        <td class="charge">18kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Half Kneeling Med Ball Slam">
-        <td class="ex">Half Kneeling Med Ball Slam</td>
-        <td class="wr">4 / 10 D/G @ 6kg</td>
         <td class="date">23 aoû.</td>
+        <td class="ex">Half Kneeling Med Ball Slam</td>
+        <td>4</td>
+        <td>10 D/G</td>
+        <td class="charge">6kg</td>
+        <td>1</td>
       </tr>
       <tr data-exercise="Landmine rotation switch">
-        <td class="ex">Landmine rotation switch</td>
-        <td class="wr">4×10 @ 10kg</td>
         <td class="date">23 aoû.</td>
+        <td class="ex">Landmine rotation switch</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">10kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
-        <td class="ex">Pallof Rotation</td>
-        <td class="wr">4 / 10 D/G @ 10kg</td>
         <td class="date">23 aoû.</td>
+        <td class="ex">Pallof Rotation</td>
+        <td>4</td>
+        <td>10 D/G</td>
+        <td class="charge">10kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Suitcase carry">
-        <td class="ex">Suitcase carry</td>
-        <td class="wr">4 / 50m D/G @ 24kg</td>
         <td class="date">23 aoû.</td>
+        <td class="ex">Suitcase carry</td>
+        <td>4</td>
+        <td>50m D/G</td>
+        <td class="charge">24kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Biceps curl">
-        <td class="ex">Biceps curl</td>
-        <td class="wr">4 / 6 reps prise supination dès le début de la rep 14kg strict</td>
         <td class="date">22 aoû.</td>
+        <td class="ex">Biceps curl</td>
+        <td>4</td>
+        <td>6 reps prise supination dès le début de la rep</td>
+        <td class="charge">14kg strict</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Deadlift Trap Bar">
-        <td class="ex">Deadlift Trap Bar</td>
-        <td class="wr">Pyramidal / 6 - 3 - 1 - 2x3 110-120-130-123</td>
         <td class="date">22 aoû.</td>
+        <td class="ex">Deadlift Trap Bar</td>
+        <td>Pyramidal</td>
+        <td>6 - 3 - 1 - 2x3</td>
+        <td class="charge">110-120-130-123</td>
+        <td>2’30 - 3’ - 4’ - 2x3’</td>
       </tr>
       <tr data-exercise="Pull up">
-        <td class="ex">Pull up</td>
-        <td class="wr">4×5 @ 25kg</td>
         <td class="date">22 aoû.</td>
+        <td class="ex">Pull up</td>
+        <td>4</td>
+        <td>5</td>
+        <td class="charge">25kg</td>
+        <td>à partir de la 3 reps tu prends 15s de récup entre la rep 4 et la 5.
+
+  + 4’ à la fin de la série.</td>
       </tr>
       <tr data-exercise="Bench Press">
-        <td class="ex">Bench Press</td>
-        <td class="wr">Pyramidale / 6 - 3 - 1 - 2x3 @ 75kg</td>
         <td class="date">21 aoû.</td>
+        <td class="ex">Bench Press</td>
+        <td>Pyramidale</td>
+        <td>6 - 3 - 1 - 2x3</td>
+        <td class="charge">75kg</td>
+        <td>2’30 - 3’ - 4’ - 2x3’</td>
       </tr>
       <tr data-exercise="Skull crushers">
-        <td class="ex">Skull crushers</td>
-        <td class="wr">3 / 8 reps @ 20kg</td>
         <td class="date">21 aoû.</td>
+        <td class="ex">Skull crushers</td>
+        <td>3</td>
+        <td>8 reps</td>
+        <td class="charge">20kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Strict press">
-        <td class="ex">Strict press</td>
-        <td class="wr">4 / 5 reps @ 50kg</td>
         <td class="date">21 aoû.</td>
+        <td class="ex">Strict press</td>
+        <td>4</td>
+        <td>5 reps</td>
+        <td class="charge">50kg</td>
+        <td>à partir de la 3 reps tu prends 15s de récup entre la rep 4 et la 5.
+
+  + 4’ à la fin de la série.</td>
       </tr>
       <tr data-exercise="Split Squat">
-        <td class="ex">Split Squat</td>
-        <td class="wr">4 / 5 reps D/G 2x12,5kg</td>
         <td class="date">20 aoû.</td>
+        <td class="ex">Split Squat</td>
+        <td>4</td>
+        <td>5 reps D/G</td>
+        <td class="charge">2x12,5kg</td>
+        <td>2’30 / 3’</td>
       </tr>
       <tr data-exercise="Squat">
-        <td class="ex">Squat</td>
-        <td class="wr">4×5 @ 95kg</td>
         <td class="date">20 aoû.</td>
+        <td class="ex">Squat</td>
+        <td>4</td>
+        <td>5</td>
+        <td class="charge">95kg</td>
+        <td>à partir de la 3 reps tu prends 15/20” de récup entre la rep 4 et la 5.
+
+  + 4’ à la fin de la série.</td>
       </tr>
       <tr data-exercise="Deadlift">
-        <td class="ex">Deadlift</td>
-        <td class="wr">1x130kg</td>
         <td class="date">7 aoû.</td>
+        <td class="ex">Deadlift</td>
+        <td></td>
+        <td></td>
+        <td class="charge">1x130kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Assymetrical overhead">
-        <td class="ex">Assymetrical overhead</td>
-        <td class="wr">KB 12kg et 20kg</td>
         <td class="date">5 aoû.</td>
+        <td class="ex">Assymetrical overhead</td>
+        <td></td>
+        <td></td>
+        <td class="charge">KB 12kg et 20kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Bench Press">
-        <td class="ex">Bench Press</td>
-        <td class="wr">1RM 85kg bien plus facile.
-Échec à 87,5kg</td>
         <td class="date">5 aoû.</td>
+        <td class="ex">Bench Press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">1RM 85kg bien plus facile.
+Échec à 87,5kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Skull crushers">
-        <td class="ex">Skull crushers</td>
-        <td class="wr">@ 15kg</td>
         <td class="date">5 aoû.</td>
+        <td class="ex">Skull crushers</td>
+        <td></td>
+        <td></td>
+        <td class="charge">15kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Legs extension">
-        <td class="ex">Legs extension</td>
-        <td class="wr">@ 23kg</td>
         <td class="date">3 aoû.</td>
+        <td class="ex">Legs extension</td>
+        <td></td>
+        <td></td>
+        <td class="charge">23kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Squat">
-        <td class="ex">Squat</td>
-        <td class="wr">3RM 100kg</td>
         <td class="date">3 aoû.</td>
+        <td class="ex">Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">3RM 100kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Gorilla row">
-        <td class="ex">Gorilla row</td>
-        <td class="wr">4 / 16 au total 2x18kg</td>
         <td class="date">2 aoû.</td>
+        <td class="ex">Gorilla row</td>
+        <td>4</td>
+        <td>16 au total</td>
+        <td class="charge">2x18kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Renegade Row">
-        <td class="ex">Renegade Row</td>
-        <td class="wr">4 / 8 D/G @ 16kg</td>
         <td class="date">2 aoû.</td>
+        <td class="ex">Renegade Row</td>
+        <td>4</td>
+        <td>8 D/G</td>
+        <td class="charge">16kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Floor Press">
-        <td class="ex">Floor Press</td>
-        <td class="wr">4×10 2x16kg</td>
         <td class="date">29 juil.</td>
+        <td class="ex">Floor Press</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">2x16kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="KB Windmill">
-        <td class="ex">KB Windmill</td>
-        <td class="wr">4 / 8 D/G @ 8kg</td>
         <td class="date">29 juil.</td>
+        <td class="ex">KB Windmill</td>
+        <td>4</td>
+        <td>8 D/G</td>
+        <td class="charge">8kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Single Arm Bench Press">
-        <td class="ex">Single Arm Bench Press</td>
-        <td class="wr">4 / 10 D/G @ 12kg</td>
         <td class="date">29 juil.</td>
+        <td class="ex">Single Arm Bench Press</td>
+        <td>4</td>
+        <td>10 D/G</td>
+        <td class="charge">12kg</td>
+        <td>2</td>
       </tr>
       <tr data-exercise="Strict press">
-        <td class="ex">Strict press</td>
-        <td class="wr">4×10 @ 30kg</td>
         <td class="date">29 juil.</td>
+        <td class="ex">Strict press</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">30kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Lunges rotation">
-        <td class="ex">Lunges rotation</td>
-        <td class="wr">4×10 Test</td>
         <td class="date">28 juil.</td>
+        <td class="ex">Lunges rotation</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">Test</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Skull crushers">
-        <td class="ex">Skull crushers</td>
-        <td class="wr">4×10 @ 15kg</td>
         <td class="date">23 juil.</td>
+        <td class="ex">Skull crushers</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">15kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Biceps curl">
-        <td class="ex">Biceps curl</td>
-        <td class="wr">4×10 @ 8kg</td>
         <td class="date">10 juil.</td>
+        <td class="ex">Biceps curl</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">8kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Pull over">
-        <td class="ex">Pull over</td>
-        <td class="wr">4×8 @ 8kg</td>
         <td class="date">10 juil.</td>
+        <td class="ex">Pull over</td>
+        <td>4</td>
+        <td>8</td>
+        <td class="charge">8kg</td>
+        <td>2</td>
       </tr>
       <tr data-exercise="Pull up">
-        <td class="ex">Pull up</td>
-        <td class="wr">4×6 @ 15kg</td>
         <td class="date">10 juil.</td>
+        <td class="ex">Pull up</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">15kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Rowing">
-        <td class="ex">Rowing</td>
-        <td class="wr">4 / 8 D/G @ 50kg</td>
         <td class="date">10 juil.</td>
+        <td class="ex">Rowing</td>
+        <td>4</td>
+        <td>8 D/G</td>
+        <td class="charge">50kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Bench Press">
-        <td class="ex">Bench Press</td>
-        <td class="wr">4 / 8 D/G @ 55kg</td>
         <td class="date">9 juil.</td>
+        <td class="ex">Bench Press</td>
+        <td>4</td>
+        <td>8 D/G</td>
+        <td class="charge">55kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Dips">
-        <td class="ex">Dips</td>
-        <td class="wr">4×6 @ 40kg</td>
         <td class="date">9 juil.</td>
+        <td class="ex">Dips</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">40kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Dumbell Chest Press">
-        <td class="ex">Dumbell Chest Press</td>
-        <td class="wr">4×8 2x12kg</td>
         <td class="date">9 juil.</td>
+        <td class="ex">Dumbell Chest Press</td>
+        <td>4</td>
+        <td>8</td>
+        <td class="charge">2x12kg</td>
+        <td>2</td>
       </tr>
       <tr data-exercise="Deadlift">
-        <td class="ex">Deadlift</td>
-        <td class="wr">4×10 @ 60kg</td>
         <td class="date">7 juil.</td>
+        <td class="ex">Deadlift</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">60kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Hip Thrust">
-        <td class="ex">Hip Thrust</td>
-        <td class="wr">4×8 @ 60kg</td>
         <td class="date">7 juil.</td>
+        <td class="ex">Hip Thrust</td>
+        <td>4</td>
+        <td>8</td>
+        <td class="charge">60kg</td>
+        <td>2</td>
       </tr>
       <tr data-exercise="Single-Leg RDL">
-        <td class="ex">Single-Leg RDL</td>
-        <td class="wr">4 / 8 D/G @ 30kg</td>
         <td class="date">7 juil.</td>
+        <td class="ex">Single-Leg RDL</td>
+        <td>4</td>
+        <td>8 D/G</td>
+        <td class="charge">30kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Cossack Squat">
-        <td class="ex">Cossack Squat</td>
-        <td class="wr">4 / 12 au total DB 12kg en goblet</td>
         <td class="date">6 juil.</td>
+        <td class="ex">Cossack Squat</td>
+        <td>4</td>
+        <td>12 au total</td>
+        <td class="charge">DB 12kg en goblet</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Split Squat">
-        <td class="ex">Split Squat</td>
-        <td class="wr">4 / 8 D/G 2x8kg</td>
         <td class="date">6 juil.</td>
+        <td class="ex">Split Squat</td>
+        <td>4</td>
+        <td>8 D/G</td>
+        <td class="charge">2x8kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Squat">
-        <td class="ex">Squat</td>
-        <td class="wr">4×6 @ 50kg</td>
         <td class="date">6 juil.</td>
+        <td class="ex">Squat</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">50kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Cossack Squat">
-        <td class="ex">Cossack Squat</td>
-        <td class="wr">@ 12kg</td>
         <td class="date">4 juil.</td>
+        <td class="ex">Cossack Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">12kg</td>
+        <td>1min - 2min</td>
       </tr>
       <tr data-exercise="Jefferson curl">
-        <td class="ex">Jefferson curl</td>
-        <td class="wr">@ 16kg</td>
         <td class="date">4 juil.</td>
+        <td class="ex">Jefferson curl</td>
+        <td></td>
+        <td></td>
+        <td class="charge">16kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Jefferson Curl Squat">
-        <td class="ex">Jefferson Curl Squat</td>
-        <td class="wr">@ 12kg</td>
         <td class="date">4 juil.</td>
+        <td class="ex">Jefferson Curl Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">12 kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Loaded Spinal Circle">
-        <td class="ex">Loaded Spinal Circle</td>
-        <td class="wr">@ 9kg</td>
         <td class="date">4 juil.</td>
+        <td class="ex">Loaded Spinal Circle</td>
+        <td></td>
+        <td></td>
+        <td class="charge">9kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Thoracic Extension Pull-over">
-        <td class="ex">Thoracic Extension Pull-over</td>
-        <td class="wr">@ 10kg</td>
         <td class="date">4 juil.</td>
+        <td class="ex">Thoracic Extension Pull-over</td>
+        <td></td>
+        <td></td>
+        <td class="charge">10kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
-        <td class="ex">Half-Kneeling Landmine Press</td>
-        <td class="wr">Barre + 10kg</td>
         <td class="date">1 juil.</td>
+        <td class="ex">Half-Kneeling Landmine Press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">Barre + 10kg</td>
+        <td>1min - 1min30</td>
       </tr>
       <tr data-exercise="Landmine Balistic Row">
-        <td class="ex">Landmine Balistic Row</td>
-        <td class="wr">Barre + 15kg</td>
         <td class="date">1 juil.</td>
+        <td class="ex">Landmine Balistic Row</td>
+        <td></td>
+        <td></td>
+        <td class="charge">Barre + 15kg</td>
+        <td>1min30</td>
       </tr>
       <tr data-exercise="Back Extension Iso Hold, Explosive Back Extension">
-        <td class="ex">Back Extension Iso Hold, Explosive Back Extension</td>
-        <td class="wr">105kg iso Galette 15kg dynamique</td>
         <td class="date">30 juin</td>
+        <td class="ex">Back Extension Iso Hold, Explosive Back Extension</td>
+        <td></td>
+        <td></td>
+        <td class="charge">105kg iso Galette 15kg dynamique</td>
+        <td>2min30 - 3min</td>
       </tr>
       <tr data-exercise="Hip Thrust, KB swing">
-        <td class="ex">Hip Thrust, KB swing</td>
-        <td class="wr">150kg + 24kg</td>
         <td class="date">30 juin</td>
+        <td class="ex">Hip Thrust, KB swing</td>
+        <td></td>
+        <td></td>
+        <td class="charge">150kg + 24kg</td>
+        <td>2min</td>
       </tr>
       <tr data-exercise="Unilateral Landmine RDL">
-        <td class="ex">Unilateral Landmine RDL</td>
-        <td class="wr">Barre + 25kg</td>
         <td class="date">30 juin</td>
+        <td class="ex">Unilateral Landmine RDL</td>
+        <td></td>
+        <td></td>
+        <td class="charge">Barre + 25kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Cossack Squat">
-        <td class="ex">Cossack Squat</td>
-        <td class="wr">@ 12kg</td>
         <td class="date">26 juin</td>
+        <td class="ex">Cossack Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">12kg</td>
+        <td>1min - 2min</td>
       </tr>
       <tr data-exercise="Jefferson curl">
-        <td class="ex">Jefferson curl</td>
-        <td class="wr">@ 16kg</td>
         <td class="date">26 juin</td>
+        <td class="ex">Jefferson curl</td>
+        <td></td>
+        <td></td>
+        <td class="charge">16kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Jefferson Curl Squat">
-        <td class="ex">Jefferson Curl Squat</td>
-        <td class="wr">@ 12kg</td>
         <td class="date">26 juin</td>
+        <td class="ex">Jefferson Curl Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">12 kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Loaded Spinal Circle">
-        <td class="ex">Loaded Spinal Circle</td>
-        <td class="wr">@ 9kg</td>
         <td class="date">26 juin</td>
+        <td class="ex">Loaded Spinal Circle</td>
+        <td></td>
+        <td></td>
+        <td class="charge">9kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Thoracic Extension Pull-over">
-        <td class="ex">Thoracic Extension Pull-over</td>
-        <td class="wr">@ 10kg</td>
         <td class="date">26 juin</td>
+        <td class="ex">Thoracic Extension Pull-over</td>
+        <td></td>
+        <td></td>
+        <td class="charge">10kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
-        <td class="ex">Half-Kneeling Landmine Press</td>
-        <td class="wr">Barre + 10kg</td>
         <td class="date">24 juin</td>
+        <td class="ex">Half-Kneeling Landmine Press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">Barre + 10kg</td>
+        <td>1min - 1min30</td>
       </tr>
       <tr data-exercise="Landmine Balistic Row">
-        <td class="ex">Landmine Balistic Row</td>
-        <td class="wr">Barre + 15kg</td>
         <td class="date">24 juin</td>
+        <td class="ex">Landmine Balistic Row</td>
+        <td></td>
+        <td></td>
+        <td class="charge">Barre + 15kg</td>
+        <td>1min30</td>
       </tr>
       <tr data-exercise="Zercher Split Squat, Zercher Lunge">
-        <td class="ex">Zercher Split Squat, Zercher Lunge</td>
-        <td class="wr">Barre + 10kg</td>
         <td class="date">19 juin</td>
+        <td class="ex">Zercher Split Squat, Zercher Lunge</td>
+        <td></td>
+        <td></td>
+        <td class="charge">Barre + 10kg</td>
+        <td>3min</td>
       </tr>
       <tr data-exercise="Cossack Squat">
-        <td class="ex">Cossack Squat</td>
-        <td class="wr">@ 12kg</td>
         <td class="date">18 juin</td>
+        <td class="ex">Cossack Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">12kg</td>
+        <td>1min - 2min</td>
       </tr>
       <tr data-exercise="Jefferson curl">
-        <td class="ex">Jefferson curl</td>
-        <td class="wr">@ 16kg</td>
         <td class="date">18 juin</td>
+        <td class="ex">Jefferson curl</td>
+        <td></td>
+        <td></td>
+        <td class="charge">16kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Jefferson Curl Squat">
-        <td class="ex">Jefferson Curl Squat</td>
-        <td class="wr">@ 12kg</td>
         <td class="date">18 juin</td>
+        <td class="ex">Jefferson Curl Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">12 kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Loaded Spinal Circle">
-        <td class="ex">Loaded Spinal Circle</td>
-        <td class="wr">@ 9kg</td>
         <td class="date">18 juin</td>
+        <td class="ex">Loaded Spinal Circle</td>
+        <td></td>
+        <td></td>
+        <td class="charge">9kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Thoracic Extension Pull-over">
-        <td class="ex">Thoracic Extension Pull-over</td>
-        <td class="wr">@ 10kg</td>
         <td class="date">18 juin</td>
+        <td class="ex">Thoracic Extension Pull-over</td>
+        <td></td>
+        <td></td>
+        <td class="charge">10kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Back Extension Iso Hold, Explosive Back Extension">
-        <td class="ex">Back Extension Iso Hold, Explosive Back Extension</td>
-        <td class="wr">90kg iso
-Galette 15kg dynamique</td>
         <td class="date">17 juin</td>
+        <td class="ex">Back Extension Iso Hold, Explosive Back Extension</td>
+        <td></td>
+        <td></td>
+        <td class="charge">90kg iso
+Galette 15kg dynamique</td>
+        <td>2min30 - 3min</td>
       </tr>
       <tr data-exercise="Hip Thrust, KB swing">
-        <td class="ex">Hip Thrust, KB swing</td>
-        <td class="wr">150kg statique 
-24kg dynamique. Pas plus grosse DB</td>
         <td class="date">17 juin</td>
+        <td class="ex">Hip Thrust, KB swing</td>
+        <td></td>
+        <td></td>
+        <td class="charge">150kg statique 
+24kg dynamique. Pas plus grosse DB</td>
+        <td>2min</td>
       </tr>
       <tr data-exercise="Turkish Get-Up Sit-Up">
-        <td class="ex">Turkish Get-Up Sit-Up</td>
-        <td class="wr">@ 10kg</td>
         <td class="date">17 juin</td>
+        <td class="ex">Turkish Get-Up Sit-Up</td>
+        <td></td>
+        <td></td>
+        <td class="charge">10kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Unilateral Landmine RDL">
-        <td class="ex">Unilateral Landmine RDL</td>
-        <td class="wr">Barre + 20kg
-Pied surélevé pour augmenter amplitude</td>
         <td class="date">17 juin</td>
+        <td class="ex">Unilateral Landmine RDL</td>
+        <td></td>
+        <td></td>
+        <td class="charge">Barre + 20kg
+Pied surélevé pour augmenter amplitude</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
-        <td class="ex">Half-Kneeling Landmine Press</td>
-        <td class="wr">Barre + 10kg</td>
         <td class="date">15 juin</td>
+        <td class="ex">Half-Kneeling Landmine Press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">Barre + 10kg</td>
+        <td>1min - 1min30</td>
       </tr>
       <tr data-exercise="Landmine Balistic Row">
-        <td class="ex">Landmine Balistic Row</td>
-        <td class="wr">Barre + 15kg</td>
         <td class="date">15 juin</td>
+        <td class="ex">Landmine Balistic Row</td>
+        <td></td>
+        <td></td>
+        <td class="charge">Barre + 15kg</td>
+        <td>1min30</td>
       </tr>
       <tr data-exercise="Assymetrical overhead">
-        <td class="ex">Assymetrical overhead</td>
-        <td class="wr">KB 12kg et 20kg</td>
         <td class="date">12 juin</td>
+        <td class="ex">Assymetrical overhead</td>
+        <td></td>
+        <td></td>
+        <td class="charge">KB 12kg et 20kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Bench Press">
+        <td class="date">12 juin</td>
         <td class="ex">Bench Press</td>
-        <td class="wr">3x 60 kg
+        <td></td>
+        <td></td>
+        <td class="charge">3x 60 kg
 2x 70 kg
 1x 75 kg
 1x 80 kg
 1x 85 kg
 1x 88 kg échec</td>
-        <td class="date">12 juin</td>
+        <td></td>
       </tr>
       <tr data-exercise="Skull crushers">
-        <td class="ex">Skull crushers</td>
-        <td class="wr">Barre EZ + 10kg</td>
         <td class="date">12 juin</td>
+        <td class="ex">Skull crushers</td>
+        <td></td>
+        <td></td>
+        <td class="charge">Barre EZ + 10kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Biceps curl">
-        <td class="ex">Biceps curl</td>
-        <td class="wr">2x 10kg DB</td>
         <td class="date">9 juin</td>
+        <td class="ex">Biceps curl</td>
+        <td></td>
+        <td></td>
+        <td class="charge">2x 10kg DB</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Farmer carry">
-        <td class="ex">Farmer carry</td>
-        <td class="wr">2x 24kg KB</td>
         <td class="date">9 juin</td>
+        <td class="ex">Farmer carry</td>
+        <td></td>
+        <td></td>
+        <td class="charge">2x 24kg KB</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Pull up">
+        <td class="date">9 juin</td>
         <td class="ex">Pull up</td>
-        <td class="wr">3x vide
+        <td></td>
+        <td></td>
+        <td class="charge">3x vide
 2x 5kg
 1x 10kg
 1x 15kg
 1x 20kg
 1x 25kg
 1RM : 30kg</td>
-        <td class="date">9 juin</td>
+        <td></td>
       </tr>
       <tr data-exercise="Seal row">
-        <td class="ex">Seal row</td>
-        <td class="wr">2x 16kg DB</td>
         <td class="date">9 juin</td>
+        <td class="ex">Seal row</td>
+        <td></td>
+        <td></td>
+        <td class="charge">2x 16kg DB</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Legs curl">
-        <td class="ex">Legs curl</td>
-        <td class="wr">@ 50kg</td>
         <td class="date">8 juin</td>
+        <td class="ex">Legs curl</td>
+        <td></td>
+        <td></td>
+        <td class="charge">50kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Squat">
+        <td class="date">8 juin</td>
         <td class="ex">Squat</td>
-        <td class="wr">3x60
+        <td></td>
+        <td></td>
+        <td class="charge">3x60
 2x90
 1x110
 1x120
@@ -518,921 +785,1467 @@ Pied surélevé pour augmenter amplitude</td>
 3x130
 
 Jpense pas être à mon 3RM mais j’avais plus de poids à rajouter sur la barre a ce stade</td>
-        <td class="date">8 juin</td>
+        <td></td>
       </tr>
       <tr data-exercise="Hip Thrust">
-        <td class="ex">Hip Thrust</td>
-        <td class="wr">@ 110kg</td>
         <td class="date">6 juin</td>
+        <td class="ex">Hip Thrust</td>
+        <td></td>
+        <td></td>
+        <td class="charge">110kg</td>
+        <td>2’30</td>
       </tr>
       <tr data-exercise="Split Squat">
-        <td class="ex">Split Squat</td>
-        <td class="wr">@ 65kg</td>
         <td class="date">6 juin</td>
+        <td class="ex">Split Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">65kg</td>
+        <td>3min</td>
       </tr>
       <tr data-exercise="Suitcase carry">
-        <td class="ex">Suitcase carry</td>
-        <td class="wr">26kg DB</td>
         <td class="date">6 juin</td>
+        <td class="ex">Suitcase carry</td>
+        <td></td>
+        <td></td>
+        <td class="charge">26kg DB</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Front Rack Carry">
-        <td class="ex">Front Rack Carry</td>
-        <td class="wr">4 / 40m 2x24kg</td>
         <td class="date">4 juin</td>
+        <td class="ex">Front Rack Carry</td>
+        <td>4</td>
+        <td>40m</td>
+        <td class="charge">2x24kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Half Kneeling Lateral Tilts">
-        <td class="ex">Half Kneeling Lateral Tilts</td>
-        <td class="wr">4 / 10 droite et ensuite gauche @ 10kg</td>
         <td class="date">4 juin</td>
+        <td class="ex">Half Kneeling Lateral Tilts</td>
+        <td>4</td>
+        <td>10 droite et ensuite gauche</td>
+        <td class="charge">10kg</td>
+        <td>30” entre les 2 cotés</td>
       </tr>
       <tr data-exercise="Landmine Rotation">
-        <td class="ex">Landmine Rotation</td>
-        <td class="wr">4×8 @ 15kg</td>
         <td class="date">4 juin</td>
+        <td class="ex">Landmine Rotation</td>
+        <td>4</td>
+        <td>8</td>
+        <td class="charge">15kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
-        <td class="ex">Pallof Rotation</td>
-        <td class="wr">4 / 12 faire droite et après gauche. @ 13,5kg</td>
         <td class="date">4 juin</td>
+        <td class="ex">Pallof Rotation</td>
+        <td>4</td>
+        <td>12 faire droite et après gauche.</td>
+        <td class="charge">13,5kg</td>
+        <td>30” entre les 2 cotés</td>
       </tr>
       <tr data-exercise="Suitcase carry">
-        <td class="ex">Suitcase carry</td>
-        <td class="wr">3 / 40m D/G @ 24kg</td>
         <td class="date">4 juin</td>
+        <td class="ex">Suitcase carry</td>
+        <td>3</td>
+        <td>40m D/G</td>
+        <td class="charge">24kg</td>
+        <td>30” entre les 2 cotés</td>
       </tr>
       <tr data-exercise="Bench Press">
-        <td class="ex">Bench Press</td>
-        <td class="wr">@ 67,5kg</td>
         <td class="date">3 juin</td>
+        <td class="ex">Bench Press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">67,5kg</td>
+        <td>2’30</td>
       </tr>
       <tr data-exercise="Strict press">
-        <td class="ex">Strict press</td>
-        <td class="wr">@ 50kg</td>
         <td class="date">3 juin</td>
+        <td class="ex">Strict press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">50kg</td>
+        <td>3’</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
-        <td class="ex">Pallof Rotation</td>
-        <td class="wr">@ 16kg</td>
         <td class="date">2 juin</td>
+        <td class="ex">Pallof Rotation</td>
+        <td></td>
+        <td></td>
+        <td class="charge">16kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Pull up">
-        <td class="ex">Pull up</td>
-        <td class="wr">@ 5kg</td>
         <td class="date">2 juin</td>
+        <td class="ex">Pull up</td>
+        <td></td>
+        <td></td>
+        <td class="charge">5kg</td>
+        <td>2min</td>
       </tr>
       <tr data-exercise="Single-Arm Dumbbell Row">
-        <td class="ex">Single-Arm Dumbbell Row</td>
-        <td class="wr">4D/G à 40kg</td>
         <td class="date">2 juin</td>
+        <td class="ex">Single-Arm Dumbbell Row</td>
+        <td></td>
+        <td></td>
+        <td class="charge">4D/G à 40kg</td>
+        <td>3min</td>
       </tr>
       <tr data-exercise="Hip Thrust">
-        <td class="ex">Hip Thrust</td>
-        <td class="wr">@ 110kg</td>
         <td class="date">28 mai</td>
+        <td class="ex">Hip Thrust</td>
+        <td></td>
+        <td></td>
+        <td class="charge">110kg</td>
+        <td>2’30</td>
       </tr>
       <tr data-exercise="Split Squat">
-        <td class="ex">Split Squat</td>
-        <td class="wr">@ 65kg</td>
         <td class="date">28 mai</td>
+        <td class="ex">Split Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">65kg</td>
+        <td>3min</td>
       </tr>
       <tr data-exercise="Suitcase carry">
-        <td class="ex">Suitcase carry</td>
-        <td class="wr">26kg DB</td>
         <td class="date">28 mai</td>
+        <td class="ex">Suitcase carry</td>
+        <td></td>
+        <td></td>
+        <td class="charge">26kg DB</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Front Rack Carry">
-        <td class="ex">Front Rack Carry</td>
-        <td class="wr">4 / 40m 2x20kg</td>
         <td class="date">27 mai</td>
+        <td class="ex">Front Rack Carry</td>
+        <td>4</td>
+        <td>40m</td>
+        <td class="charge">2x20kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Half Kneeling Lateral Tilts">
-        <td class="ex">Half Kneeling Lateral Tilts</td>
-        <td class="wr">4 / 10 droite et ensuite gauche @ 10kg</td>
         <td class="date">27 mai</td>
+        <td class="ex">Half Kneeling Lateral Tilts</td>
+        <td>4</td>
+        <td>10 droite et ensuite gauche</td>
+        <td class="charge">10kg</td>
+        <td>30” entre les 2 cotés</td>
       </tr>
       <tr data-exercise="Landmine Rotation">
-        <td class="ex">Landmine Rotation</td>
-        <td class="wr">4×8 @ 15kg</td>
         <td class="date">27 mai</td>
+        <td class="ex">Landmine Rotation</td>
+        <td>4</td>
+        <td>8</td>
+        <td class="charge">15kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
-        <td class="ex">Pallof Rotation</td>
-        <td class="wr">4 / 12 faire droite et après gauche. @ 12kg</td>
         <td class="date">27 mai</td>
+        <td class="ex">Pallof Rotation</td>
+        <td>4</td>
+        <td>12 faire droite et après gauche.</td>
+        <td class="charge">12kg</td>
+        <td>30” entre les 2 cotés</td>
       </tr>
       <tr data-exercise="Suitcase carry">
-        <td class="ex">Suitcase carry</td>
-        <td class="wr">3 / 40m D/G @ 24kg</td>
         <td class="date">27 mai</td>
+        <td class="ex">Suitcase carry</td>
+        <td>3</td>
+        <td>40m D/G</td>
+        <td class="charge">24kg</td>
+        <td>30” entre les 2 cotés</td>
       </tr>
       <tr data-exercise="Bench Press">
-        <td class="ex">Bench Press</td>
-        <td class="wr">@ 65kg</td>
         <td class="date">26 mai</td>
+        <td class="ex">Bench Press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">65kg</td>
+        <td>2min - 2’30</td>
       </tr>
       <tr data-exercise="Strict press">
-        <td class="ex">Strict press</td>
-        <td class="wr">@ 48kg</td>
         <td class="date">26 mai</td>
+        <td class="ex">Strict press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">48kg</td>
+        <td>2’30-3min</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
-        <td class="ex">Pallof Rotation</td>
-        <td class="wr">@ 16kg</td>
         <td class="date">25 mai</td>
+        <td class="ex">Pallof Rotation</td>
+        <td></td>
+        <td></td>
+        <td class="charge">16kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Single-Arm Dumbbell Row">
-        <td class="ex">Single-Arm Dumbbell Row</td>
-        <td class="wr">@ 40kg</td>
         <td class="date">25 mai</td>
+        <td class="ex">Single-Arm Dumbbell Row</td>
+        <td></td>
+        <td></td>
+        <td class="charge">40kg</td>
+        <td>3min</td>
       </tr>
       <tr data-exercise="Hip Thrust">
-        <td class="ex">Hip Thrust</td>
-        <td class="wr">100kg sur machine</td>
         <td class="date">22 mai</td>
+        <td class="ex">Hip Thrust</td>
+        <td></td>
+        <td></td>
+        <td class="charge">100kg sur machine</td>
+        <td>1min30 - 2min</td>
       </tr>
       <tr data-exercise="Split Squat">
-        <td class="ex">Split Squat</td>
-        <td class="wr">@ 60kg</td>
         <td class="date">22 mai</td>
+        <td class="ex">Split Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">60kg</td>
+        <td>3min</td>
       </tr>
       <tr data-exercise="Suitcase carry">
-        <td class="ex">Suitcase carry</td>
-        <td class="wr">24kg DB</td>
         <td class="date">22 mai</td>
+        <td class="ex">Suitcase carry</td>
+        <td></td>
+        <td></td>
+        <td class="charge">24kg DB</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Bench Press">
-        <td class="ex">Bench Press</td>
-        <td class="wr">@ 60kg</td>
         <td class="date">21 mai</td>
+        <td class="ex">Bench Press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">60kg</td>
+        <td>1min30 - 2min</td>
       </tr>
       <tr data-exercise="Pallof Press">
-        <td class="ex">Pallof Press</td>
-        <td class="wr">@ 11kg</td>
         <td class="date">21 mai</td>
+        <td class="ex">Pallof Press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">11kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Strict press">
-        <td class="ex">Strict press</td>
-        <td class="wr">@ 45kg</td>
         <td class="date">21 mai</td>
+        <td class="ex">Strict press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">45kg</td>
+        <td>2’30-3min</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
-        <td class="ex">Pallof Rotation</td>
-        <td class="wr">@ 13,6kg</td>
         <td class="date">20 mai</td>
+        <td class="ex">Pallof Rotation</td>
+        <td></td>
+        <td></td>
+        <td class="charge">13,6kg</td>
+        <td>1min</td>
       </tr>
       <tr data-exercise="Single-Arm Dumbbell Row">
-        <td class="ex">Single-Arm Dumbbell Row</td>
-        <td class="wr">@ 38kg</td>
         <td class="date">20 mai</td>
+        <td class="ex">Single-Arm Dumbbell Row</td>
+        <td></td>
+        <td></td>
+        <td class="charge">38kg</td>
+        <td>3min</td>
       </tr>
       <tr data-exercise="Deadlift">
-        <td class="ex">Deadlift</td>
-        <td class="wr">4×10 @ 60kg</td>
         <td class="date">14 mai</td>
+        <td class="ex">Deadlift</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">60kg</td>
+        <td>1min30</td>
       </tr>
       <tr data-exercise="Push Press Barbell">
-        <td class="ex">Push Press Barbell</td>
-        <td class="wr">4×10 @ 40kg</td>
         <td class="date">14 mai</td>
+        <td class="ex">Push Press Barbell</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">40kg</td>
+        <td>1min30</td>
       </tr>
       <tr data-exercise="Rowing">
-        <td class="ex">Rowing</td>
-        <td class="wr">4×8 @ 60kg</td>
         <td class="date">14 mai</td>
+        <td class="ex">Rowing</td>
+        <td>4</td>
+        <td>8</td>
+        <td class="charge">60kg</td>
+        <td>1min30</td>
       </tr>
       <tr data-exercise="Squat">
-        <td class="ex">Squat</td>
-        <td class="wr">4×3 @ 90kg</td>
         <td class="date">14 mai</td>
+        <td class="ex">Squat</td>
+        <td>4</td>
+        <td>3</td>
+        <td class="charge">90kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Bench Press">
-        <td class="ex">Bench Press</td>
-        <td class="wr">4 / 6/8 @ 60kg</td>
         <td class="date">13 mai</td>
+        <td class="ex">Bench Press</td>
+        <td>4</td>
+        <td>6/8</td>
+        <td class="charge">60kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Deadlift">
-        <td class="ex">Deadlift</td>
-        <td class="wr">4×12 @ 60kg</td>
         <td class="date">7 mai</td>
+        <td class="ex">Deadlift</td>
+        <td>4</td>
+        <td>12</td>
+        <td class="charge">60kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Front Rack Carry">
-        <td class="ex">Front Rack Carry</td>
-        <td class="wr">4 / 40m 2x16kg</td>
         <td class="date">7 mai</td>
+        <td class="ex">Front Rack Carry</td>
+        <td>4</td>
+        <td>40m</td>
+        <td class="charge">2x16kg</td>
+        <td>30”</td>
       </tr>
       <tr data-exercise="Pull over">
-        <td class="ex">Pull over</td>
-        <td class="wr">4×12 @ 12kg</td>
         <td class="date">7 mai</td>
+        <td class="ex">Pull over</td>
+        <td>4</td>
+        <td>12</td>
+        <td class="charge">12kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Pull up">
-        <td class="ex">Pull up</td>
-        <td class="wr">4 / 4 lesté + 8 à vide @ 5kg</td>
         <td class="date">7 mai</td>
+        <td class="ex">Pull up</td>
+        <td>4</td>
+        <td>4 lesté + 8 à vide</td>
+        <td class="charge">5kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Landmine sumo squat">
-        <td class="ex">Landmine sumo squat</td>
-        <td class="wr">4×12 Barre + 25kg</td>
         <td class="date">5 mai</td>
+        <td class="ex">Landmine sumo squat</td>
+        <td>4</td>
+        <td>12</td>
+        <td class="charge">Barre + 25kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Unilateral Landmine RDL">
-        <td class="ex">Unilateral Landmine RDL</td>
-        <td class="wr">4 / 8-10 reps D/G Barre + 10kg</td>
         <td class="date">5 mai</td>
+        <td class="ex">Unilateral Landmine RDL</td>
+        <td>4</td>
+        <td>8-10 reps D/G</td>
+        <td class="charge">Barre + 10kg</td>
+        <td>1’ - 1’30</td>
       </tr>
       <tr data-exercise="Zercher Lunge">
-        <td class="ex">Zercher Lunge</td>
-        <td class="wr">4 / 10 reps D/G Barre + 5kg</td>
         <td class="date">5 mai</td>
+        <td class="ex">Zercher Lunge</td>
+        <td>4</td>
+        <td>10 reps D/G</td>
+        <td class="charge">Barre + 5kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Dips bench support">
-        <td class="ex">Dips bench support</td>
-        <td class="wr">4 / 4 lesté + 8 poids de corps @ 5kg</td>
         <td class="date">4 mai</td>
+        <td class="ex">Dips bench support</td>
+        <td>4</td>
+        <td>4 lesté + 8 poids de corps</td>
+        <td class="charge">5kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Rotation">
-        <td class="ex">Half-Kneeling Landmine Rotation</td>
-        <td class="wr">4 / 10 D/G @ 10kg</td>
         <td class="date">4 mai</td>
+        <td class="ex">Half-Kneeling Landmine Rotation</td>
+        <td>4</td>
+        <td>10 D/G</td>
+        <td class="charge">10kg</td>
+        <td>30s</td>
       </tr>
       <tr data-exercise="Open Chest Press">
-        <td class="ex">Open Chest Press</td>
-        <td class="wr">4×12 2x12kg</td>
         <td class="date">4 mai</td>
+        <td class="ex">Open Chest Press</td>
+        <td>4</td>
+        <td>12</td>
+        <td class="charge">2x12kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Single strict press">
-        <td class="ex">Single strict press</td>
-        <td class="wr">4-5 / 12 @ 10kg</td>
         <td class="date">4 mai</td>
+        <td class="ex">Single strict press</td>
+        <td>4-5</td>
+        <td>12</td>
+        <td class="charge">10kg</td>
+        <td>60s</td>
       </tr>
       <tr data-exercise="Deadlift">
-        <td class="ex">Deadlift</td>
-        <td class="wr">4 / 12-15 @ 60kg</td>
         <td class="date">30 avr.</td>
+        <td class="ex">Deadlift</td>
+        <td>4</td>
+        <td>12-15</td>
+        <td class="charge">60kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Front Rack Carry">
-        <td class="ex">Front Rack Carry</td>
-        <td class="wr">4 / 30” à 1min 2x16kg</td>
         <td class="date">30 avr.</td>
+        <td class="ex">Front Rack Carry</td>
+        <td>4</td>
+        <td>30” à 1min</td>
+        <td class="charge">2x16kg</td>
+        <td>30”</td>
       </tr>
       <tr data-exercise="Pull over">
-        <td class="ex">Pull over</td>
-        <td class="wr">4 / 10-12 @ 12kg</td>
         <td class="date">30 avr.</td>
+        <td class="ex">Pull over</td>
+        <td>4</td>
+        <td>10-12</td>
+        <td class="charge">12kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Cossack Squat">
-        <td class="ex">Cossack Squat</td>
-        <td class="wr">4 / 8 D/G @ 12kg</td>
         <td class="date">29 avr.</td>
+        <td class="ex">Cossack Squat</td>
+        <td>4</td>
+        <td>8 D/G</td>
+        <td class="charge">12kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Deep Squat Standing">
-        <td class="ex">Deep Squat Standing</td>
-        <td class="wr">4 / 45” - 1’ @ 16kg</td>
         <td class="date">29 avr.</td>
+        <td class="ex">Deep Squat Standing</td>
+        <td>4</td>
+        <td>45” - 1’</td>
+        <td class="charge">16kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Jefferson Curl Squat">
-        <td class="ex">Jefferson Curl Squat</td>
-        <td class="wr">4×8 @ 6kg</td>
         <td class="date">29 avr.</td>
+        <td class="ex">Jefferson Curl Squat</td>
+        <td>4</td>
+        <td>8</td>
+        <td class="charge">6kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Pigeon Loaded">
-        <td class="ex">Pigeon Loaded</td>
-        <td class="wr">4 / 8 D/G @ 6kg</td>
         <td class="date">29 avr.</td>
+        <td class="ex">Pigeon Loaded</td>
+        <td>4</td>
+        <td>8 D/G</td>
+        <td class="charge">6kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Landmine sumo squat">
-        <td class="ex">Landmine sumo squat</td>
-        <td class="wr">4 / 12-15 Barre + 25kg</td>
         <td class="date">28 avr.</td>
+        <td class="ex">Landmine sumo squat</td>
+        <td>4</td>
+        <td>12-15</td>
+        <td class="charge">Barre + 25kg</td>
+        <td>1’30 - 2’</td>
       </tr>
       <tr data-exercise="Unilateral Landmine RDL">
-        <td class="ex">Unilateral Landmine RDL</td>
-        <td class="wr">4 / 8-10 reps D/G Barre + 10kg</td>
         <td class="date">28 avr.</td>
+        <td class="ex">Unilateral Landmine RDL</td>
+        <td>4</td>
+        <td>8-10 reps D/G</td>
+        <td class="charge">Barre + 10kg</td>
+        <td>1’ - 1’30</td>
       </tr>
       <tr data-exercise="Zercher Lunge">
-        <td class="ex">Zercher Lunge</td>
-        <td class="wr">4 / 10 reps D/G Barre</td>
         <td class="date">28 avr.</td>
+        <td class="ex">Zercher Lunge</td>
+        <td>4</td>
+        <td>10 reps D/G</td>
+        <td class="charge">Barre</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Open Chest Press">
-        <td class="ex">Open Chest Press</td>
-        <td class="wr">4×15 2x16kg</td>
         <td class="date">27 avr.</td>
+        <td class="ex">Open Chest Press</td>
+        <td>4</td>
+        <td>15</td>
+        <td class="charge">2x16kg</td>
+        <td>1’30-2’</td>
       </tr>
       <tr data-exercise="Single strict press">
-        <td class="ex">Single strict press</td>
-        <td class="wr">4-5 / 10-12 @ 10kg</td>
         <td class="date">27 avr.</td>
+        <td class="ex">Single strict press</td>
+        <td>4-5</td>
+        <td>10-12</td>
+        <td class="charge">10kg</td>
+        <td>30-60s</td>
       </tr>
       <tr data-exercise="Deadlift">
-        <td class="ex">Deadlift</td>
-        <td class="wr">@ 100kg</td>
         <td class="date">24 avr.</td>
+        <td class="ex">Deadlift</td>
+        <td></td>
+        <td></td>
+        <td class="charge">100kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Double DB Snatch">
-        <td class="ex">Double DB Snatch</td>
-        <td class="wr">2x6kg</td>
         <td class="date">24 avr.</td>
+        <td class="ex">Double DB Snatch</td>
+        <td></td>
+        <td></td>
+        <td class="charge">2x6kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Hip Thrust">
-        <td class="ex">Hip Thrust</td>
-        <td class="wr">@ 100kg</td>
         <td class="date">24 avr.</td>
+        <td class="ex">Hip Thrust</td>
+        <td></td>
+        <td></td>
+        <td class="charge">100kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="KB swing">
-        <td class="ex">KB swing</td>
-        <td class="wr">KB 16kg</td>
         <td class="date">24 avr.</td>
+        <td class="ex">KB swing</td>
+        <td></td>
+        <td></td>
+        <td class="charge">KB 16kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="thrusters">
-        <td class="ex">thrusters</td>
-        <td class="wr">2x6kg</td>
         <td class="date">24 avr.</td>
+        <td class="ex">thrusters</td>
+        <td></td>
+        <td></td>
+        <td class="charge">2x6kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Trap Bar Jump">
-        <td class="ex">Trap Bar Jump</td>
-        <td class="wr">2x16kg</td>
         <td class="date">24 avr.</td>
+        <td class="ex">Trap Bar Jump</td>
+        <td></td>
+        <td></td>
+        <td class="charge">2x16kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Bench Press">
-        <td class="ex">Bench Press</td>
-        <td class="wr">@ 70kg</td>
         <td class="date">22 avr.</td>
+        <td class="ex">Bench Press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">70kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Front Rack Carry">
-        <td class="ex">Front Rack Carry</td>
-        <td class="wr">2x16kg KB</td>
         <td class="date">22 avr.</td>
+        <td class="ex">Front Rack Carry</td>
+        <td></td>
+        <td></td>
+        <td class="charge">2x16kg KB</td>
+        <td></td>
       </tr>
       <tr data-exercise="Pull up">
-        <td class="ex">Pull up</td>
-        <td class="wr">@ 20kg</td>
         <td class="date">22 avr.</td>
+        <td class="ex">Pull up</td>
+        <td></td>
+        <td></td>
+        <td class="charge">20kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Push Press DB">
-        <td class="ex">Push Press DB</td>
-        <td class="wr">2x8kg DB</td>
         <td class="date">22 avr.</td>
+        <td class="ex">Push Press DB</td>
+        <td></td>
+        <td></td>
+        <td class="charge">2x8kg DB</td>
+        <td></td>
       </tr>
       <tr data-exercise="Rowing">
-        <td class="ex">Rowing</td>
-        <td class="wr">@ 50kg</td>
         <td class="date">22 avr.</td>
+        <td class="ex">Rowing</td>
+        <td></td>
+        <td></td>
+        <td class="charge">50kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Cossak squat landmine">
-        <td class="ex">Cossak squat landmine</td>
-        <td class="wr">Barre + 40kg</td>
         <td class="date">20 avr.</td>
+        <td class="ex">Cossak squat landmine</td>
+        <td></td>
+        <td></td>
+        <td class="charge">Barre + 40kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="KB Squat">
-        <td class="ex">KB Squat</td>
-        <td class="wr">@ 16kg</td>
         <td class="date">20 avr.</td>
+        <td class="ex">KB Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">16kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Sled Push">
-        <td class="ex">Sled Push</td>
-        <td class="wr">@ 120kg</td>
         <td class="date">20 avr.</td>
+        <td class="ex">Sled Push</td>
+        <td></td>
+        <td></td>
+        <td class="charge">120kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Split Squat">
-        <td class="ex">Split Squat</td>
-        <td class="wr">@ 30kg</td>
         <td class="date">20 avr.</td>
+        <td class="ex">Split Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">30kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Squat">
-        <td class="ex">Squat</td>
-        <td class="wr">@ 80kg</td>
         <td class="date">20 avr.</td>
+        <td class="ex">Squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">80kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Suitcase carry">
-        <td class="ex">Suitcase carry</td>
-        <td class="wr">@ 24kg</td>
         <td class="date">20 avr.</td>
+        <td class="ex">Suitcase carry</td>
+        <td></td>
+        <td></td>
+        <td class="charge">24kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Floor Press">
-        <td class="ex">Floor Press</td>
-        <td class="wr">4 / 6-8 2x20kg</td>
         <td class="date">15 avr.</td>
+        <td class="ex">Floor Press</td>
+        <td>4</td>
+        <td>6-8</td>
+        <td class="charge">2x20kg</td>
+        <td>60-90s</td>
       </tr>
       <tr data-exercise="Landmine rotation switch">
-        <td class="ex">Landmine rotation switch</td>
-        <td class="wr">4×10 Barre + 5kg</td>
         <td class="date">15 avr.</td>
+        <td class="ex">Landmine rotation switch</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">Barre + 5kg</td>
+        <td></td>
       </tr>
       <tr data-exercise="Rowing">
-        <td class="ex">Rowing</td>
-        <td class="wr">4×10 @ 40kg</td>
         <td class="date">15 avr.</td>
+        <td class="ex">Rowing</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">40kg</td>
+        <td>30s</td>
       </tr>
       <tr data-exercise="Seal row">
-        <td class="ex">Seal row</td>
-        <td class="wr">4-5 / 8-10 2x16kg</td>
         <td class="date">15 avr.</td>
+        <td class="ex">Seal row</td>
+        <td>4-5</td>
+        <td>8-10</td>
+        <td class="charge">2x16kg</td>
+        <td>30-60s</td>
       </tr>
       <tr data-exercise="Single Arm Bench Press">
-        <td class="ex">Single Arm Bench Press</td>
-        <td class="wr">4 / 6-8 reps
-D/G @ 16kg</td>
         <td class="date">15 avr.</td>
+        <td class="ex">Single Arm Bench Press</td>
+        <td>4</td>
+        <td>6-8 reps
+D/G</td>
+        <td class="charge">16kg</td>
+        <td>60-90s</td>
       </tr>
       <tr data-exercise="Landmine sumo squat">
-        <td class="ex">Landmine sumo squat</td>
-        <td class="wr">4 / 6-8 Barre + 50kg</td>
         <td class="date">13 avr.</td>
+        <td class="ex">Landmine sumo squat</td>
+        <td>4</td>
+        <td>6-8</td>
+        <td class="charge">Barre + 50kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Suitcase carry">
-        <td class="ex">Suitcase carry</td>
-        <td class="wr">4-5 / 20 - 40m KB 24 kg</td>
         <td class="date">13 avr.</td>
+        <td class="ex">Suitcase carry</td>
+        <td>4-5</td>
+        <td>20 - 40m</td>
+        <td class="charge">KB 24 kg</td>
+        <td>30” - 1min</td>
       </tr>
       <tr data-exercise="Unilateral Landmine RDL">
-        <td class="ex">Unilateral Landmine RDL</td>
-        <td class="wr">4 / 6-8 reps D/G Barre + 10kg</td>
         <td class="date">13 avr.</td>
+        <td class="ex">Unilateral Landmine RDL</td>
+        <td>4</td>
+        <td>6-8 reps D/G</td>
+        <td class="charge">Barre + 10kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Zercher Split Squat">
-        <td class="ex">Zercher Split Squat</td>
-        <td class="wr">4 / 8-10 reps 
-D/G Barre à vide</td>
         <td class="date">13 avr.</td>
+        <td class="ex">Zercher Split Squat</td>
+        <td>4</td>
+        <td>8-10 reps 
+D/G</td>
+        <td class="charge">Barre à vide</td>
+        <td>1’ - 1’30</td>
       </tr>
       <tr data-exercise="Bench Press">
-        <td class="ex">Bench Press</td>
-        <td class="wr">@ 70kg</td>
         <td class="date">10 avr.</td>
+        <td class="ex">Bench Press</td>
+        <td></td>
+        <td></td>
+        <td class="charge">70kg</td>
+        <td>3’</td>
       </tr>
       <tr data-exercise="Landmine sumo squat">
-        <td class="ex">Landmine sumo squat</td>
-        <td class="wr">Barre + 50kg</td>
         <td class="date">10 avr.</td>
+        <td class="ex">Landmine sumo squat</td>
+        <td></td>
+        <td></td>
+        <td class="charge">Barre + 50kg</td>
+        <td>2’30</td>
       </tr>
       <tr data-exercise="Seal row">
-        <td class="ex">Seal row</td>
-        <td class="wr">2x16kg</td>
         <td class="date">10 avr.</td>
+        <td class="ex">Seal row</td>
+        <td></td>
+        <td></td>
+        <td class="charge">2x16kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Antirotation Barbell">
-        <td class="ex">Antirotation Barbell</td>
-        <td class="wr">4 / 6 D/G (donc 12 torsion au total) Barre + 10kg</td>
         <td class="date">7 avr.</td>
+        <td class="ex">Antirotation Barbell</td>
+        <td>4</td>
+        <td>6 D/G (donc 12 torsion au total)</td>
+        <td class="charge">Barre + 10kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Landmine Balistic Row">
-        <td class="ex">Landmine Balistic Row</td>
-        <td class="wr">4 / 4-6 Barre + 20kg</td>
         <td class="date">7 avr.</td>
+        <td class="ex">Landmine Balistic Row</td>
+        <td>4</td>
+        <td>4-6</td>
+        <td class="charge">Barre + 20kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Push Press Barbell">
-        <td class="ex">Push Press Barbell</td>
-        <td class="wr">4×6 Barre + 30kg</td>
         <td class="date">7 avr.</td>
+        <td class="ex">Push Press Barbell</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">Barre + 30kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Rowing">
-        <td class="ex">Rowing</td>
-        <td class="wr">4×6 @ 60kg</td>
         <td class="date">7 avr.</td>
+        <td class="ex">Rowing</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">60kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Single strict press">
-        <td class="ex">Single strict press</td>
-        <td class="wr">4×6 @ 16kg</td>
         <td class="date">7 avr.</td>
+        <td class="ex">Single strict press</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">16kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="KB swing">
-        <td class="ex">KB swing</td>
-        <td class="wr">3×12 @ 24kg</td>
         <td class="date">6 avr.</td>
+        <td class="ex">KB swing</td>
+        <td>3</td>
+        <td>12</td>
+        <td class="charge">24kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Unilateral Box Jump">
-        <td class="ex">Unilateral Box Jump</td>
-        <td class="wr">4×6 50cm</td>
         <td class="date">6 avr.</td>
+        <td class="ex">Unilateral Box Jump</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">50cm</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="KB swing">
-        <td class="ex">KB swing</td>
-        <td class="wr">3×12 @ 24kg</td>
         <td class="date">2 avr.</td>
+        <td class="ex">KB swing</td>
+        <td>3</td>
+        <td>12</td>
+        <td class="charge">24kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Unilateral Box Jump">
-        <td class="ex">Unilateral Box Jump</td>
-        <td class="wr">4×6 50cm</td>
         <td class="date">2 avr.</td>
+        <td class="ex">Unilateral Box Jump</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">50cm</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
-        <td class="ex">Half-Kneeling Landmine Press</td>
-        <td class="wr">4×6 Barre + 15kg</td>
         <td class="date">31 mars</td>
+        <td class="ex">Half-Kneeling Landmine Press</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">Barre + 15kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Landmine Balistic Row">
-        <td class="ex">Landmine Balistic Row</td>
-        <td class="wr">4 / 4-6 Barre + 20kg</td>
         <td class="date">31 mars</td>
+        <td class="ex">Landmine Balistic Row</td>
+        <td>4</td>
+        <td>4-6</td>
+        <td class="charge">Barre + 20kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Push Press Barbell">
-        <td class="ex">Push Press Barbell</td>
-        <td class="wr">4×6 Barre + 30kg</td>
         <td class="date">31 mars</td>
+        <td class="ex">Push Press Barbell</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">Barre + 30kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Rowing">
-        <td class="ex">Rowing</td>
-        <td class="wr">4×6 @ 60kg</td>
         <td class="date">31 mars</td>
+        <td class="ex">Rowing</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">60kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Deadlift">
-        <td class="ex">Deadlift</td>
-        <td class="wr">4×3 @ 90kg</td>
         <td class="date">30 mars</td>
+        <td class="ex">Deadlift</td>
+        <td>4</td>
+        <td>3</td>
+        <td class="charge">90kg</td>
+        <td>2’30</td>
       </tr>
       <tr data-exercise="Step Up Jump">
-        <td class="ex">Step Up Jump</td>
-        <td class="wr">4 / 6 D/G 2x6kg</td>
         <td class="date">30 mars</td>
+        <td class="ex">Step Up Jump</td>
+        <td>4</td>
+        <td>6 D/G</td>
+        <td class="charge">2x6kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Trap Bar Jump">
-        <td class="ex">Trap Bar Jump</td>
-        <td class="wr">4×6 2x14</td>
         <td class="date">30 mars</td>
+        <td class="ex">Trap Bar Jump</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">2x14</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Turkish Get-Up Sit-Up">
-        <td class="ex">Turkish Get-Up Sit-Up</td>
-        <td class="wr">4 / 6 D/G @ 4kg</td>
         <td class="date">30 mars</td>
+        <td class="ex">Turkish Get-Up Sit-Up</td>
+        <td>4</td>
+        <td>6 D/G</td>
+        <td class="charge">4kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Cossack Squat">
-        <td class="ex">Cossack Squat</td>
-        <td class="wr">3×10 @ 20kg</td>
         <td class="date">27 mars</td>
+        <td class="ex">Cossack Squat</td>
+        <td>3</td>
+        <td>10</td>
+        <td class="charge">20kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Jefferson Curl Squat">
-        <td class="ex">Jefferson Curl Squat</td>
-        <td class="wr">3×5 KB 6kg</td>
         <td class="date">27 mars</td>
+        <td class="ex">Jefferson Curl Squat</td>
+        <td>3</td>
+        <td>5</td>
+        <td class="charge">KB 6kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Single-Leg RDL">
-        <td class="ex">Single-Leg RDL</td>
-        <td class="wr">3 / 4-6 reps Droite et ensuite gauche @ 13kg</td>
         <td class="date">27 mars</td>
+        <td class="ex">Single-Leg RDL</td>
+        <td>3</td>
+        <td>4-6 reps Droite et ensuite gauche</td>
+        <td class="charge">13kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Broad Jump">
-        <td class="ex">Broad Jump</td>
-        <td class="wr">4×8 2m longueur saut</td>
         <td class="date">26 mars</td>
+        <td class="ex">Broad Jump</td>
+        <td>4</td>
+        <td>8</td>
+        <td class="charge">2m longueur saut</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="KB swing">
-        <td class="ex">KB swing</td>
-        <td class="wr">3×12 KB 24kg.</td>
         <td class="date">26 mars</td>
+        <td class="ex">KB swing</td>
+        <td>3</td>
+        <td>12</td>
+        <td class="charge">KB 24kg.</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
-        <td class="ex">Half-Kneeling Landmine Press</td>
-        <td class="wr">4 / 3-4 Barre + 15kg</td>
         <td class="date">24 mars</td>
+        <td class="ex">Half-Kneeling Landmine Press</td>
+        <td>4</td>
+        <td>3-4</td>
+        <td class="charge">Barre + 15kg</td>
+        <td>2’ - 2’30</td>
       </tr>
       <tr data-exercise="Landmine Balistic Row">
-        <td class="ex">Landmine Balistic Row</td>
-        <td class="wr">4 / 3-4 Barre + 20kg</td>
         <td class="date">24 mars</td>
+        <td class="ex">Landmine Balistic Row</td>
+        <td>4</td>
+        <td>3-4</td>
+        <td class="charge">Barre + 20kg</td>
+        <td>2’ - 2’30</td>
       </tr>
       <tr data-exercise="Push Press Barbell">
-        <td class="ex">Push Press Barbell</td>
-        <td class="wr">4×5 Barre + 30kg</td>
         <td class="date">24 mars</td>
+        <td class="ex">Push Press Barbell</td>
+        <td>4</td>
+        <td>5</td>
+        <td class="charge">Barre + 30kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Rowing">
-        <td class="ex">Rowing</td>
-        <td class="wr">4×5 @ 60kg</td>
         <td class="date">24 mars</td>
+        <td class="ex">Rowing</td>
+        <td>4</td>
+        <td>5</td>
+        <td class="charge">60kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Deadlift">
-        <td class="ex">Deadlift</td>
-        <td class="wr">4 / 4 D/G @ 85kg</td>
         <td class="date">23 mars</td>
+        <td class="ex">Deadlift</td>
+        <td>4</td>
+        <td>4 D/G</td>
+        <td class="charge">85kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Step Up Jump">
-        <td class="ex">Step Up Jump</td>
-        <td class="wr">4 / 3-4 D/G 2x4kg</td>
         <td class="date">23 mars</td>
+        <td class="ex">Step Up Jump</td>
+        <td>4</td>
+        <td>3-4 D/G</td>
+        <td class="charge">2x4kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Trap Bar Jump">
-        <td class="ex">Trap Bar Jump</td>
-        <td class="wr">4 / 3-4 2x14kg</td>
         <td class="date">23 mars</td>
+        <td class="ex">Trap Bar Jump</td>
+        <td>4</td>
+        <td>3-4</td>
+        <td class="charge">2x14kg</td>
+        <td>2</td>
       </tr>
       <tr data-exercise="Cossack Squat">
-        <td class="ex">Cossack Squat</td>
-        <td class="wr">3×10 KB 16kg</td>
         <td class="date">21 mars</td>
+        <td class="ex">Cossack Squat</td>
+        <td>3</td>
+        <td>10</td>
+        <td class="charge">KB 16kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Rotation">
-        <td class="ex">Half-Kneeling Landmine Rotation</td>
-        <td class="wr">4-5 / 8-10 Barre + 5kg</td>
         <td class="date">21 mars</td>
+        <td class="ex">Half-Kneeling Landmine Rotation</td>
+        <td>4-5</td>
+        <td>8-10</td>
+        <td class="charge">Barre + 5kg</td>
+        <td>30” - 1min</td>
       </tr>
       <tr data-exercise="Jefferson Curl Squat">
-        <td class="ex">Jefferson Curl Squat</td>
-        <td class="wr">3×5 KB 6kg</td>
         <td class="date">21 mars</td>
+        <td class="ex">Jefferson Curl Squat</td>
+        <td>3</td>
+        <td>5</td>
+        <td class="charge">KB 6kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Single-Leg RDL">
-        <td class="ex">Single-Leg RDL</td>
-        <td class="wr">3 / 4-6 reps Droite et ensuite gauche 6 rep. Barre + 10kg. Sur un step pour pouvoir à descendre la barre jusqu’aux pieds</td>
         <td class="date">21 mars</td>
+        <td class="ex">Single-Leg RDL</td>
+        <td>3</td>
+        <td>4-6 reps Droite et ensuite gauche</td>
+        <td class="charge">6 rep. Barre + 10kg. Sur un step pour pouvoir à descendre la barre jusqu’aux pieds</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Back Extension Iso Hold, Hollow">
-        <td class="ex">Back Extension Iso Hold, Hollow</td>
-        <td class="wr">4 / 30 à 1’
-+30s de Hollow 10kg back extension
-5kg hollow</td>
         <td class="date">19 mars</td>
+        <td class="ex">Back Extension Iso Hold, Hollow</td>
+        <td>4</td>
+        <td>30 à 1’
++30s de Hollow</td>
+        <td class="charge">10kg back extension
+5kg hollow</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Deadlift">
-        <td class="ex">Deadlift</td>
-        <td class="wr">4×6 @ 60kg</td>
         <td class="date">19 mars</td>
+        <td class="ex">Deadlift</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">60kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Front Rack Carry">
-        <td class="ex">Front Rack Carry</td>
-        <td class="wr">4 / 40m 2x20kg</td>
         <td class="date">19 mars</td>
+        <td class="ex">Front Rack Carry</td>
+        <td>4</td>
+        <td>40m</td>
+        <td class="charge">2x20kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Pull up">
-        <td class="ex">Pull up</td>
-        <td class="wr">3×3 @ 17kg</td>
         <td class="date">17 mars</td>
+        <td class="ex">Pull up</td>
+        <td>3</td>
+        <td>3</td>
+        <td class="charge">17kg</td>
+        <td>2’30 - 3’</td>
       </tr>
       <tr data-exercise="Single Arm Bench Press">
-        <td class="ex">Single Arm Bench Press</td>
-        <td class="wr">3 / 6 D/G @ 24kg</td>
         <td class="date">17 mars</td>
+        <td class="ex">Single Arm Bench Press</td>
+        <td>3</td>
+        <td>6 D/G</td>
+        <td class="charge">24kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Single-Arm Dumbbell Row">
-        <td class="ex">Single-Arm Dumbbell Row</td>
-        <td class="wr">3 / 6 D/G @ 24kg</td>
         <td class="date">17 mars</td>
+        <td class="ex">Single-Arm Dumbbell Row</td>
+        <td>3</td>
+        <td>6 D/G</td>
+        <td class="charge">24kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Strict press">
-        <td class="ex">Strict press</td>
-        <td class="wr">3×3 @ 42,5kg</td>
         <td class="date">17 mars</td>
+        <td class="ex">Strict press</td>
+        <td>3</td>
+        <td>3</td>
+        <td class="charge">42,5kg</td>
+        <td>2’30</td>
       </tr>
       <tr data-exercise="Hip Thrust">
-        <td class="ex">Hip Thrust</td>
-        <td class="wr">3 / 6 reps 6 rep. Barre + 70kg</td>
         <td class="date">16 mars</td>
+        <td class="ex">Hip Thrust</td>
+        <td>3</td>
+        <td>6 reps</td>
+        <td class="charge">6 rep. Barre + 70kg</td>
+        <td>2’ - 2’30</td>
       </tr>
       <tr data-exercise="Landmine sumo squat">
-        <td class="ex">Landmine sumo squat</td>
-        <td class="wr">3×5 Barre + 60kg</td>
         <td class="date">16 mars</td>
+        <td class="ex">Landmine sumo squat</td>
+        <td>3</td>
+        <td>5</td>
+        <td class="charge">Barre + 60kg</td>
+        <td>2’ - 2’30</td>
       </tr>
       <tr data-exercise="Pallof Press">
-        <td class="ex">Pallof Press</td>
-        <td class="wr">4-5 / 8-10 @ 11kg</td>
         <td class="date">16 mars</td>
+        <td class="ex">Pallof Press</td>
+        <td>4-5</td>
+        <td>8-10</td>
+        <td class="charge">11kg</td>
+        <td>30” - 1min</td>
       </tr>
       <tr data-exercise="Zercher Lunge">
-        <td class="ex">Zercher Lunge</td>
-        <td class="wr">3 / 4-6 reps Droite et ensuite gauche 6 rep. Barre + 20kg</td>
         <td class="date">16 mars</td>
+        <td class="ex">Zercher Lunge</td>
+        <td>3</td>
+        <td>4-6 reps Droite et ensuite gauche</td>
+        <td class="charge">6 rep. Barre + 20kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Floor Press">
-        <td class="ex">Floor Press</td>
-        <td class="wr">4 / 3-4 28kg DB</td>
         <td class="date">13 mars</td>
+        <td class="ex">Floor Press</td>
+        <td>4</td>
+        <td>3-4</td>
+        <td class="charge">28kg DB</td>
+        <td></td>
       </tr>
       <tr data-exercise="Seal row">
-        <td class="ex">Seal row</td>
-        <td class="wr">3 / 3-4 22kg DB</td>
         <td class="date">13 mars</td>
+        <td class="ex">Seal row</td>
+        <td>3</td>
+        <td>3-4</td>
+        <td class="charge">22kg DB</td>
+        <td></td>
       </tr>
       <tr data-exercise="Single strict press">
-        <td class="ex">Single strict press</td>
-        <td class="wr">3×6 12kg DB</td>
         <td class="date">13 mars</td>
+        <td class="ex">Single strict press</td>
+        <td>3</td>
+        <td>6</td>
+        <td class="charge">12kg DB</td>
+        <td></td>
       </tr>
       <tr data-exercise="Single-Arm Dumbbell Row">
-        <td class="ex">Single-Arm Dumbbell Row</td>
-        <td class="wr">3×6 18kg DB</td>
         <td class="date">13 mars</td>
+        <td class="ex">Single-Arm Dumbbell Row</td>
+        <td>3</td>
+        <td>6</td>
+        <td class="charge">18kg DB</td>
+        <td></td>
       </tr>
       <tr data-exercise="Pull up">
-        <td class="ex">Pull up</td>
-        <td class="wr">3×3 @ 16,125kg</td>
         <td class="date">10 mars</td>
+        <td class="ex">Pull up</td>
+        <td>3</td>
+        <td>3</td>
+        <td class="charge">16,125kg</td>
+        <td>2’30 - 3’</td>
       </tr>
       <tr data-exercise="Renegade Row">
-        <td class="ex">Renegade Row</td>
-        <td class="wr">3 / 6-8 D/G 14</td>
         <td class="date">10 mars</td>
+        <td class="ex">Renegade Row</td>
+        <td>3</td>
+        <td>6-8 D/G</td>
+        <td class="charge">14</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Single Arm Floor Press Bridge">
-        <td class="ex">Single Arm Floor Press Bridge</td>
-        <td class="wr">3 / 6-8 D/G 22</td>
         <td class="date">10 mars</td>
+        <td class="ex">Single Arm Floor Press Bridge</td>
+        <td>3</td>
+        <td>6-8 D/G</td>
+        <td class="charge">22</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Strict press">
-        <td class="ex">Strict press</td>
-        <td class="wr">3×3 @ 42,5kg</td>
         <td class="date">10 mars</td>
+        <td class="ex">Strict press</td>
+        <td>3</td>
+        <td>3</td>
+        <td class="charge">42,5kg</td>
+        <td>2’30 - 3’</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Rotation">
-        <td class="ex">Half-Kneeling Landmine Rotation</td>
-        <td class="wr">3 / 8 D/G Barre + 10kg</td>
         <td class="date">6 mars</td>
+        <td class="ex">Half-Kneeling Landmine Rotation</td>
+        <td>3</td>
+        <td>8 D/G</td>
+        <td class="charge">Barre + 10kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Pull up">
-        <td class="ex">Pull up</td>
-        <td class="wr">3 / 3-4 @ 15kg</td>
         <td class="date">5 mars</td>
+        <td class="ex">Pull up</td>
+        <td>3</td>
+        <td>3-4</td>
+        <td class="charge">15kg</td>
+        <td>2’ - 2’30</td>
       </tr>
       <tr data-exercise="Renegade Row">
-        <td class="ex">Renegade Row</td>
-        <td class="wr">3 / 6-8 D/G @ 12kg</td>
         <td class="date">5 mars</td>
+        <td class="ex">Renegade Row</td>
+        <td>3</td>
+        <td>6-8 D/G</td>
+        <td class="charge">12kg</td>
+        <td>30s - 1min</td>
       </tr>
       <tr data-exercise="Single Arm Floor Press Bridge">
-        <td class="ex">Single Arm Floor Press Bridge</td>
-        <td class="wr">3 / 6-8 D/G @ 20kg</td>
         <td class="date">5 mars</td>
+        <td class="ex">Single Arm Floor Press Bridge</td>
+        <td>3</td>
+        <td>6-8 D/G</td>
+        <td class="charge">20kg</td>
+        <td>30-60s</td>
       </tr>
       <tr data-exercise="Strict press">
-        <td class="ex">Strict press</td>
-        <td class="wr">3 / 3-4 @ 40kg</td>
         <td class="date">5 mars</td>
+        <td class="ex">Strict press</td>
+        <td>3</td>
+        <td>3-4</td>
+        <td class="charge">40kg</td>
+        <td>2’ - 2’30</td>
       </tr>
       <tr data-exercise="Deadlift Trap Bar">
-        <td class="ex">Deadlift Trap Bar</td>
-        <td class="wr">3×3 100kg barre simple</td>
         <td class="date">3 mars</td>
+        <td class="ex">Deadlift Trap Bar</td>
+        <td>3</td>
+        <td>3</td>
+        <td class="charge">100kg barre simple</td>
+        <td>2’ - 2’30</td>
       </tr>
       <tr data-exercise="Hip Thrust">
-        <td class="ex">Hip Thrust</td>
-        <td class="wr">3 / 4-6 reps 6 rep. Barre + 70kg</td>
         <td class="date">3 mars</td>
+        <td class="ex">Hip Thrust</td>
+        <td>3</td>
+        <td>4-6 reps</td>
+        <td class="charge">6 rep. Barre + 70kg</td>
+        <td>2’ - 2’30</td>
       </tr>
       <tr data-exercise="Pallof Press">
-        <td class="ex">Pallof Press</td>
-        <td class="wr">4-5 / 8-10 @ 9kg</td>
         <td class="date">3 mars</td>
+        <td class="ex">Pallof Press</td>
+        <td>4-5</td>
+        <td>8-10</td>
+        <td class="charge">9kg</td>
+        <td>30” - 1min</td>
       </tr>
       <tr data-exercise="Unilateral Landmine RDL">
-        <td class="ex">Unilateral Landmine RDL</td>
-        <td class="wr">3 / 4-6 reps Droite et ensuite gauche 6 rep. Barre + 20kg</td>
         <td class="date">3 mars</td>
+        <td class="ex">Unilateral Landmine RDL</td>
+        <td>3</td>
+        <td>4-6 reps Droite et ensuite gauche</td>
+        <td class="charge">6 rep. Barre + 20kg</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Adductor Side Plank on Bench">
-        <td class="ex">Adductor Side Plank on Bench</td>
-        <td class="wr">3 / 8-10 D/G Barre + 10kg</td>
         <td class="date">1 mars</td>
+        <td class="ex">Adductor Side Plank on Bench</td>
+        <td>3</td>
+        <td>8-10 D/G</td>
+        <td class="charge">Barre + 10kg</td>
+        <td>30s - 1’</td>
       </tr>
       <tr data-exercise="Cossack Squat">
-        <td class="ex">Cossack Squat</td>
-        <td class="wr">4 / 6-8 reps Barre + 15kg</td>
         <td class="date">1 mars</td>
+        <td class="ex">Cossack Squat</td>
+        <td>4</td>
+        <td>6-8 reps</td>
+        <td class="charge">Barre + 15kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Single Leg Hip Thrust">
-        <td class="ex">Single Leg Hip Thrust</td>
-        <td class="wr">3 / 8-10 D/G DB 16kg</td>
         <td class="date">1 mars</td>
+        <td class="ex">Single Leg Hip Thrust</td>
+        <td>3</td>
+        <td>8-10 D/G</td>
+        <td class="charge">DB 16kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Hip Thrust">
-        <td class="ex">Hip Thrust</td>
-        <td class="wr">4 / 8-10 reps Barre + 40kg</td>
         <td class="date">26 fév.</td>
+        <td class="ex">Hip Thrust</td>
+        <td>4</td>
+        <td>8-10 reps</td>
+        <td class="charge">Barre + 40kg</td>
+        <td>1’ - 1’30</td>
       </tr>
       <tr data-exercise="Split Squat">
-        <td class="ex">Split Squat</td>
-        <td class="wr">4 / 8 reps D/G 2x12kg</td>
         <td class="date">26 fév.</td>
+        <td class="ex">Split Squat</td>
+        <td>4</td>
+        <td>8 reps D/G</td>
+        <td class="charge">2x12kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Squat, Dead Bug">
-        <td class="ex">Squat, Dead Bug</td>
-        <td class="wr">4 / 6-8 @ 72,5kg</td>
         <td class="date">26 fév.</td>
+        <td class="ex">Squat, Dead Bug</td>
+        <td>4</td>
+        <td>6-8</td>
+        <td class="charge">72,5kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Suitcase carry">
-        <td class="ex">Suitcase carry</td>
-        <td class="wr">4-5 / 20 - 40m KB 24kg</td>
         <td class="date">26 fév.</td>
+        <td class="ex">Suitcase carry</td>
+        <td>4-5</td>
+        <td>20 - 40m</td>
+        <td class="charge">KB 24kg</td>
+        <td>30” - 1min</td>
       </tr>
       <tr data-exercise="Antirotation Barbell">
-        <td class="ex">Antirotation Barbell</td>
-        <td class="wr">4×10 Barre à vide</td>
         <td class="date">24 fév.</td>
+        <td class="ex">Antirotation Barbell</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">Barre à vide</td>
+        <td>30s</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
-        <td class="ex">Half-Kneeling Landmine Press</td>
-        <td class="wr">4 / 6-8 reps Barre + 15kg</td>
         <td class="date">24 fév.</td>
+        <td class="ex">Half-Kneeling Landmine Press</td>
+        <td>4</td>
+        <td>6-8 reps</td>
+        <td class="charge">Barre + 15kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Landmine Rotation">
-        <td class="ex">Landmine Rotation</td>
-        <td class="wr">4-5 / 8-10 Barre + 10kg</td>
         <td class="date">24 fév.</td>
+        <td class="ex">Landmine Rotation</td>
+        <td>4-5</td>
+        <td>8-10</td>
+        <td class="charge">Barre + 10kg</td>
+        <td>30s - 1’</td>
       </tr>
       <tr data-exercise="Single-arm dumbbell row (bench-supported)">
-        <td class="ex">Single-arm dumbbell row (bench-supported)</td>
-        <td class="wr">4 / 6-8 D/G DB 16kg</td>
         <td class="date">24 fév.</td>
+        <td class="ex">Single-arm dumbbell row (bench-supported)</td>
+        <td>4</td>
+        <td>6-8 D/G</td>
+        <td class="charge">DB 16kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Back Extension Iso Hold">
-        <td class="ex">Back Extension Iso Hold</td>
-        <td class="wr">4 / 30 à 1’ @ 10kg</td>
         <td class="date">23 fév.</td>
+        <td class="ex">Back Extension Iso Hold</td>
+        <td>4</td>
+        <td>30 à 1’</td>
+        <td class="charge">10kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Deadlift">
-        <td class="ex">Deadlift</td>
-        <td class="wr">4 / 6 D/G @ 80kg</td>
         <td class="date">23 fév.</td>
+        <td class="ex">Deadlift</td>
+        <td>4</td>
+        <td>6 D/G</td>
+        <td class="charge">80kg</td>
+        <td>1’30 - 2’</td>
       </tr>
       <tr data-exercise="Jefferson curl">
-        <td class="ex">Jefferson curl</td>
-        <td class="wr">4×6 KB 12kg</td>
         <td class="date">23 fév.</td>
+        <td class="ex">Jefferson curl</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">KB 12kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Loaded Spinal Circle">
-        <td class="ex">Loaded Spinal Circle</td>
-        <td class="wr">3 / 6 (3 cercles dans un sens et 3 dans l’autre) Médecine ball 10kg</td>
         <td class="date">23 fév.</td>
+        <td class="ex">Loaded Spinal Circle</td>
+        <td>3</td>
+        <td>6 (3 cercles dans un sens et 3 dans l’autre)</td>
+        <td class="charge">Médecine ball 10kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
-        <td class="ex">Pallof Rotation</td>
-        <td class="wr">4×10 @ 9kg</td>
         <td class="date">23 fév.</td>
+        <td class="ex">Pallof Rotation</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">9kg</td>
+        <td>1</td>
       </tr>
       <tr data-exercise="KB swing">
-        <td class="ex">KB swing</td>
-        <td class="wr">3 / 10-12 KB 24kg.</td>
         <td class="date">20 fév.</td>
+        <td class="ex">KB swing</td>
+        <td>3</td>
+        <td>10-12</td>
+        <td class="charge">KB 24kg.</td>
+        <td>60-90s</td>
       </tr>
       <tr data-exercise="Slam Ball High Pull Triple Extension">
-        <td class="ex">Slam Ball High Pull Triple Extension</td>
-        <td class="wr">3 / 8-10 Balle 8kg</td>
         <td class="date">20 fév.</td>
+        <td class="ex">Slam Ball High Pull Triple Extension</td>
+        <td>3</td>
+        <td>8-10</td>
+        <td class="charge">Balle 8kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Antirotation Barbell">
-        <td class="ex">Antirotation Barbell</td>
-        <td class="wr">4×10 Barre à vide</td>
         <td class="date">19 fév.</td>
+        <td class="ex">Antirotation Barbell</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">Barre à vide</td>
+        <td>30s</td>
       </tr>
       <tr data-exercise="Half-Kneeling Landmine Press">
-        <td class="ex">Half-Kneeling Landmine Press</td>
-        <td class="wr">4 / 6-8 reps Barre + 10kg</td>
         <td class="date">19 fév.</td>
+        <td class="ex">Half-Kneeling Landmine Press</td>
+        <td>4</td>
+        <td>6-8 reps</td>
+        <td class="charge">Barre + 10kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Landmine Rotation">
-        <td class="ex">Landmine Rotation</td>
-        <td class="wr">4-5 / 8-10 Barre + 10kg</td>
         <td class="date">19 fév.</td>
+        <td class="ex">Landmine Rotation</td>
+        <td>4-5</td>
+        <td>8-10</td>
+        <td class="charge">Barre + 10kg</td>
+        <td>30s - 1’</td>
       </tr>
       <tr data-exercise="Single deadlift">
-        <td class="ex">Single deadlift</td>
-        <td class="wr">4 / 6-8 D/G Barre + 10kg</td>
         <td class="date">19 fév.</td>
+        <td class="ex">Single deadlift</td>
+        <td>4</td>
+        <td>6-8 D/G</td>
+        <td class="charge">Barre + 10kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Hip Thrust">
-        <td class="ex">Hip Thrust</td>
-        <td class="wr">4 / 8-10 reps Barre + 30kg</td>
         <td class="date">17 fév.</td>
+        <td class="ex">Hip Thrust</td>
+        <td>4</td>
+        <td>8-10 reps</td>
+        <td class="charge">Barre + 30kg</td>
+        <td>1’ - 1’30</td>
       </tr>
       <tr data-exercise="Split Squat">
-        <td class="ex">Split Squat</td>
-        <td class="wr">4 / 6-8 reps D/G 2x haltère 12kg x 8 rep</td>
         <td class="date">17 fév.</td>
+        <td class="ex">Split Squat</td>
+        <td>4</td>
+        <td>6-8 reps D/G</td>
+        <td class="charge">2x haltère 12kg x 8 rep</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Squat, Dead Bug">
-        <td class="ex">Squat, Dead Bug</td>
-        <td class="wr">4 / 6-8 80kg x 6rep</td>
         <td class="date">17 fév.</td>
+        <td class="ex">Squat, Dead Bug</td>
+        <td>4</td>
+        <td>6-8</td>
+        <td class="charge">80kg x 6rep</td>
+        <td>2’</td>
       </tr>
       <tr data-exercise="Suitcase carry">
-        <td class="ex">Suitcase carry</td>
-        <td class="wr">4-5 / 20 - 40m KB 20kg x40m</td>
         <td class="date">17 fév.</td>
+        <td class="ex">Suitcase carry</td>
+        <td>4-5</td>
+        <td>20 - 40m</td>
+        <td class="charge">KB 20kg x40m</td>
+        <td>30” - 1min</td>
       </tr>
       <tr data-exercise="Back Extension Iso Hold">
-        <td class="ex">Back Extension Iso Hold</td>
-        <td class="wr">4 / 30 à 1’ Galette 10kg</td>
         <td class="date">16 fév.</td>
+        <td class="ex">Back Extension Iso Hold</td>
+        <td>4</td>
+        <td>30 à 1’</td>
+        <td class="charge">Galette 10kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Deadlift">
-        <td class="ex">Deadlift</td>
-        <td class="wr">4 / 6 D/G Barre vide 20kg</td>
         <td class="date">16 fév.</td>
+        <td class="ex">Deadlift</td>
+        <td>4</td>
+        <td>6 D/G</td>
+        <td class="charge">Barre vide 20kg</td>
+        <td>1’30 - 2’</td>
       </tr>
       <tr data-exercise="Jefferson curl">
-        <td class="ex">Jefferson curl</td>
-        <td class="wr">4×6 KB 6kg</td>
         <td class="date">16 fév.</td>
+        <td class="ex">Jefferson curl</td>
+        <td>4</td>
+        <td>6</td>
+        <td class="charge">KB 6kg</td>
+        <td>1’30</td>
       </tr>
       <tr data-exercise="Loaded Spinal Circle">
-        <td class="ex">Loaded Spinal Circle</td>
-        <td class="wr">3 / 6 (3 cercles dans un sens et 3 dans l’autre) Medecine balle 8kg</td>
         <td class="date">16 fév.</td>
+        <td class="ex">Loaded Spinal Circle</td>
+        <td>3</td>
+        <td>6 (3 cercles dans un sens et 3 dans l’autre)</td>
+        <td class="charge">Medecine balle 8kg</td>
+        <td>1’</td>
       </tr>
       <tr data-exercise="Pallof Rotation">
-        <td class="ex">Pallof Rotation</td>
-        <td class="wr">4×10 Elastique</td>
         <td class="date">16 fév.</td>
+        <td class="ex">Pallof Rotation</td>
+        <td>4</td>
+        <td>10</td>
+        <td class="charge">Elastique</td>
+        <td>1</td>
       </tr>
   </tbody>
 </table>
