@@ -17,7 +17,6 @@ from __future__ import annotations
 
 import html
 import os
-import re
 import sys
 import time
 from datetime import datetime
@@ -361,6 +360,7 @@ def record_exercise_occurrence(history: dict, movement_cache: dict, row: dict, e
             "charge_cible": ex.get("Charge cible", {}).get("text", "").strip(),
             "series": ex.get("Séries", {}).get("text", "").strip(),
             "reps": ex.get("Répétitions", {}).get("text", "").strip(),
+            "recuperation": ex.get("Récupération", {}).get("text", "").strip(),
         })
 
 
@@ -370,25 +370,6 @@ MONTHS_FR = ["jan.", "fév.", "mars", "avr.", "mai", "juin", "juil.", "aoû.", "
 def format_date_fr(iso_date: str) -> str:
     y, m, d = iso_date.split("-")
     return f"{int(d)} {MONTHS_FR[int(m) - 1]}"
-
-
-def format_weight_reps(entry: dict) -> str:
-    """Formatage "au mieux" façon 4×8 @ 82.5kg. Les données Notion sont du
-    texte libre (pas toujours des nombres propres : "Barre + 40kg", "10
-    répétitions par exercice D/G"...) — on ne force le format compact que
-    quand séries/reps sont des entiers simples et que la charge est un
-    nombre + kg ; sinon on retombe sur le texte brut tel quel."""
-    series, reps, charge = entry["series"], entry["reps"], entry["charge_reelle"]
-
-    if re.fullmatch(r"\d+", series or "") and re.fullmatch(r"\d+", reps or ""):
-        sxr = f"{series}×{reps}"
-    else:
-        sxr = " / ".join(p for p in (series, reps) if p)
-
-    m = re.fullmatch(r"(\d+(?:[.,]\d+)?)\s*kg", charge.strip(), re.I)
-    weight = f"@ {m.group(1)}kg" if m else charge
-
-    return f"{sxr} {weight}".strip() if sxr else weight
 
 
 def build_history_html(history: dict) -> str:
@@ -407,9 +388,12 @@ def build_history_html(history: dict) -> str:
     for name, r in all_entries:
         rows_html.append(f"""
       <tr data-exercise="{html.escape(name)}">
-        <td class="ex">{html.escape(name)}</td>
-        <td class="wr">{html.escape(format_weight_reps(r))}</td>
         <td class="date">{html.escape(format_date_fr(r['date']))}</td>
+        <td class="ex">{html.escape(name)}</td>
+        <td>{html.escape(r['series'])}</td>
+        <td>{html.escape(r['reps'])}</td>
+        <td class="charge">{html.escape(r['charge_reelle'])}</td>
+        <td>{html.escape(r['recuperation'])}</td>
       </tr>""")
 
     return f"""<!doctype html>
@@ -442,17 +426,17 @@ def build_history_html(history: dict) -> str:
     padding: .5rem .7rem; font-size: .9rem; font-family: inherit; min-width: 220px;
   }}
   .table-wrap {{ width: 100%; overflow-x: auto; }}
-  table {{ width: 100%; border-collapse: collapse; font-size: .9rem; }}
+  table {{ width: 100%; border-collapse: collapse; font-size: .88rem; }}
   thead th {{
     text-align: left; font-size: .7rem; letter-spacing: .04em; text-transform: uppercase;
     color: #6a6a75; font-weight: 500; padding: .6rem .5rem; border-bottom: 1px solid #1c1c22;
+    white-space: nowrap;
   }}
-  thead th.wr, thead th.date {{ text-align: right; }}
-  tbody td {{ padding: .8rem .5rem; border-bottom: 1px solid #16161b; vertical-align: middle; }}
+  tbody td {{ padding: .7rem .5rem; border-bottom: 1px solid #16161b; vertical-align: middle; white-space: nowrap; }}
   tbody tr.hidden {{ display: none; }}
-  td.ex {{ font-weight: 600; }}
-  td.wr {{ text-align: right; white-space: nowrap; }}
-  td.date {{ text-align: right; color: #7a7a85; white-space: nowrap; }}
+  td.date {{ color: #7a7a85; }}
+  td.ex {{ font-weight: 600; white-space: normal; }}
+  td.charge {{ font-weight: 600; }}
   p.count {{ color: #55555f; font-size: .8rem; margin-top: 1rem; }}
 
   /* En dessous de 640px : chaque ligne devient une carte empilée au lieu
@@ -463,9 +447,13 @@ def build_history_html(history: dict) -> str:
     thead {{ display: none; }}
     tbody tr {{ padding: .7rem 0; border-bottom: 1px solid #16161b; }}
     tbody td {{ border: none; padding: .1rem 0; text-align: left; white-space: normal; }}
+    td.date {{ font-size: .8rem; }}
     td.ex {{ font-size: 1rem; }}
-    td.wr::before {{ content: "Répétitions × Poids : "; color: #6a6a75; font-size: .72rem; }}
-    td.date::before {{ content: "Date : "; color: #6a6a75; font-size: .72rem; }}
+    td:nth-child(3)::before {{ content: "Séries : "; color: #6a6a75; font-size: .72rem; }}
+    td:nth-child(4)::before {{ content: "Répétitions : "; color: #6a6a75; font-size: .72rem; }}
+    td:nth-child(5)::before {{ content: "Charge réelle : "; color: #6a6a75; font-size: .72rem; }}
+    td:nth-child(6)::before {{ content: "Récupération : "; color: #6a6a75; font-size: .72rem; }}
+    td:empty {{ display: none; }}
   }}
 </style>
 </head>
@@ -484,7 +472,7 @@ def build_history_html(history: dict) -> str:
 <div class="table-wrap">
 <table>
   <thead>
-    <tr><th>Exercice</th><th class="wr">Répétitions × Poids</th><th class="date">Date</th></tr>
+    <tr><th>Date</th><th>Mouvement</th><th>Séries</th><th>Répétitions</th><th>Charge réelle</th><th>Récupération</th></tr>
   </thead>
   <tbody class="mono">{"".join(rows_html)}
   </tbody>
