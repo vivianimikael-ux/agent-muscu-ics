@@ -355,6 +355,7 @@ def record_exercise_occurrence(history: dict, movement_cache: dict, row: dict, e
         name = exercise_display_name(ex, movement_cache, i)
         history.setdefault(name, []).append({
             "date": iso_date,
+            "session_id": row["_id"],
             "titre_seance": titre,
             "charge_reelle": charge_reelle,
             "charge_cible": ex.get("Charge cible", {}).get("text", "").strip(),
@@ -365,6 +366,10 @@ def record_exercise_occurrence(history: dict, movement_cache: dict, row: dict, e
 
 
 MONTHS_FR = ["jan.", "fév.", "mars", "avr.", "mai", "juin", "juil.", "aoû.", "sept.", "oct.", "nov.", "déc."]
+MONTHS_FR_FULL = [
+    "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+    "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre",
+]
 
 
 def format_date_fr(iso_date: str) -> str:
@@ -372,7 +377,85 @@ def format_date_fr(iso_date: str) -> str:
     return f"{int(d)} {MONTHS_FR[int(m) - 1]}"
 
 
-def build_history_html(history: dict) -> str:
+def format_date_fr_long(iso_date: str) -> str:
+    y, m, d = iso_date.split("-")
+    return f"{int(d)} {MONTHS_FR_FULL[int(m) - 1].lower()} {y}"
+
+
+def build_session_detail_html(session: dict, movement_cache: dict) -> str:
+    """Construit le détail complet d'une séance (exercices + notes libres),
+    même contenu que la description de l'événement Calendar mais en HTML
+    structuré plutôt qu'en texte brut."""
+    exercises = session["exercises"]
+    freeform_texts = session["freeform_texts"]
+
+    if not exercises:
+        rows_html = '<p class="empty">Aucun exercice détaillé pour cette séance.</p>'
+    else:
+        cells = []
+        for i, ex in enumerate(exercises, 1):
+            name = exercise_display_name(ex, movement_cache, i)
+            series = ex.get("Séries", {}).get("text", "")
+            reps = ex.get("Répétitions", {}).get("text", "")
+            charge_cible = ex.get("Charge cible", {}).get("text", "")
+            charge_reelle = ex.get("Charge réelle", {}).get("text", "")
+            recuperation = ex.get("Récupération", {}).get("text", "")
+            details = ex.get("Détails", {}).get("text", "")
+            details_html = f'<div class="ex-details">{html.escape(details)}</div>' if details else ""
+            cells.append(f"""
+        <tr>
+          <td class="ex">{html.escape(name)}</td>
+          <td>{html.escape(series)}</td>
+          <td>{html.escape(reps)}</td>
+          <td>{html.escape(charge_cible)}</td>
+          <td class="charge">{html.escape(charge_reelle)}</td>
+          <td>{html.escape(recuperation)}</td>
+        </tr>
+        {f'<tr class="details-row"><td colspan="6">{details_html}</td></tr>' if details_html else ""}""")
+        rows_html = f"""<table class="ex-table">
+        <thead><tr><th>Mouvement</th><th>Séries</th><th>Répétitions</th><th>Charge cible</th><th>Charge réelle</th><th>Récupération</th></tr></thead>
+        <tbody class="mono">{"".join(cells)}</tbody>
+      </table>"""
+
+    freeform_html = ""
+    if freeform_texts:
+        notes = "".join(f"<p>{html.escape(t)}</p>" for t in freeform_texts)
+        freeform_html = f'<div class="freeform">{notes}</div>'
+
+    return rows_html + freeform_html
+
+
+def build_seances_section(all_sessions: list, movement_cache: dict) -> str:
+    sessions_sorted = sorted(all_sessions, key=lambda s: s["date"], reverse=True)
+
+    blocks = []
+    current_month_key = None
+    for s in sessions_sorted:
+        y, m, _ = s["date"].split("-")
+        month_key = f"{y}-{m}"
+        if month_key != current_month_key:
+            current_month_key = month_key
+            blocks.append(f'<h2 class="month">{MONTHS_FR_FULL[int(m) - 1]} {y}</h2>')
+
+        badge_class = "padel" if s["type"].strip().lower() == "padel" else ""
+        statut = "Faite" if s["seance_ok"] else "À venir"
+        detail_html = build_session_detail_html(s, movement_cache)
+
+        blocks.append(f"""
+    <details class="seance-block" id="seance-{html.escape(s['id'])}">
+      <summary class="seance-row">
+        <span class="date mono">{html.escape(format_date_fr(s['date']))}</span>
+        <span class="title">{html.escape(s['titre'])}</span>
+        <span class="badge {badge_class}">{html.escape(s['type'] or '—')}</span>
+        <span class="statut">{html.escape(statut)}</span>
+      </summary>
+      <div class="seance-detail">{detail_html}</div>
+    </details>""")
+
+    return "".join(blocks)
+
+
+def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> str:
     all_entries = []
     exercise_names = sorted(history.keys(), key=str.casefold)
     for name in exercise_names:
@@ -388,13 +471,15 @@ def build_history_html(history: dict) -> str:
     for name, r in all_entries:
         rows_html.append(f"""
       <tr data-exercise="{html.escape(name)}">
-        <td class="date">{html.escape(format_date_fr(r['date']))}</td>
+        <td class="date"><a href="#seance-{html.escape(r['session_id'])}" class="seance-link" data-seance="{html.escape(r['session_id'])}">{html.escape(format_date_fr(r['date']))}</a></td>
         <td class="ex">{html.escape(name)}</td>
         <td>{html.escape(r['series'])}</td>
         <td>{html.escape(r['reps'])}</td>
         <td class="charge">{html.escape(r['charge_reelle'])}</td>
         <td>{html.escape(r['recuperation'])}</td>
       </tr>""")
+
+    seances_html = build_seances_section(all_sessions, movement_cache)
 
     return f"""<!doctype html>
 <html lang="fr">
@@ -417,8 +502,30 @@ def build_history_html(history: dict) -> str:
   .subtitle {{ font-size: .8rem; color: #7a7a85; margin-left: .6rem; }}
   .subtitle.mono {{ letter-spacing: .02em; }}
   nav.tabs {{ display: flex; gap: 1.5rem; border-bottom: 1px solid #1c1c22; margin-bottom: 1.25rem; }}
-  nav.tabs span {{ font-size: .95rem; color: #55555f; padding-bottom: .6rem; }}
+  nav.tabs span {{ font-size: .95rem; color: #55555f; padding-bottom: .6rem; cursor: pointer; }}
   nav.tabs span.active {{ color: #f0f0f2; font-weight: 600; border-bottom: 2px solid #2dd4a0; }}
+  a.seance-link {{ color: inherit; text-decoration: none; border-bottom: 1px dotted #4a4a55; }}
+  a.seance-link:hover {{ color: #2dd4a0; border-bottom-color: #2dd4a0; }}
+  h2.month {{ font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; color: #6a6a75; margin: 1.4rem 0 .5rem; }}
+  details.seance-block {{ border-bottom: 1px solid #16161b; }}
+  summary.seance-row {{ list-style: none; cursor: pointer; padding: .7rem .2rem; display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; }}
+  summary.seance-row::-webkit-details-marker {{ display: none; }}
+  summary.seance-row .date {{ color: #7a7a85; font-size: .8rem; min-width: 52px; }}
+  summary.seance-row .title {{ font-weight: 600; flex: 1; min-width: 140px; }}
+  summary.seance-row .badge {{ font-size: .65rem; padding: .15rem .45rem; border-radius: .3rem; background: #17342c; color: #6fe3c4; white-space: nowrap; }}
+  summary.seance-row .badge.padel {{ background: #1f2937; color: #93c5fd; }}
+  summary.seance-row .statut {{ font-size: .75rem; color: #6a6a75; }}
+  .seance-detail {{ padding: 0 .2rem 1rem; }}
+  table.ex-table {{ width: 100%; border-collapse: collapse; font-size: .85rem; }}
+  table.ex-table th {{ text-align: left; font-size: .68rem; text-transform: uppercase; color: #6a6a75; padding: .4rem; border-bottom: 1px solid #1c1c22; white-space: nowrap; }}
+  table.ex-table td {{ padding: .5rem .4rem; border-bottom: 1px solid #16161b; vertical-align: top; }}
+  table.ex-table td.ex {{ font-weight: 600; white-space: normal; }}
+  table.ex-table td.charge {{ font-weight: 600; }}
+  tr.details-row td {{ border-bottom: 1px solid #16161b; padding: 0 .4rem .6rem; }}
+  .ex-details {{ font-size: .8rem; color: #9a9aa2; white-space: pre-wrap; }}
+  .freeform {{ margin-top: .8rem; font-size: .85rem; color: #b0b0b8; }}
+  .freeform p {{ margin: 0 0 .5rem; white-space: pre-wrap; }}
+  p.empty {{ color: #6a6a75; font-size: .85rem; font-style: italic; }}
   .filter-row {{ display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem; }}
   .filter-row label {{ font-size: .8rem; color: #7a7a85; }}
   select#filter {{
@@ -454,6 +561,18 @@ def build_history_html(history: dict) -> str:
     td:nth-child(5)::before {{ content: "Charge réelle : "; color: #6a6a75; font-size: .72rem; }}
     td:nth-child(6)::before {{ content: "Récupération : "; color: #6a6a75; font-size: .72rem; }}
     td:empty {{ display: none; }}
+    summary.seance-row {{ gap: .4rem .8rem; }}
+    table.ex-table, table.ex-table thead, table.ex-table tbody, table.ex-table tr, table.ex-table td {{ display: block; width: 100%; }}
+    table.ex-table thead {{ display: none; }}
+    table.ex-table tbody tr {{ padding: .5rem 0 0; }}
+    table.ex-table tr.details-row {{ padding: 0; }}
+    table.ex-table td {{ border: none; padding: .1rem 0; white-space: normal; }}
+    table.ex-table td:nth-child(2)::before {{ content: "Séries : "; color: #6a6a75; font-size: .72rem; }}
+    table.ex-table td:nth-child(3)::before {{ content: "Répétitions : "; color: #6a6a75; font-size: .72rem; }}
+    table.ex-table td:nth-child(4)::before {{ content: "Charge cible : "; color: #6a6a75; font-size: .72rem; }}
+    table.ex-table td:nth-child(5)::before {{ content: "Charge réelle : "; color: #6a6a75; font-size: .72rem; }}
+    table.ex-table td:nth-child(6)::before {{ content: "Récupération : "; color: #6a6a75; font-size: .72rem; }}
+    table.ex-table td:empty {{ display: none; }}
   }}
 </style>
 </head>
@@ -461,7 +580,12 @@ def build_history_html(history: dict) -> str:
 <header>
   <div><h1 style="display:inline">Mika Training</h1><span class="subtitle mono">{session_count} séances trackées</span></div>
 </header>
-<nav class="tabs"><span class="active">Historique</span></nav>
+<nav class="tabs">
+  <span class="active" data-tab="historique">Historique</span>
+  <span data-tab="seances">Séances</span>
+</nav>
+
+<section id="tab-historique">
 <div class="filter-row">
   <label for="filter">Exercice</label>
   <select id="filter" class="mono">
@@ -479,9 +603,15 @@ def build_history_html(history: dict) -> str:
 </table>
 </div>
 <p class="count"><span id="visible-count">{len(all_entries)}</span> / {len(all_entries)} entrées — généré automatiquement depuis Notion</p>
+</section>
+
+<section id="tab-seances" style="display:none">
+{seances_html}
+</section>
+
 <script>
   const select = document.getElementById('filter');
-  const rows = Array.from(document.querySelectorAll('tbody tr'));
+  const rows = Array.from(document.querySelectorAll('#tab-historique tbody tr'));
   const countEl = document.getElementById('visible-count');
   select.addEventListener('change', () => {{
     const q = select.value;
@@ -493,6 +623,33 @@ def build_history_html(history: dict) -> str:
     }}
     countEl.textContent = visible;
   }});
+
+  const tabs = {{
+    historique: document.getElementById('tab-historique'),
+    seances: document.getElementById('tab-seances'),
+  }};
+  const navSpans = Array.from(document.querySelectorAll('nav.tabs span'));
+  function showTab(name) {{
+    for (const key in tabs) {{ tabs[key].style.display = key === name ? '' : 'none'; }}
+    navSpans.forEach(s => s.classList.toggle('active', s.dataset.tab === name));
+  }}
+  navSpans.forEach(s => s.addEventListener('click', () => showTab(s.dataset.tab)));
+
+  function openSeance(id) {{
+    const details = document.getElementById('seance-' + id);
+    if (!details) return;
+    showTab('seances');
+    details.open = true;
+    details.scrollIntoView({{behavior: 'smooth', block: 'start'}});
+  }}
+  document.querySelectorAll('.seance-link').forEach(a => a.addEventListener('click', (e) => {{
+    e.preventDefault();
+    openSeance(a.dataset.seance);
+  }}));
+
+  if (location.hash.startsWith('#seance-')) {{
+    openSeance(location.hash.slice('#seance-'.length));
+  }}
 </script>
 </body>
 </html>
@@ -582,6 +739,7 @@ def main() -> None:
 
     movement_cache: dict = {}
     exercise_history: dict = {}
+    all_sessions: list = []
     created = updated = skipped_no_date = skipped_excluded = deleted_excluded = failed = 0
 
     for row in rows:
@@ -611,6 +769,15 @@ def main() -> None:
                     resolve_movement_name(notion_token, mention_id, movement_cache)
             notes = format_event_notes(type_, seance_ok, exercises, freeform_texts, movement_cache)
             record_exercise_occurrence(exercise_history, movement_cache, row, exercises)
+            all_sessions.append({
+                "id": row["_id"],
+                "date": iso_date,
+                "titre": titre,
+                "type": type_,
+                "seance_ok": seance_ok,
+                "exercises": exercises,
+                "freeform_texts": freeform_texts,
+            })
             result = upsert_event(calendar, uid_index, row, notes)
         except Exception as e:
             print(f"ERREUR sur '{titre}' ({iso_date}): {e}", file=sys.stderr)
@@ -624,11 +791,11 @@ def main() -> None:
         time.sleep(REQUEST_DELAY_SECONDS)
 
     HISTORY_OUTPUT_PATH.parent.mkdir(exist_ok=True)
-    HISTORY_OUTPUT_PATH.write_text(build_history_html(exercise_history), encoding="utf-8")
+    HISTORY_OUTPUT_PATH.write_text(build_page_html(exercise_history, all_sessions, movement_cache), encoding="utf-8")
     robots_path = HISTORY_OUTPUT_PATH.parent / "robots.txt"
     if not robots_path.exists():
         robots_path.write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
-    print(f"Page de suivi ({len(exercise_history)} exercices) écrite dans {HISTORY_OUTPUT_PATH}")
+    print(f"Page écrite ({len(exercise_history)} exercices, {len(all_sessions)} séances) dans {HISTORY_OUTPUT_PATH}")
 
     print(
         f"Terminé. Créés: {created} | Mis à jour: {updated} | "
