@@ -17,9 +17,10 @@ from __future__ import annotations
 
 import html
 import os
+import re
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -382,6 +383,164 @@ def format_date_fr_long(iso_date: str) -> str:
     return f"{int(d)} {MONTHS_FR_FULL[int(m) - 1].lower()} {y}"
 
 
+def parse_number_kg(text: str) -> float | None:
+    """Extrait un poids numérique propre (ex: "82.5kg" -> 82.5). None si le
+    texte n'est pas un nombre simple + kg (ex: "Barre + 40kg", "2x18kg",
+    "Pyramidal ...") — utilisé uniquement pour le Dashboard (volume, PRs),
+    jamais pour l'affichage brut ailleurs sur le site."""
+    m = re.fullmatch(r"(\d+(?:[.,]\d+)?)\s*kg", text.strip(), re.I)
+    return float(m.group(1).replace(",", ".")) if m else None
+
+
+def parse_int_simple(text: str) -> int | None:
+    """Entier propre uniquement (ex: "4" -> 4). None si "Pyramidal", "4 D/G",
+    "12-15", etc."""
+    text = text.strip()
+    return int(text) if re.fullmatch(r"\d+", text) else None
+
+
+def compute_exercise_volume(ex: dict) -> float:
+    """Volume best-effort pour un exercice (séries x reps x charge réelle) —
+    0 si l'une des trois valeurs n'est pas un nombre simple (pas de tentative
+    d'interpréter les formats composés)."""
+    series = parse_int_simple(ex.get("Séries", {}).get("text", ""))
+    reps = parse_int_simple(ex.get("Répétitions", {}).get("text", ""))
+    weight = parse_number_kg(ex.get("Charge réelle", {}).get("text", ""))
+    if series is None or reps is None or weight is None:
+        return 0.0
+    return series * reps * weight
+
+
+def session_stats(session: dict) -> dict:
+    exercises = session["exercises"]
+    n_series = sum(parse_int_simple(ex.get("Séries", {}).get("text", "")) or 0 for ex in exercises)
+    volume = sum(compute_exercise_volume(ex) for ex in exercises)
+    return {"n_exercises": len(exercises), "n_series": n_series, "volume": volume}
+
+
+def week_bounds(anchor) -> tuple[str, str]:
+    monday = anchor - timedelta(days=anchor.weekday())
+    sunday = monday + timedelta(days=6)
+    return monday.isoformat(), sunday.isoformat()
+
+
+def build_dashboard_data(all_sessions: list, exercise_history: dict) -> dict:
+    today = datetime.now(tz=TIMEZONE).date()
+    cur_start, cur_end = week_bounds(today)
+    prev_start, prev_end = week_bounds(today - timedelta(days=7))
+
+    # "Dernière séance" = la dernière effectivement faite (Séance ok cochée),
+    # pas juste la plus récente par date — une séance du jour même pas
+    # encore réalisée ne doit pas s'afficher ici avec 0 kg de volume.
+    done_sessions = [s for s in all_sessions if s["seance_ok"]]
+    last_session = max(done_sessions, key=lambda s: s["date"], default=None)
+    last_session_stats = session_stats(last_session) if last_session else None
+
+    cur_week_sessions = [s for s in all_sessions if cur_start <= s["date"] <= cur_end]
+    prev_week_sessions = [s for s in all_sessions if prev_start <= s["date"] <= prev_end]
+
+    cur_volume = sum(session_stats(s)["volume"] for s in cur_week_sessions)
+    prev_volume = sum(session_stats(s)["volume"] for s in prev_week_sessions)
+    pct_change = ((cur_volume - prev_volume) / prev_volume * 100) if prev_volume > 0 else None
+
+    prev_week_summary = {
+        "n_sessions": len(prev_week_sessions),
+        "n_series": sum(session_stats(s)["n_series"] for s in prev_week_sessions),
+        "n_exercises": sum(session_stats(s)["n_exercises"] for s in prev_week_sessions),
+        "volume": prev_volume,
+        "sessions": sorted(
+            [{"titre": s["titre"], "date": s["date"], "volume": session_stats(s)["volume"]} for s in prev_week_sessions],
+            key=lambda x: x["date"], reverse=True,
+        ),
+    }
+
+    prs = []
+    for name, entries in exercise_history.items():
+        best = None
+        for e in entries:
+            w = parse_number_kg(e["charge_reelle"])
+            if w is None:
+                continue
+            if best is None or w > best["weight"] or (w == best["weight"] and e["date"] > best["date"]):
+                best = {"weight": w, "date": e["date"]}
+        if best:
+            prs.append({"name": name, "weight": best["weight"], "date": best["date"]})
+    prs.sort(key=lambda p: p["date"], reverse=True)
+
+    return {
+        "last_session": last_session,
+        "last_session_stats": last_session_stats,
+        "cur_volume": cur_volume,
+        "pct_change": pct_change,
+        "prev_week_summary": prev_week_summary,
+        "prs": prs[:8],
+    }
+
+
+def build_dashboard_html(data: dict) -> str:
+    last = data["last_session"]
+    last_stats = data["last_session_stats"]
+
+    if last:
+        statut_badge = '<span class="badge-ok">✓ ok</span>' if last["seance_ok"] else '<span class="badge-pending">à venir</span>'
+        last_html = f"""
+      <div class="card-label">Dernière séance</div>
+      <div class="card-main"><span class="card-title">{html.escape(last['titre'])}</span> <span class="card-sub mono">{html.escape(format_date_fr(last['date']))}</span> {statut_badge}</div>
+      <div class="card-detail mono">{last_stats['n_exercises']} exercices · {last_stats['n_series']} séries · {last_stats['volume']:.0f} kg volume</div>"""
+    else:
+        last_html = '<div class="card-label">Dernière séance</div><p class="empty">Aucune séance passée.</p>'
+
+    pct = data["pct_change"]
+    if pct is None:
+        pct_html = ""
+    else:
+        sign = "+" if pct >= 0 else ""
+        pct_class = "positive" if pct >= 0 else "negative"
+        pct_html = f'<span class="pct {pct_class}">{sign}{pct:.0f}%</span>'
+
+    volume_html = f"""
+      <div class="card-label">Volume cette semaine</div>
+      <div class="card-main"><span class="card-number mono">{data['cur_volume']:.0f}</span> <span class="unit">kg</span> {pct_html}</div>
+      <div class="card-detail">vs semaine précédente</div>"""
+
+    if data["prs"]:
+        pr_rows = "".join(f"""
+      <div class="pr-row">
+        <span class="pr-name">{html.escape(p['name'])}</span>
+        <span class="pr-weight mono">{p['weight']:g} kg</span>
+        <span class="pr-date mono">{html.escape(format_date_fr(p['date']))}</span>
+      </div>""" for p in data["prs"])
+        prs_html = f'<div class="card-label">PRs récents 🏆</div>{pr_rows}'
+    else:
+        prs_html = '<div class="card-label">PRs récents 🏆</div><p class="empty">Pas encore de record détecté (nécessite des charges au format simple, ex: "80kg").</p>'
+
+    pw = data["prev_week_summary"]
+    pw_sessions_html = "".join(f"""
+      <div class="pw-row">
+        <span class="pw-title">{html.escape(s['titre'])} <span class="pw-date mono">{html.escape(format_date_fr(s['date']))}</span></span>
+        <span class="pw-volume mono">{s['volume']:.0f} kg</span>
+      </div>""" for s in pw["sessions"]) or '<p class="empty">Aucune séance la semaine précédente.</p>'
+
+    prev_week_html = f"""
+      <div class="card-label">Résumé semaine précédente</div>
+      <div class="pw-stats">
+        <div><span class="pw-stat-num mono">{pw['n_sessions']}</span><span class="pw-stat-label">Séances</span></div>
+        <div><span class="pw-stat-num mono">{pw['volume']:.0f} <span class="unit">kg</span></span><span class="pw-stat-label">Volume total</span></div>
+        <div><span class="pw-stat-num mono">{pw['n_series']}</span><span class="pw-stat-label">Séries</span></div>
+        <div><span class="pw-stat-num mono">{pw['n_exercises']}</span><span class="pw-stat-label">Exercices</span></div>
+      </div>
+      {pw_sessions_html}"""
+
+    return f"""
+<div class="dash-grid">
+  <div class="dash-card">{last_html}</div>
+  <div class="dash-card">{volume_html}</div>
+</div>
+<div class="dash-card dash-full">{prs_html}</div>
+<div class="dash-card dash-full">{prev_week_html}</div>
+"""
+
+
 def build_session_detail_html(session: dict, movement_cache: dict) -> str:
     """Construit le détail complet d'une séance (exercices + notes libres),
     même contenu que la description de l'événement Calendar mais en HTML
@@ -480,6 +639,7 @@ def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> 
       </tr>""")
 
     seances_html = build_seances_section(all_sessions, movement_cache)
+    dashboard_html = build_dashboard_html(build_dashboard_data(all_sessions, history))
 
     return f"""<!doctype html>
 <html lang="fr">
@@ -487,7 +647,7 @@ def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Mika Training — Historique</title>
+<title>Mika Training</title>
 <style>
   :root {{ color-scheme: dark; }}
   * {{ box-sizing: border-box; }}
@@ -504,6 +664,33 @@ def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> 
   nav.tabs {{ display: flex; gap: 1.5rem; border-bottom: 1px solid #1c1c22; margin-bottom: 1.25rem; }}
   nav.tabs span {{ font-size: .95rem; color: #55555f; padding-bottom: .6rem; cursor: pointer; }}
   nav.tabs span.active {{ color: #f0f0f2; font-weight: 600; border-bottom: 2px solid #2dd4a0; }}
+  .dash-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }}
+  .dash-card {{ background: #101014; border: 1px solid #1c1c22; border-radius: .7rem; padding: 1.1rem 1.2rem; margin-bottom: 1rem; }}
+  .dash-grid .dash-card {{ margin-bottom: 0; }}
+  .card-label {{ font-size: .7rem; text-transform: uppercase; letter-spacing: .04em; color: #6a6a75; margin-bottom: .6rem; }}
+  .card-main {{ display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; margin-bottom: .3rem; }}
+  .card-title {{ font-size: 1.1rem; font-weight: 700; }}
+  .card-sub {{ color: #7a7a85; font-size: .85rem; }}
+  .card-number {{ font-size: 1.8rem; font-weight: 700; }}
+  .card-detail {{ color: #7a7a85; font-size: .8rem; }}
+  .unit {{ font-size: .85rem; color: #7a7a85; }}
+  .pct {{ font-size: .95rem; font-weight: 600; }}
+  .pct.positive {{ color: #2dd4a0; }}
+  .pct.negative {{ color: #e2685a; }}
+  .badge-ok {{ font-size: .7rem; padding: .15rem .5rem; border-radius: .3rem; background: #17342c; color: #6fe3c4; }}
+  .badge-pending {{ font-size: .7rem; padding: .15rem .5rem; border-radius: .3rem; background: #262630; color: #9a9aa2; }}
+  .pr-row {{ display: flex; align-items: baseline; gap: .8rem; padding: .55rem 0; border-bottom: 1px solid #16161b; }}
+  .pr-row:last-child {{ border-bottom: none; }}
+  .pr-name {{ font-weight: 600; flex: 1; }}
+  .pr-weight {{ color: #f0b429; font-weight: 700; }}
+  .pr-date {{ color: #6a6a75; font-size: .8rem; }}
+  .pw-stats {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem; }}
+  .pw-stat-num {{ display: block; font-size: 1.3rem; font-weight: 700; }}
+  .pw-stat-label {{ display: block; font-size: .75rem; color: #7a7a85; margin-top: .1rem; }}
+  .pw-row {{ display: flex; justify-content: space-between; align-items: baseline; padding: .5rem 0; border-top: 1px solid #16161b; }}
+  .pw-title {{ font-weight: 600; }}
+  .pw-date {{ color: #6a6a75; font-size: .8rem; font-weight: 400; margin-left: .5rem; }}
+  .pw-volume {{ color: #7a7a85; }}
   a.seance-link {{ color: inherit; text-decoration: none; border-bottom: 1px dotted #4a4a55; }}
   a.seance-link:hover {{ color: #2dd4a0; border-bottom-color: #2dd4a0; }}
   h2.month {{ font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; color: #6a6a75; margin: 1.4rem 0 .5rem; }}
@@ -552,6 +739,10 @@ def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> 
   /* En dessous de 640px : chaque ligne devient une carte empilée au lieu
      de colonnes côte à côte qui débordent hors de l'écran. */
   @media (max-width: 640px) {{
+    .dash-grid {{ grid-template-columns: 1fr; }}
+    .pw-stats {{ grid-template-columns: repeat(2, 1fr); }}
+    .pw-row {{ flex-direction: column; align-items: flex-start; gap: .15rem; }}
+    .pw-date {{ display: block; margin-left: 0; }}
     select#filter {{ min-width: 0; width: 100%; }}
     table, thead, tbody, tr, td {{ display: block; width: 100%; }}
     thead {{ display: none; }}
@@ -584,11 +775,16 @@ def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> 
   <div><h1 style="display:inline">Mika Training</h1><span class="subtitle mono">{session_count} séances trackées</span></div>
 </header>
 <nav class="tabs">
-  <span class="active" data-tab="historique">Historique</span>
+  <span class="active" data-tab="dashboard">Dashboard</span>
+  <span data-tab="historique">Historique</span>
   <span data-tab="seances">Séances</span>
 </nav>
 
-<section id="tab-historique">
+<section id="tab-dashboard">
+{dashboard_html}
+</section>
+
+<section id="tab-historique" style="display:none">
 <div class="filter-row">
   <label for="filter">Exercice</label>
   <select id="filter" class="mono">
@@ -630,6 +826,7 @@ def build_page_html(history: dict, all_sessions: list, movement_cache: dict) -> 
   }});
 
   const tabs = {{
+    dashboard: document.getElementById('tab-dashboard'),
     historique: document.getElementById('tab-historique'),
     seances: document.getElementById('tab-seances'),
   }};
