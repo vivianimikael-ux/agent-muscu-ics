@@ -204,7 +204,10 @@ def fetch_rows(token: str, collection_id: str, table_view_id: str, rich: bool = 
     blocks = record_map.get("block", {})
 
     schema = _unwrap(record_map["collection"][collection_id])["schema"]
-    prop_names = {pid: f.get("name") for pid, f in schema.items()}
+    # .strip() : au moins une séance a une colonne "Charge cible " (espace
+    # final) dans Notion — sans ça, elle serait traitée comme un champ
+    # distinct au lieu de fusionner avec "Charge cible".
+    prop_names = {pid: (f.get("name") or "").strip() for pid, f in schema.items()}
 
     rows = []
     for block_id, block in blocks.items():
@@ -295,13 +298,82 @@ def resolve_movement_name(token: str, page_id: str, cache: dict) -> None:
     cache[page_id] = name or "(exercice inconnu)"
 
 
+# Le coach n'utilise pas des noms de colonnes cohérents d'une séance à
+# l'autre dans Notion (vérifié empiriquement, ex: séance du 05/08/2026) —
+# "Séries" devient parfois "Nombre de série" ou "Série", etc. Ces alias
+# couvrent les variantes observées ; get_field() prend la première non vide.
+FIELD_ALIASES = {
+    "Séries": ["Séries", "Série", "Nombre de série"],
+    "Répétitions": ["Répétitions", "Répétition", "Nombre de répétition"],
+    "Récupération": ["Récupération", "Récup"],
+    "Charge cible": ["Charge cible"],
+    "Charge réelle": ["Charge réelle"],
+    "Mouvements": ["Mouvements", "Mouvement"],
+}
+
+
+def get_field(ex: dict, canonical: str) -> dict:
+    for name in FIELD_ALIASES.get(canonical, [canonical]):
+        val = ex.get(name)
+        if val and (val.get("text") or val.get("mentions")):
+            return val
+    return {}
+
+
+def get_field_text(ex: dict, canonical: str) -> str:
+    return get_field(ex, canonical).get("text", "")
+
+
+_KNOWN_EXERCISE_FIELDS = {name for aliases in FIELD_ALIASES.values() for name in aliases} | {
+    "Nom", "Détails", "Texte", "Commentaire", "Terminé",
+}
+
+
+def get_details_text(ex: dict) -> str:
+    """"Détails" a aussi été vu sous "Texte"/"Commentaire" sur certaines
+    séances — probablement le même usage (note libre du coach sur
+    l'exercice) plutôt que des champs vraiment distincts, donc on les
+    concatène plutôt que de risquer d'en perdre un silencieusement.
+
+    Certaines anciennes séances ont aussi des colonnes qui n'ont plus AUCUN
+    nom dans le schéma Notion actuel (colonne renommée/supprimée côté
+    Notion depuis, mais la donnée existe toujours sur la ligne) — impossible
+    de savoir avec certitude à quel champ ça correspondait (ex: un "4" tout
+    seul pourrait être des séries ou autre chose), donc plutôt que de le
+    perdre silencieusement, on le fait remonter ici en texte brut."""
+    parts = [ex.get(name, {}).get("text", "").strip() for name in ("Détails", "Texte", "Commentaire")]
+    for key, val in ex.items():
+        if key.startswith("_") or key in _KNOWN_EXERCISE_FIELDS or not isinstance(val, dict):
+            continue
+        text = (val.get("text") or "").strip()
+        if text:
+            parts.append(text)
+    return "\n".join(p for p in parts if p)
+
+
+def get_movement_mentions(ex: dict) -> list[str]:
+    mentions = get_field(ex, "Mouvements").get("mentions", [])
+    if mentions:
+        return mentions
+    # Repli : sur certaines séances, le lien vers l'exercice réel est sous
+    # un nom de colonne complètement différent (schéma Notion incohérent,
+    # y compris des ids bruts non résolus type "isiQ") — n'importe quel
+    # champ contenant des mentions de page est presque certainement ce lien.
+    for key, val in ex.items():
+        if key.startswith("_") or key == "Nom" or not isinstance(val, dict):
+            continue
+        if val.get("mentions"):
+            return val["mentions"]
+    return []
+
+
 def exercise_display_name(ex: dict, movement_cache: dict, fallback_index: int) -> str:
-    mentions = ex.get("Mouvements", {}).get("mentions", [])
+    mentions = get_movement_mentions(ex)
     resolved = [movement_cache.get(mid) for mid in mentions]
     resolved = [r for r in resolved if r]
     if resolved:
         return ", ".join(resolved)
-    return ex.get("Mouvements", {}).get("text") or ex.get("Nom", {}).get("text") or f"Exercice {fallback_index}"
+    return get_field_text(ex, "Mouvements") or ex.get("Nom", {}).get("text") or f"Exercice {fallback_index}"
 
 
 def format_event_notes(type_: str, seance_ok: bool, exercises: list[dict], freeform_texts: list[str], movement_cache: dict) -> str:
@@ -310,12 +382,12 @@ def format_event_notes(type_: str, seance_ok: bool, exercises: list[dict], freef
     for i, ex in enumerate(exercises, 1):
         name = exercise_display_name(ex, movement_cache, i)
 
-        series = ex.get("Séries", {}).get("text", "")
-        reps = ex.get("Répétitions", {}).get("text", "")
-        charge_cible = ex.get("Charge cible", {}).get("text", "")
-        charge_reelle = ex.get("Charge réelle", {}).get("text", "")
-        recuperation = ex.get("Récupération", {}).get("text", "")
-        details = ex.get("Détails", {}).get("text", "")
+        series = get_field_text(ex, "Séries")
+        reps = get_field_text(ex, "Répétitions")
+        charge_cible = get_field_text(ex, "Charge cible")
+        charge_reelle = get_field_text(ex, "Charge réelle")
+        recuperation = get_field_text(ex, "Récupération")
+        details = get_details_text(ex)
 
         lines.append(f"{i}. {name}")
 
@@ -350,7 +422,7 @@ def record_exercise_occurrence(history: dict, movement_cache: dict, row: dict, e
     titre = row.get("Titre", "")
 
     for i, ex in enumerate(exercises, 1):
-        charge_reelle = ex.get("Charge réelle", {}).get("text", "").strip()
+        charge_reelle = get_field_text(ex, "Charge réelle").strip()
         if not charge_reelle:
             continue
         name = exercise_display_name(ex, movement_cache, i)
@@ -359,10 +431,10 @@ def record_exercise_occurrence(history: dict, movement_cache: dict, row: dict, e
             "session_id": row["_id"],
             "titre_seance": titre,
             "charge_reelle": charge_reelle,
-            "charge_cible": ex.get("Charge cible", {}).get("text", "").strip(),
-            "series": ex.get("Séries", {}).get("text", "").strip(),
-            "reps": ex.get("Répétitions", {}).get("text", "").strip(),
-            "recuperation": ex.get("Récupération", {}).get("text", "").strip(),
+            "charge_cible": get_field_text(ex, "Charge cible").strip(),
+            "series": get_field_text(ex, "Séries").strip(),
+            "reps": get_field_text(ex, "Répétitions").strip(),
+            "recuperation": get_field_text(ex, "Récupération").strip(),
         })
 
 
@@ -403,9 +475,9 @@ def compute_exercise_volume(ex: dict) -> float:
     """Volume best-effort pour un exercice (séries x reps x charge réelle) —
     0 si l'une des trois valeurs n'est pas un nombre simple (pas de tentative
     d'interpréter les formats composés)."""
-    series = parse_int_simple(ex.get("Séries", {}).get("text", ""))
-    reps = parse_int_simple(ex.get("Répétitions", {}).get("text", ""))
-    weight = parse_number_kg(ex.get("Charge réelle", {}).get("text", ""))
+    series = parse_int_simple(get_field_text(ex, "Séries"))
+    reps = parse_int_simple(get_field_text(ex, "Répétitions"))
+    weight = parse_number_kg(get_field_text(ex, "Charge réelle"))
     if series is None or reps is None or weight is None:
         return 0.0
     return series * reps * weight
@@ -413,7 +485,7 @@ def compute_exercise_volume(ex: dict) -> float:
 
 def session_stats(session: dict) -> dict:
     exercises = session["exercises"]
-    n_series = sum(parse_int_simple(ex.get("Séries", {}).get("text", "")) or 0 for ex in exercises)
+    n_series = sum(parse_int_simple(get_field_text(ex, "Séries")) or 0 for ex in exercises)
     volume = sum(compute_exercise_volume(ex) for ex in exercises)
     return {"n_exercises": len(exercises), "n_series": n_series, "volume": volume}
 
@@ -554,12 +626,12 @@ def build_session_detail_html(session: dict, movement_cache: dict) -> str:
         cells = []
         for i, ex in enumerate(exercises, 1):
             name = exercise_display_name(ex, movement_cache, i)
-            series = ex.get("Séries", {}).get("text", "")
-            reps = ex.get("Répétitions", {}).get("text", "")
-            charge_cible = ex.get("Charge cible", {}).get("text", "")
-            charge_reelle = ex.get("Charge réelle", {}).get("text", "")
-            recuperation = ex.get("Récupération", {}).get("text", "")
-            details = ex.get("Détails", {}).get("text", "")
+            series = get_field_text(ex, "Séries")
+            reps = get_field_text(ex, "Répétitions")
+            charge_cible = get_field_text(ex, "Charge cible")
+            charge_reelle = get_field_text(ex, "Charge réelle")
+            recuperation = get_field_text(ex, "Récupération")
+            details = get_details_text(ex)
             details_html = f'<div class="ex-details">{html.escape(details)}</div>' if details else ""
             cells.append(f"""
         <tr>
@@ -967,7 +1039,7 @@ def main() -> None:
         try:
             exercises, freeform_texts = fetch_session_details(notion_token, row["_id"])
             for ex in exercises:
-                for mention_id in ex.get("Mouvements", {}).get("mentions", []):
+                for mention_id in get_movement_mentions(ex):
                     resolve_movement_name(notion_token, mention_id, movement_cache)
             notes = format_event_notes(type_, seance_ok, exercises, freeform_texts, movement_cache)
             record_exercise_occurrence(exercise_history, movement_cache, row, exercises)
